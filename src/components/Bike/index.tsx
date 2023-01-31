@@ -1,9 +1,9 @@
-import React, { FC, useLayoutEffect, useRef } from 'react';
-import { PerspectiveCamera, useGLTF } from '@react-three/drei';
-import { GLTFResult } from '../../type';
-import { useStore } from '../../state';
-import { BikeProps, RefObject } from '../../interface';
-import { PointLight, Vector3 } from 'three';
+import React, {FC, useLayoutEffect, useRef} from 'react';
+import {PerspectiveCamera, useGLTF} from '@react-three/drei';
+import {GLTFResult} from '../../type';
+import {useStore} from '../../state';
+import {BikeProps, RefObject} from '../../interface';
+import {PointLight, Vector3} from 'three';
 
 const vector = new Vector3();
 
@@ -16,12 +16,12 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
   useLayoutEffect(() => {
     camera.current!.rotation.set(0, Math.PI, 0);
-    camera.current!.position.set(0, 100, -300);
+    camera.current!.position.set(0, 10, -25);
     camera.current!.lookAt(
       vector.set(
         bike.current!.position.x,
         bike.current!.position.y,
-        bike.current!.position.z + Math.PI,
+        bike.current!.position.z + Math.PI * 150,
       ),
     );
 
@@ -36,20 +36,20 @@ const Bike: FC<BikeProps> = ({ children }) => {
         decay={10}
         distance={40}
         intensity={10}
-        position={[0, 10, -10]}
+        position={[0, 3, -5]}
       />
       <PerspectiveCamera
         makeDefault
         ref={camera}
         fov={75}
         rotation={[0, Math.PI, 0]}
-        position={[0, 3, -10]}
+        position={[0, 10, -10]}
       />
-      <group ref={bike} dispose={null} position={[0, 10, -100]}>
+      <group ref={bike} dispose={null} position={[0, 3, -5]}>
         {children}
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[10, 15, 10]}>
+            <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1.5, 1]}>
               <mesh
                 geometry={nodes.corp001_carosserie_0.geometry}
                 material={nodes.corp001_carosserie_0.material}
@@ -115,7 +115,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
                 material={nodes.corp001_Material001_0_4.material}
               />
             </group>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[10, 10, 10]}>
+            <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 1]}>
               <mesh
                 geometry={nodes.moteur001_2_carosserie_0.geometry}
                 material={nodes.moteur001_2_carosserie_0.material}
@@ -173,7 +173,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
                 material={nodes.moteur001_fer_0_1.material}
               />
             </group>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[13.61, 10, 10]}>
+            <group rotation={[-Math.PI / 2, 0, 0]} scale={[1.36, 1, 1]}>
               <mesh
                 geometry={nodes.vitre001_2_carosserie_0.geometry}
                 material={nodes.vitre001_2_carosserie_0.material}
@@ -191,7 +191,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
                 material={nodes.vitre001_fer_0.material}
               />
             </group>
-            <group rotation={[-1.88, 0, 0]} scale={[1.44, 0.84, 1.84]}>
+            <group rotation={[-1.88, 0, 0]} scale={[0.14, 0.08, 0.18]}>
               <mesh
                 geometry={nodes.vitesse001_carosserie_0.geometry}
                 material={nodes.vitesse001_carosserie_0.material}
