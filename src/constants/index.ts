@@ -1,0 +1,1 @@
+export const BIKE_SIZE = 1000;
