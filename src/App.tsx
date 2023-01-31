@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import Bike from "./components/Bike";
+import { useStore } from "./state";
 
 function App() {
+  const directionalLight = useStore((state) => state.directionalLight);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Canvas
+      gl={{ antialias: false, alpha: false }}
+      dpr={[1, 1.5]}
+      style={{ background: '#141622' }}
+    >
+      <color attach="background" args={['blue']} />
+      <directionalLight
+        ref={directionalLight}
+        intensity={3}
+        position={[0, Math.PI, 0]}
+      />
+      <ambientLight intensity={0.1} />
+      <Suspense fallback={null}>
+        <Bike>
+          {directionalLight.current && <primitive object={directionalLight.current.target} />}
+        </Bike>
+      </Suspense>
+    </Canvas>
   );
 }
 
