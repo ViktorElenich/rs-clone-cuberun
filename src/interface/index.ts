@@ -1,5 +1,5 @@
-import { DirectionalLight, Group, PerspectiveCamera } from "three";
-import { ReactNode } from "react";
+import { DirectionalLight, Group, PerspectiveCamera } from 'three';
+import { ReactNode } from 'react';
 
 export interface RefObject<T> {
   readonly current: T | null;

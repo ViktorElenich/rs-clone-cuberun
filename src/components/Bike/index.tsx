@@ -16,12 +16,12 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
   useLayoutEffect(() => {
     camera.current!.rotation.set(0, Math.PI, 0);
-    camera.current!.position.set(0, 1000, -1500);
+    camera.current!.position.set(0, 100, -300);
     camera.current!.lookAt(
       vector.set(
         bike.current!.position.x,
         bike.current!.position.y,
-        bike.current!.position.z + 8000,
+        bike.current!.position.z + Math.PI,
       ),
     );
 
@@ -36,20 +36,20 @@ const Bike: FC<BikeProps> = ({ children }) => {
         decay={10}
         distance={40}
         intensity={10}
-        position={[0, 3, -5]}
+        position={[0, 10, -10]}
       />
       <PerspectiveCamera
         makeDefault
         ref={camera}
-        fov={85}
+        fov={75}
         rotation={[0, Math.PI, 0]}
-        position={[0, 1000, -1500]}
+        position={[0, 3, -10]}
       />
-      <group ref={bike} dispose={null} position={[0, 250, -10]}>
+      <group ref={bike} dispose={null} position={[0, 10, -100]}>
         {children}
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
+            <group rotation={[-Math.PI / 2, 0, 0]} scale={[10, 15, 10]}>
               <mesh
                 geometry={nodes.corp001_carosserie_0.geometry}
                 material={nodes.corp001_carosserie_0.material}
@@ -115,7 +115,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
                 material={nodes.corp001_Material001_0_4.material}
               />
             </group>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
+            <group rotation={[-Math.PI / 2, 0, 0]} scale={[10, 10, 10]}>
               <mesh
                 geometry={nodes.moteur001_2_carosserie_0.geometry}
                 material={nodes.moteur001_2_carosserie_0.material}
@@ -173,7 +173,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
                 material={nodes.moteur001_fer_0_1.material}
               />
             </group>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[130.61, 100, 100]}>
+            <group rotation={[-Math.PI / 2, 0, 0]} scale={[13.61, 10, 10]}>
               <mesh
                 geometry={nodes.vitre001_2_carosserie_0.geometry}
                 material={nodes.vitre001_2_carosserie_0.material}
@@ -191,7 +191,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
                 material={nodes.vitre001_fer_0.material}
               />
             </group>
-            <group rotation={[-1.88, 0, 0]} scale={[15.44, 10.84, 10.84]}>
+            <group rotation={[-1.88, 0, 0]} scale={[1.44, 0.84, 1.84]}>
               <mesh
                 geometry={nodes.vitesse001_carosserie_0.geometry}
                 material={nodes.vitesse001_carosserie_0.material}

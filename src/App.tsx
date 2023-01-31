@@ -1,7 +1,7 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import Bike from "./components/Bike";
-import { useStore } from "./state";
+import {Canvas} from '@react-three/fiber';
+import {Suspense} from 'react';
+import Bike from './components/Bike';
+import {useStore} from './state';
 
 function App() {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -12,7 +12,7 @@ function App() {
       dpr={[1, 1.5]}
       style={{ background: '#141622' }}
     >
-      <color attach="background" args={['blue']} />
+      <color attach='background' args={['blue']} />
       <directionalLight
         ref={directionalLight}
         intensity={3}
@@ -21,7 +21,9 @@ function App() {
       <ambientLight intensity={0.1} />
       <Suspense fallback={null}>
         <Bike>
-          {directionalLight.current && <primitive object={directionalLight.current.target} />}
+          {directionalLight.current && (
+            <primitive object={directionalLight.current.target} />
+          )}
         </Bike>
       </Suspense>
     </Canvas>
