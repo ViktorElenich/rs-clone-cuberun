@@ -2,7 +2,7 @@ import React, { MutableRefObject, useLayoutEffect, useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import { BufferGeometry, Color, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from "three";
 import { useStore } from "../../state";
-import { BIKE_SIZE } from "../../constants";
+import { BIKE_SIZE, TEXTURE_SIZE } from "../../constants";
 import { RefObject } from "../../interface";
 
 import gridRed from "../../textures/grid-red.png";
@@ -13,7 +13,7 @@ import gridPurple from "../../textures/grid-purple.png";
 import gridPink from "../../textures/grid-pink.png";
 import gridRainbow from "../../textures/grid-rainbow.png";
 
-const TEXTURE_SIZE = BIKE_SIZE * 0.05;
+
 const color = new Color(0x000000);
 
 const Ground = () => {
