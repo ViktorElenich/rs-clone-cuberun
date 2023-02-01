@@ -1,7 +1,8 @@
-import {Canvas} from '@react-three/fiber';
-import {Suspense} from 'react';
-import Bike from './components/Bike';
-import {useStore} from './state';
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import Bike from "./components/Bike";
+import { useStore } from "./state";
+import Ground from "./components/Ground";
 
 function App() {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -25,6 +26,9 @@ function App() {
             <primitive object={directionalLight.current.target} />
           )}
         </Bike>
+      </Suspense>
+      <Suspense fallback={null}>
+        <Ground />
       </Suspense>
     </Canvas>
   );
