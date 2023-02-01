@@ -1,10 +1,7 @@
 import { FC } from 'react';
+import { btnPropsType } from '../../interface';
 import './style.css';
 
-type btnPropsType = {
-  btnText: string;
-  onClickCallback: () => void;
-};
 const BaseButton: FC<btnPropsType> = (props: btnPropsType) => {
   const { btnText, onClickCallback } = props;
   return (

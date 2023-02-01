@@ -14,3 +14,7 @@ export interface TronState {
 export interface BikeProps {
   children: ReactNode;
 }
+export interface btnPropsType {
+  btnText: string;
+  onClickCallback: () => void;
+};
