@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
+import logo from '../../assets/logo-tron.png';
 
 const Login = () => {
   const [login, setLogin] = useState('');
@@ -19,8 +20,9 @@ const Login = () => {
 
   return (
     <div className='sign-up-menu'>
+      <img src={logo} alt='Tron-game logo' className='tron-logo' />
       <div className='sign-up-wrapper'>
-        <h2 className='titleText'>Sign up</h2>
+        <h1 className='titleText'>Sign up</h1>
         <div className='input-wrapper'>
           <BaseInput
             type='text'
