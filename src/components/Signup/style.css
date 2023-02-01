@@ -1,0 +1,29 @@
+.sign-up-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: url('../../assets/bg2.jpg') no-repeat 100% center;
+}
+
+.sign-up-wrapper {
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 270px;
+  padding: 20px;
+  text-align: center;
+  background-color: black;
+  border: 2px solid var(--color_primary);
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(9, 198, 255, 0.8), 0 0 4px rgb(57, 184, 224),
+    inset 0 0 7px rgb(29, 202, 255);
+  border-radius: 25px;
+}
+
+.sign-up-menu .input-wrapper {
+  margin: 30px 0 20px 0;
+}
