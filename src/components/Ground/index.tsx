@@ -2,7 +2,7 @@ import React, { MutableRefObject, useLayoutEffect, useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import { BufferGeometry, Color, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from "three";
 import { gameVarMutation, useStore } from "../../state";
-import { BIKE_SIZE, TEXTURE_SIZE } from "../../constants";
+import { MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from "../../constants";
 import { RefObject } from "../../interface";
 
 import gridRed from "../../textures/grid-red.png";
@@ -42,22 +42,27 @@ const Ground = () => {
 
   useFrame((state, delta) => {
     if (bike.current) {
-      console.log('counter', moveCounter.current);
-      if (Math.round(bike.current.position.z) + 10 * moveCounter.current + 10 < 18) {
+      //console.log('counter', moveCounter.current);
+      //console.log('position bike', Math.round(bike.current.position.z) + PLANE_SIZE * moveCounter.current + 10);
+      if (Math.round(bike.current.position.z) + PLANE_SIZE * moveCounter.current + 10 < -10) {
+        //console.log(Math.round(bike.current.position.z) + 1000 * moveCounter.current + 10);
         console.log('here');
-        if (moveCounter.current % 2 === 0) {
-          console.log('odd');
-          groundTwo.current.position.z -= 700 * 2;
-          lastMove.current = groundTwo.current.position.z;
-          planeTwo.current!.material.map = textures[gameVarMutation.colorLevel];
-        } else {
-          console.log('not odd');
-          ground.current.position.z += 700 * 2;
-          lastMove.current = ground.current.position.z;
-          plane.current!.material.map = textures[gameVarMutation.colorLevel];
+        console.log(Math.abs(bike.current.position.z) - Math.abs(lastMove.current));
+        if (moveCounter.current === 1 || Math.abs(bike.current.position.z) - Math.abs(lastMove.current) <= 10) {
+          if (moveCounter.current % 2 === 0) {
+            console.log('odd');
+            groundTwo.current.position.z -= 700 * 2;
+            lastMove.current = groundTwo.current.position.z;
+            planeTwo.current!.material.map = textures[gameVarMutation.colorLevel];
+          } else {
+            console.log('not odd');
+            ground.current.position.z -= 700 * 2;
+            lastMove.current = ground.current.position.z;
+            plane.current!.material.map = textures[gameVarMutation.colorLevel];
+          }
         }
+        moveCounter.current++;
       }
-      moveCounter.current++;
     }
   })
 
@@ -71,11 +76,11 @@ const Ground = () => {
 
   return (
     <>
-      <group ref={ground} position={[0, 0, -(BIKE_SIZE / 2)]}>
+      <group ref={ground} position={[0, 0, -(PLANE_SIZE / 2)]}>
         <mesh ref={plane} receiveShadow visible rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry
             attach='geometry'
-            args={[BIKE_SIZE, BIKE_SIZE, 1, 1]}
+            args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
           />
           <meshStandardMaterial
             color={color.set(0xffffff)}
@@ -98,7 +103,7 @@ const Ground = () => {
         >
           <planeGeometry
             attach='geometry'
-            args={[BIKE_SIZE, BIKE_SIZE, 1, 1]}
+            args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
           />
           <meshStandardMaterial
             emissiveMap={textures[1]}

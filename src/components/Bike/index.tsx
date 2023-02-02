@@ -24,9 +24,11 @@ const Bike: FC<BikeProps> = ({ children }) => {
     pointLight.current!.position.z = bike.current!.position.z + 1;
     pointLight.current!.position.x = bike.current!.position.x;
 
-    camera.current!.position.z = bike.current!.position.z - 19.5;
-    camera.current!.position.y = bike.current!.position.y + 7;
+    camera.current!.position.z = bike.current!.position.z - 15.5;
+    camera.current!.position.y = bike.current!.position.y + 5;
     camera.current!.position.x = bike.current!.position.x;
+
+    //camera.current!.rotation.y = Math.PI;
 
     if (true) {
       gameVarMutation.gameSpeed -= accelDelta;
@@ -35,16 +37,16 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
   useLayoutEffect(() => {
     camera.current!.rotation.set(0, Math.PI, 0);
-    camera.current!.position.set(0, 10, -25);
+    camera.current!.position.set(0, 4, -9);
     camera.current!.lookAt(
       vector.set(
         bike.current!.position.x,
         bike.current!.position.y,
-        bike.current!.position.z + Math.PI * 150,
+        bike.current!.position.z + 10,
       ),
     );
-
     camera.current!.rotation.z = Math.PI;
+    bike.current!.position.y = Math.PI;
   }, [bike, camera]);
 
   useLayoutEffect(() => {
@@ -59,7 +61,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
     <>
       <pointLight
         ref={pointLight}
-        color='tomato'
+        color='#22BABB'
         decay={10}
         distance={40}
         intensity={10}
@@ -72,7 +74,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
         rotation={[0, Math.PI, 0]}
         position={[0, 10, -10]}
       />
-      <group ref={bike} dispose={null} position={[0, 3, -5]}>
+      <group ref={bike} dispose={null} position={[0, 3, -10]}>
         {children}
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
