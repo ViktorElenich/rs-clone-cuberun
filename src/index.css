@@ -3,6 +3,14 @@
   margin: 0;
 }
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: "Tr2n"; 
+  src: url("./assets/Tr2n.ttf") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
+
 html,
 body,
 #root {
@@ -17,7 +25,7 @@ html {
 }
 
 .titleText {
-  font-family: 'Tr2n';
+  font-family: 'Tr2n', sans-serif;
   color: #bce2eb;
   text-shadow: 0 0 30px rgba(11, 198, 255, 0.8), 0 0 20px rgb(57, 184, 224),
     0 0 5px rgb(29, 202, 255);
