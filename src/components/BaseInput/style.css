@@ -6,7 +6,7 @@
   display: inline-block;
   font-size: 1rem;
   background-color: var(--color_bg); 
-  font-family: 'Tr2n';
+  font-family: 'Orbitron', 'Tr2n', sans-serif;
   color: #bce2eb;
   text-shadow: 0 0 30px rgba(11, 198, 255, 0.8), 0 0 20px rgb(57, 184, 224),
     0 0 5px rgb(29, 202, 255);
