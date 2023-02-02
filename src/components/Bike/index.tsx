@@ -1,9 +1,10 @@
-import React, {FC, useLayoutEffect, useRef} from 'react';
-import {PerspectiveCamera, useGLTF} from '@react-three/drei';
-import {GLTFResult} from '../../type';
-import {useStore} from '../../state';
-import {BikeProps, RefObject} from '../../interface';
-import {PointLight, Vector3} from 'three';
+import React, { FC, useLayoutEffect, useRef } from "react";
+import { PerspectiveCamera, useGLTF } from "@react-three/drei";
+import { GLTFResult } from "../../type";
+import { gameVarMutation, useStore } from "../../state";
+import { BikeProps, RefObject } from "../../interface";
+import { Mesh, MeshBasicMaterial, PointLight, Vector3 } from "three";
+import { useFrame } from "@react-three/fiber";
 
 const vector = new Vector3();
 
@@ -11,8 +12,26 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const bike = useStore((state) => state.bike);
   const camera = useStore((state) => state.camera);
   const pointLight = useRef() as RefObject<PointLight>;
+  const bikeLine = useRef() as RefObject<Mesh>;
 
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
+
+  useFrame((state, delta) => {
+    const accelDelta = 1 * delta * 0.15;
+
+    bike.current!.position.z -= gameVarMutation.gameSpeed * delta * 165;
+
+    pointLight.current!.position.z = bike.current!.position.z + 1;
+    pointLight.current!.position.x = bike.current!.position.x;
+
+    camera.current!.position.z = bike.current!.position.z - 19.5;
+    camera.current!.position.y = bike.current!.position.y + 7;
+    camera.current!.position.x = bike.current!.position.x;
+
+    if (true) {
+      gameVarMutation.gameSpeed -= accelDelta;
+    }
+  });
 
   useLayoutEffect(() => {
     camera.current!.rotation.set(0, Math.PI, 0);
@@ -27,6 +46,14 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     camera.current!.rotation.z = Math.PI;
   }, [bike, camera]);
+
+  useLayoutEffect(() => {
+    if (true) {
+      if (bikeLine.current!.material instanceof MeshBasicMaterial) {
+        bikeLine.current!.material.visible = true;
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -223,6 +250,15 @@ const Bike: FC<BikeProps> = ({ children }) => {
             </group>
           </group>
         </group>
+        <mesh
+          ref={bikeLine}
+          scale={[0.3, 0.02, 3]}
+          position={[0, 0.2, -14]}
+          rotation={[0, 0, 1.57]}
+        >
+          <dodecahedronGeometry args={[5, 0]} />
+          <meshBasicMaterial dithering={true} opacity={1} color='#22BABB' />
+        </mesh>
       </group>
     </>
   );

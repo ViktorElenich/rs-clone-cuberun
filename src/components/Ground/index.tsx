@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useLayoutEffect, useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import { BufferGeometry, Color, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from "three";
-import { useStore } from "../../state";
+import { gameVarMutation, useStore } from "../../state";
 import { BIKE_SIZE, TEXTURE_SIZE } from "../../constants";
 import { RefObject } from "../../interface";
 
@@ -12,6 +12,7 @@ import gridBlue from "../../textures/grid-blue.png";
 import gridPurple from "../../textures/grid-purple.png";
 import gridPink from "../../textures/grid-pink.png";
 import gridRainbow from "../../textures/grid-rainbow.png";
+import { useFrame } from "@react-three/fiber";
 
 
 const color = new Color(0x000000);
@@ -26,6 +27,8 @@ const Ground = () => {
   const planeTwo = useRef() as RefObject<
     Mesh<BufferGeometry, MeshStandardMaterial>
   >;
+  const moveCounter = useRef(1);
+  const lastMove = useRef(0);
 
   const textures = useTexture([
     gridPink,
@@ -36,6 +39,27 @@ const Ground = () => {
     gridPurple,
     gridRainbow,
   ]);
+
+  useFrame((state, delta) => {
+    if (bike.current) {
+      console.log('counter', moveCounter.current);
+      if (Math.round(bike.current.position.z) + 10 * moveCounter.current + 10 < 18) {
+        console.log('here');
+        if (moveCounter.current % 2 === 0) {
+          console.log('odd');
+          groundTwo.current.position.z -= 700 * 2;
+          lastMove.current = groundTwo.current.position.z;
+          planeTwo.current!.material.map = textures[gameVarMutation.colorLevel];
+        } else {
+          console.log('not odd');
+          ground.current.position.z += 700 * 2;
+          lastMove.current = ground.current.position.z;
+          plane.current!.material.map = textures[gameVarMutation.colorLevel];
+        }
+      }
+      moveCounter.current++;
+    }
+  })
 
   useLayoutEffect(() => {
     textures.forEach((texture) => {
