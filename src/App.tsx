@@ -24,7 +24,6 @@ function App() {
       />
       <ambientLight intensity={0.3} />
       <Suspense fallback={null}>
-        <OrbitControls />
         <Bike>
           {directionalLight.current && (
             <primitive object={directionalLight.current.target} />
