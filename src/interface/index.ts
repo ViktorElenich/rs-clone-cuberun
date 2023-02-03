@@ -18,3 +18,8 @@ export interface btnPropsType {
   btnText: string;
   onClickCallback: () => void;
 };
+export interface CubePositionCoords {
+  x: number,
+  y: number,
+  z: number,
+}
