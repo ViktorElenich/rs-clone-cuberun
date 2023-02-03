@@ -1,5 +1,5 @@
 import { DirectionalLight, Group, PerspectiveCamera } from 'three';
-import { ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 export interface RefObject<T> {
   readonly current: T | null;
@@ -18,8 +18,17 @@ export interface btnPropsType {
   btnText: string;
   onClickCallback: () => void;
 };
+
 export interface CubePositionCoords {
   x: number,
   y: number,
   z: number,
+}
+
+export interface inputProps {
+  placeholder: string;
+  type: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+
 }
