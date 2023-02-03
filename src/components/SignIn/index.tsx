@@ -13,6 +13,7 @@ const SignInComponent = () => {
   const [userExists, setUserExists] = useState<User | null>(null);
   const [emptyFields, setEmptyFields] = useState(false);
   const [noUser, setNoUser] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
 
   const changeLoginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -28,15 +29,21 @@ const SignInComponent = () => {
       setEmptyFields(true);
       return false;
     }
-    const checkUser: User | null = await checkExistentUser(login, password);
-    setUserExists(checkUser);
+    const checkUser: User | null = await checkExistentUser(login);
 
     if (!checkUser) {
       setNoUser(true);
     } else setNoUser(false);
 
     if (checkUser) {
-      // redirect to Game menu timeout 3...2...1
+      if (checkUser.password === password) {
+        setWrongPassword(false);
+        setUserExists(checkUser);
+
+        // redirect to Game menu timeout 3...2...1
+      } else {
+        setWrongPassword(true);
+      }
     }
     return true;
   };
@@ -74,6 +81,7 @@ const SignInComponent = () => {
           {emptyFields && (
             <p className='simpleText'>Please enter login and password</p>
           )}
+          {wrongPassword && <p className='simpleText'>Wrong password!</p>}
 
           <BaseButton btnText='Sign in' onClickCallback={authHandler} />
           {noUser && (
@@ -87,6 +95,7 @@ const SignInComponent = () => {
                 btnText='Sign up'
                 onClickCallback={() => {
                   console.log('sign up');
+
                   // go to sign-up form
                 }}
               />
