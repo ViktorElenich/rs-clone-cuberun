@@ -25,3 +25,11 @@ export interface inputProps {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface User {
+  id: number,
+  name: string,
+  password: string,
+  score: number
+}
+export type UserCreate = Omit<User, "id">
