@@ -62,7 +62,7 @@ const SignInComponent = () => {
       {userExists ? (
         <p className='titleText welcome-text'>{`Welcome back, ${userExists.name}! `}</p>
       ) : (
-        <div className='signin-menu_wrapper'>
+        <form className='signin-menu_wrapper'>
           <h1 className='titleText signin-menu_text'>Sign in</h1>
           <div className='input-wrapper'>
             <BaseInput
@@ -101,7 +101,7 @@ const SignInComponent = () => {
               />
             </div>
           )}
-        </div>
+        </form>
       )}
     </div>
   );
