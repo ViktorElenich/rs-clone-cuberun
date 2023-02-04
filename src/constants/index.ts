@@ -7,6 +7,7 @@ const gameVariables = {
   gameSpeed: 0.0,
   colorLevel: 0,
   desiredSpeed: 0.0,
+  velocity: 0,
 }
 
 export { gameVariables }

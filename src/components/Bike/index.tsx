@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useLayoutEffect, useRef } from "react";
-import { PerspectiveCamera, useGLTF } from "@react-three/drei";
+import { PerspectiveCamera, useGLTF, useKeyboardControls } from "@react-three/drei";
 import { GLTFResult } from "../../type";
 import { useStore } from "../../state";
 import { BikeProps, RefObject } from "../../interface";
 import { Mesh, MeshBasicMaterial, PointLight, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
 import { gameVariables, INITIAL_GAME_SPEED } from "../../constants";
+import { Controls } from "../../enums";
 
 const vector = new Vector3();
 
@@ -15,13 +16,22 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const gameStart = useStore((state) => state.gameStart);
   const pointLight = useRef() as RefObject<PointLight>;
   const bikeLine = useRef() as RefObject<Mesh>;
+  const [sub, get] = useKeyboardControls<Controls>();
 
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
   useFrame((state, delta) => {
     const accelDelta = delta * 0.15;
+    const accelDeltaIncline = delta * 1.8;
+    const left = get().left;
+    const right = get().right;
 
     bike.current!.position.z -= gameVariables.gameSpeed * delta * 165;
+    bike.current!.position.x += gameVariables.velocity * delta * 165;
+
+    bike.current!.rotation.z = gameVariables.velocity * 1.5;
+    bike.current!.rotation.y = Math.PI - gameVariables.velocity * 0.4;
+    bike.current!.rotation.x = -Math.abs(gameVariables.velocity) / 10;
 
     pointLight.current!.position.z = bike.current!.position.z + 1;
     pointLight.current!.position.x = bike.current!.position.x;
@@ -32,16 +42,41 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     camera.current!.rotation.y = Math.PI;
 
-    if (gameStart) {
-      if (gameVariables.gameSpeed < gameVariables.desiredSpeed) {
-        if (gameVariables.gameSpeed + accelDelta > gameVariables.desiredSpeed) {
-          gameVariables.gameSpeed = gameVariables.desiredSpeed
+    if ((left && right) || (!left && !right)) {
+      if (gameVariables.velocity < 0) {
+        if (gameVariables.velocity + accelDeltaIncline > 0) {
+          gameVariables.velocity = 0;
         } else {
-          gameVariables.gameSpeed += accelDelta
+          gameVariables.velocity += accelDeltaIncline;
+        }
+      }
+      if (gameVariables.velocity > 0) {
+        if (gameVariables.velocity - accelDeltaIncline < 0) {
+          gameVariables.velocity = 0;
+        } else {
+          gameVariables.velocity -= accelDeltaIncline;
         }
       }
     }
 
+    if (gameVariables.gameSpeed > 0) {
+      if ((left && !right)) {
+        gameVariables.velocity = Math.max(-0.7, gameVariables.velocity - accelDeltaIncline);
+      }
+      if ((!left && right)) {
+        gameVariables.velocity = Math.min(0.7, gameVariables.velocity + accelDeltaIncline);
+      }
+    }
+
+    if (gameStart) {
+      if (gameVariables.gameSpeed < gameVariables.desiredSpeed) {
+        if (gameVariables.gameSpeed + accelDelta > gameVariables.desiredSpeed) {
+          gameVariables.gameSpeed = gameVariables.desiredSpeed;
+        } else {
+          gameVariables.gameSpeed += accelDelta;
+        }
+      }
+    }
   });
 
   useLayoutEffect(() => {
@@ -74,7 +109,16 @@ const Bike: FC<BikeProps> = ({ children }) => {
     if (gameStart) {
       gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
     }
-  }, [gameStart])
+  }, [gameStart]);
+
+  useEffect(() => {
+    return sub(
+      (state) => state.left,
+      (pressed) => {
+        console.log('forward', pressed);
+      },
+    );
+  }, []);
 
   return (
     <>
