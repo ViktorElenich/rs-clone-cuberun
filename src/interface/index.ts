@@ -19,6 +19,12 @@ export interface btnPropsType {
   onClickCallback: () => void;
 };
 
+export interface CubePositionCoords {
+  x: number,
+  y: number,
+  z: number,
+}
+
 export interface inputProps {
   placeholder: string;
   type: string;
@@ -32,4 +38,5 @@ export interface User {
   password: string,
   score: number
 }
+
 export type UserCreate = Omit<User, "id">
