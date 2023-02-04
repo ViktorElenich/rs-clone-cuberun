@@ -1,5 +1,5 @@
 import { useTexture } from '@react-three/drei';
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { FC, useEffect, useLayoutEffect, useRef } from 'react';
 import { CubePositionCoords } from '../../interface';
 import { angleToRadians } from '../../utils';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
@@ -14,11 +14,11 @@ import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
 import { RepeatWrapping, Texture } from 'three';
 import { CUBE_SIZE } from '../../constants';
 
-const Cube = (props: {
+const Cube: FC<{
   position: CubePositionCoords;
   key: number;
   cubeColor: string;
-}) => {
+}> = (props) => {
   const { x, y, z } = props.position;
   const { cubeColor } = props;
   const boxHeight: number = Math.floor(Math.random() * 20) + 25;
