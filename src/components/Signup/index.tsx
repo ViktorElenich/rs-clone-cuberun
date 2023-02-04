@@ -22,7 +22,7 @@ const Login = () => {
     <div className='sign-up-menu'>
       <img src={logo} alt='Tron-game logo' className='tron-logo' />
       <div className='sign-up-wrapper'>
-        <h1 className='titleText'>Sign up</h1>
+        <h1 className='titleText sign-in_text'>Sign up</h1>
         <div className='input-wrapper'>
           <BaseInput
             type='text'
