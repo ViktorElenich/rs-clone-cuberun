@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useLayoutEffect, useRef } from "react";
-import { PerspectiveCamera, useGLTF, useKeyboardControls } from "@react-three/drei";
+import React, { FC, MutableRefObject, useEffect, useLayoutEffect, useRef } from "react";
+import { PerspectiveCamera, Trail, useGLTF, useKeyboardControls } from "@react-three/drei";
 import { GLTFResult } from "../../type";
 import { useStore } from "../../state";
 import { BikeProps, RefObject } from "../../interface";
-import { Mesh, MeshBasicMaterial, PointLight, Vector3 } from "three";
+import { Object3D, PointLight, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
 import { gameVariables, INITIAL_GAME_SPEED } from "../../constants";
 import { Controls } from "../../enums";
@@ -15,8 +15,9 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const camera = useStore((state) => state.camera);
   const gameStart = useStore((state) => state.gameStart);
   const pointLight = useRef() as RefObject<PointLight>;
-  const bikeLine = useRef() as RefObject<Mesh>;
+  const bikeLine = useRef() as MutableRefObject<Object3D<Event>>;
   const [sub, get] = useKeyboardControls<Controls>();
+
 
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
@@ -93,32 +94,11 @@ const Bike: FC<BikeProps> = ({ children }) => {
     bike.current!.position.y = Math.PI;
   }, [bike, camera]);
 
-  useLayoutEffect(() => {
-    if (!gameStart) {
-      if (bikeLine.current!.material instanceof MeshBasicMaterial) {
-        bikeLine.current!.material.visible = false;
-      }
-    } else {
-      if (bikeLine.current!.material instanceof MeshBasicMaterial) {
-        bikeLine.current!.material.visible = true;
-      }
-    }
-  }, [gameStart]);
-
   useEffect(() => {
     if (gameStart) {
       gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
     }
   }, [gameStart]);
-
-  useEffect(() => {
-    return sub(
-      (state) => state.left,
-      (pressed) => {
-        console.log('forward', pressed);
-      },
-    );
-  }, []);
 
   return (
     <>
@@ -144,191 +124,194 @@ const Bike: FC<BikeProps> = ({ children }) => {
         rotation={[0, Math.PI, 0]}
       >
         {children}
-        <group rotation={[-Math.PI / 2, 0, 0]}>
-          <group rotation={[Math.PI / 2, 0, 0]}>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1.5, 1]}>
-              <mesh
-                geometry={nodes.corp001_carosserie_0.geometry}
-                material={nodes.corp001_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_1.geometry}
-                material={nodes.corp001_carosserie_0_1.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_2.geometry}
-                material={nodes.corp001_carosserie_0_2.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_3.geometry}
-                material={nodes.corp001_carosserie_0_3.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_4.geometry}
-                material={nodes.corp001_carosserie_0_4.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_5.geometry}
-                material={nodes.corp001_carosserie_0_5.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_6.geometry}
-                material={nodes.corp001_carosserie_0_6.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_7.geometry}
-                material={nodes.corp001_carosserie_0_7.material}
-              />
-              <mesh
-                geometry={nodes.corp001_carosserie_0_8.geometry}
-                material={nodes.corp001_carosserie_0_8.material}
-              />
-              <mesh
-                geometry={nodes.corp001_2_carosserie_0.geometry}
-                material={nodes.corp001_2_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.corp001_2_carosserie_0_1.geometry}
-                material={nodes.corp001_2_carosserie_0_1.material}
-              />
-              <mesh
-                geometry={nodes.corp001_Material001_0.geometry}
-                material={nodes.corp001_Material001_0.material}
-              />
-              <mesh
-                geometry={nodes.corp001_Material001_0_1.geometry}
-                material={nodes.corp001_Material001_0_1.material}
-              />
-              <mesh
-                geometry={nodes.corp001_Material001_0_2.geometry}
-                material={nodes.corp001_Material001_0_2.material}
-              />
-              <mesh
-                geometry={nodes.corp001_Material001_0_3.geometry}
-                material={nodes.corp001_Material001_0_3.material}
-              />
-              <mesh
-                geometry={nodes.corp001_Material001_0_4.geometry}
-                material={nodes.corp001_Material001_0_4.material}
-              />
-            </group>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 1]}>
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0.geometry}
-                material={nodes.moteur001_2_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0_1.geometry}
-                material={nodes.moteur001_2_carosserie_0_1.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0_2.geometry}
-                material={nodes.moteur001_2_carosserie_0_2.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0_3.geometry}
-                material={nodes.moteur001_2_carosserie_0_3.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0_4.geometry}
-                material={nodes.moteur001_2_carosserie_0_4.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0_5.geometry}
-                material={nodes.moteur001_2_carosserie_0_5.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_2_carosserie_0_6.geometry}
-                material={nodes.moteur001_2_carosserie_0_6.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_carosserie_0.geometry}
-                material={nodes.moteur001_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_carosserie_0_1.geometry}
-                material={nodes.moteur001_carosserie_0_1.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_carosserie_0_2.geometry}
-                material={nodes.moteur001_carosserie_0_2.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_carosserie_0_3.geometry}
-                material={nodes.moteur001_carosserie_0_3.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_Material001_0.geometry}
-                material={nodes.moteur001_Material001_0.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_fer_0.geometry}
-                material={nodes.moteur001_fer_0.material}
-              />
-              <mesh
-                geometry={nodes.moteur001_fer_0_1.geometry}
-                material={nodes.moteur001_fer_0_1.material}
-              />
-            </group>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={[1.36, 1, 1]}>
-              <mesh
-                geometry={nodes.vitre001_2_carosserie_0.geometry}
-                material={nodes.vitre001_2_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.vitre001_carosserie_0.geometry}
-                material={nodes.vitre001_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.vitre001_Material001_0.geometry}
-                material={nodes.vitre001_Material001_0.material}
-              />
-              <mesh
-                geometry={nodes.vitre001_fer_0.geometry}
-                material={nodes.vitre001_fer_0.material}
-              />
-            </group>
-            <group rotation={[-1.88, 0, 0]} scale={[0.14, 0.08, 0.18]}>
-              <mesh
-                geometry={nodes.vitesse001_carosserie_0.geometry}
-                material={nodes.vitesse001_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.vitesse001_carosserie_0_1.geometry}
-                material={nodes.vitesse001_carosserie_0_1.material}
-              />
-              <mesh
-                geometry={nodes.vitesse001_2_carosserie_0.geometry}
-                material={nodes.vitesse001_2_carosserie_0.material}
-              />
-              <mesh
-                geometry={nodes.vitesse001_2_carosserie_0_1.geometry}
-                material={nodes.vitesse001_2_carosserie_0_1.material}
-              />
-              <mesh
-                geometry={nodes.vitesse001_Material001_0.geometry}
-                material={nodes.vitesse001_Material001_0.material}
-              />
-              <mesh
-                geometry={nodes.vitesse001_fer_0.geometry}
-                material={nodes.vitesse001_fer_0.material}
-              />
-              <mesh
-                geometry={nodes.vitesse001_fer_0_1.geometry}
-                material={nodes.vitesse001_fer_0_1.material}
-              />
+        <Trail
+          width={20}
+          color={'#22BABB'}
+          length={2}
+          decay={1}
+          local={false}
+          stride={0}
+          interval={1}
+          target={bikeLine}
+          attenuation={(width) => width}
+        >
+          <group rotation={[-Math.PI / 2, 0, 0]}>
+            <group rotation={[Math.PI / 2, 0, 0]}>
+              <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1.5, 1]}>
+                <mesh
+                  geometry={nodes.corp001_carosserie_0.geometry}
+                  material={nodes.corp001_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_1.geometry}
+                  material={nodes.corp001_carosserie_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_2.geometry}
+                  material={nodes.corp001_carosserie_0_2.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_3.geometry}
+                  material={nodes.corp001_carosserie_0_3.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_4.geometry}
+                  material={nodes.corp001_carosserie_0_4.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_5.geometry}
+                  material={nodes.corp001_carosserie_0_5.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_6.geometry}
+                  material={nodes.corp001_carosserie_0_6.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_7.geometry}
+                  material={nodes.corp001_carosserie_0_7.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_carosserie_0_8.geometry}
+                  material={nodes.corp001_carosserie_0_8.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_2_carosserie_0.geometry}
+                  material={nodes.corp001_2_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_2_carosserie_0_1.geometry}
+                  material={nodes.corp001_2_carosserie_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_Material001_0.geometry}
+                  material={nodes.corp001_Material001_0.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_Material001_0_1.geometry}
+                  material={nodes.corp001_Material001_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_Material001_0_2.geometry}
+                  material={nodes.corp001_Material001_0_2.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_Material001_0_3.geometry}
+                  material={nodes.corp001_Material001_0_3.material}
+                />
+                <mesh
+                  geometry={nodes.corp001_Material001_0_4.geometry}
+                  material={nodes.corp001_Material001_0_4.material}
+                />
+              </group>
+              <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1, 1]}>
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0.geometry}
+                  material={nodes.moteur001_2_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0_1.geometry}
+                  material={nodes.moteur001_2_carosserie_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0_2.geometry}
+                  material={nodes.moteur001_2_carosserie_0_2.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0_3.geometry}
+                  material={nodes.moteur001_2_carosserie_0_3.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0_4.geometry}
+                  material={nodes.moteur001_2_carosserie_0_4.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0_5.geometry}
+                  material={nodes.moteur001_2_carosserie_0_5.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_2_carosserie_0_6.geometry}
+                  material={nodes.moteur001_2_carosserie_0_6.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_carosserie_0.geometry}
+                  material={nodes.moteur001_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_carosserie_0_1.geometry}
+                  material={nodes.moteur001_carosserie_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_carosserie_0_2.geometry}
+                  material={nodes.moteur001_carosserie_0_2.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_carosserie_0_3.geometry}
+                  material={nodes.moteur001_carosserie_0_3.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_Material001_0.geometry}
+                  material={nodes.moteur001_Material001_0.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_fer_0.geometry}
+                  material={nodes.moteur001_fer_0.material}
+                />
+                <mesh
+                  geometry={nodes.moteur001_fer_0_1.geometry}
+                  material={nodes.moteur001_fer_0_1.material}
+                />
+              </group>
+              <group rotation={[-Math.PI / 2, 0, 0]} scale={[1.36, 1, 1]}>
+                <mesh
+                  geometry={nodes.vitre001_2_carosserie_0.geometry}
+                  material={nodes.vitre001_2_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitre001_carosserie_0.geometry}
+                  material={nodes.vitre001_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitre001_Material001_0.geometry}
+                  material={nodes.vitre001_Material001_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitre001_fer_0.geometry}
+                  material={nodes.vitre001_fer_0.material}
+                />
+              </group>
+              <group rotation={[-1.88, 0, 0]} scale={[0.14, 0.08, 0.18]}>
+                <mesh
+                  geometry={nodes.vitesse001_carosserie_0.geometry}
+                  material={nodes.vitesse001_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitesse001_carosserie_0_1.geometry}
+                  material={nodes.vitesse001_carosserie_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.vitesse001_2_carosserie_0.geometry}
+                  material={nodes.vitesse001_2_carosserie_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitesse001_2_carosserie_0_1.geometry}
+                  material={nodes.vitesse001_2_carosserie_0_1.material}
+                />
+                <mesh
+                  geometry={nodes.vitesse001_Material001_0.geometry}
+                  material={nodes.vitesse001_Material001_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitesse001_fer_0.geometry}
+                  material={nodes.vitesse001_fer_0.material}
+                />
+                <mesh
+                  geometry={nodes.vitesse001_fer_0_1.geometry}
+                  material={nodes.vitesse001_fer_0_1.material}
+                />
+              </group>
             </group>
           </group>
-        </group>
-        <mesh
-          ref={bikeLine}
-          scale={[0.3, 0.02, 3]}
-          position={[0, 0.2, -14]}
-          rotation={[0, 0, 1.57]}
-        >
-          <dodecahedronGeometry args={[5, 0]} />
-          <meshBasicMaterial dithering={true} opacity={1} color='#22BABB' />
-        </mesh>
+        </Trail>
       </group>
     </>
   );
