@@ -1,9 +1,9 @@
-import React, {FC, useLayoutEffect, useRef} from 'react';
-import {PerspectiveCamera, useGLTF} from '@react-three/drei';
-import {GLTFResult} from '../../type';
-import {useStore} from '../../state';
-import {BikeProps, RefObject} from '../../interface';
-import {PointLight, Vector3} from 'three';
+import React, { FC, useLayoutEffect, useRef } from 'react';
+import { PerspectiveCamera, useGLTF } from '@react-three/drei';
+import { GLTFResult } from '../../type';
+import { useStore } from '../../state';
+import { BikeProps, RefObject } from '../../interface';
+import { PointLight, Vector3 } from 'three';
 
 const vector = new Vector3();
 
@@ -32,7 +32,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
     <>
       <pointLight
         ref={pointLight}
-        color='tomato'
+        color='#0074cc'
         decay={10}
         distance={40}
         intensity={10}
@@ -45,7 +45,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
         rotation={[0, Math.PI, 0]}
         position={[0, 10, -10]}
       />
-      <group ref={bike} dispose={null} position={[0, 3, -5]}>
+      <group ref={bike} dispose={null} position={[0, 1.3, -5]} scale={0.7}>
         {children}
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>

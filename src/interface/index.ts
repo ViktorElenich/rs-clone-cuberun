@@ -19,9 +19,16 @@ export interface btnPropsType {
   onClickCallback: () => void;
 };
 
+export interface CubePositionCoords {
+  x: number,
+  y: number,
+  z: number,
+}
+
 export interface inputProps {
   placeholder: string;
   type: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+
 }
