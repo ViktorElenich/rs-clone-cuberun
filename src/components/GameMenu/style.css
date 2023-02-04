@@ -1,0 +1,92 @@
+.game-menu__wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color_bg);
+  background: url('../../assets/bg2.jpg') no-repeat center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.game-menu__wrapper .tron-logo {
+  max-width: 350px;
+  height: auto;
+  display: block;
+  margin-top: 200px;
+}
+
+.game-menu__welcome {
+  font-size: 2rem;
+  margin-top: 20px;
+  text-align: center;
+}
+.game-menu__wrapper .main-menu {
+  max-width: 350px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 10px;
+}
+.game-menu__wrapper .main-menu > .btn:first-child {
+  font-size: 2.3rem;
+  margin-bottom: 30px;
+}
+
+.game-menu__wrapper .main-menu > .btn:last-child {
+  margin-top: 30px;
+}
+.instructions__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+  width: 370px;
+  padding: 40px 20px 20px 20px;
+  text-align: center;
+  background-color: black;
+  border: 2px solid var(--color_primary);
+  box-shadow: 0 0 7px rgba(9, 198, 255, 0.8), 0 0 4px rgb(57, 184, 224),
+    inset 0 0 7px rgb(29, 202, 255);
+  border-radius: 25px;
+}
+.instructions__wrapper > .btn {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.instructions__simpleText {
+  color: #bce2eb;
+  text-shadow: 0 0 30px rgba(11, 198, 255, 0.8), 0 0 20px rgb(57, 184, 224),
+    0 0 5px rgb(29, 202, 255);
+}
+.instructions__accent {
+  color: rgb(255, 249, 194);
+  text-shadow: 0 0 30px rgba(255, 179, 38, 0.8), 0 0 20px rgb(252, 255, 83),
+    0 0 5px rgb(255, 234, 46);
+  font-size: 1.3rem;
+  font-family: 'Tr2n', sans-serif;
+  margin: 10px;
+}
+.instructions__wrapper > .instructions__simpleText:last-of-type {
+  margin-top: 20px;
+}
+@media (max-width: 700px) {
+  .game-menu__wrapper .tron-logo,
+  .game-menu__wrapper .main-menu {
+    max-width: 300px;
+  }
+}
+@media (max-width: 600px) {
+  .game-menu__wrapper .tron-logo,
+  .game-menu__wrapper .main-menu {
+    max-width: 250px;
+  }
+}
+@media (max-width: 400px) {
+  .game-menu__wrapper .tron-logo,
+  .game-menu__wrapper .main-menu {
+    max-width: 200px;
+  }
+}

@@ -30,11 +30,11 @@ const Ground = () => {
   const lastMove = useRef(0);
 
   const textures = useTexture([
+    gridBlue,
     gridPink,
     gridRed,
     gridOrange,
     gridGreen,
-    gridBlue,
     gridPurple,
     gridRainbow,
   ]);
@@ -85,15 +85,15 @@ const Ground = () => {
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
           />
-          <meshStandardMaterial
-            color={color.set(0xffffff)}
-            emissiveMap={textures[1]}
-            emissive={color.set(0xffffff)}
-            emissiveIntensity={0}
+          <meshBasicMaterial
+            color={'#0074cc'}
+            // emissiveMap={textures[1]}
+            // emissive={'#0074cc'}
+            // emissiveIntensity={0}
             attach='material'
             map={textures[0]}
-            roughness={1}
-            metalness={0}
+            // roughness={1}
+            // metalness={0}
           />
         </mesh>
       </group>
@@ -108,12 +108,14 @@ const Ground = () => {
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
           />
-          <meshStandardMaterial
-            emissiveMap={textures[1]}
+          <meshBasicMaterial
+            color={'#0074cc'}
+            //emissive={'#0074cc'}
+            //emissiveMap={textures[1]}
             attach='material'
             map={textures[0]}
-            roughness={1}
-            metalness={0}
+            // roughness={1}
+            // metalness={0}
           />
         </mesh>
       </group>
