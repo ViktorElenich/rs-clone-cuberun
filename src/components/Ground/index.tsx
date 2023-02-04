@@ -1,8 +1,8 @@
 import React, { MutableRefObject, useLayoutEffect, useRef } from "react";
 import { useTexture } from "@react-three/drei";
 import { BufferGeometry, Color, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from "three";
-import { gameVarMutation, useStore } from "../../state";
-import { MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from "../../constants";
+import { useStore } from "../../state";
+import { gameVariables, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from "../../constants";
 import { RefObject } from "../../interface";
 
 import gridRed from "../../textures/grid-red.png";
@@ -13,7 +13,6 @@ import gridPurple from "../../textures/grid-purple.png";
 import gridPink from "../../textures/grid-pink.png";
 import gridRainbow from "../../textures/grid-rainbow.png";
 import { useFrame } from "@react-three/fiber";
-
 
 const color = new Color(0x000000);
 
@@ -42,29 +41,28 @@ const Ground = () => {
 
   useFrame((state, delta) => {
     if (bike.current) {
-      //console.log('counter', moveCounter.current);
-      //console.log('position bike', Math.round(bike.current.position.z) + PLANE_SIZE * moveCounter.current + 10);
-      if (Math.round(bike.current.position.z) + PLANE_SIZE * moveCounter.current + 10 < -10) {
-        //console.log(Math.round(bike.current.position.z) + 1000 * moveCounter.current + 10);
-        console.log('here');
-        console.log(Math.abs(bike.current.position.z) - Math.abs(lastMove.current));
-        if (moveCounter.current === 1 || Math.abs(bike.current.position.z) - Math.abs(lastMove.current) <= 10) {
+      if (Math.round(bike.current.position.z) + 1000 * moveCounter.current + 10 < 0) {
+        if (moveCounter.current === 1 || Math.abs(bike.current.position.z) - Math.abs(lastMove.current) < 0) {
+          if (moveCounter.current % 6 === 0) {
+            gameVariables.colorLevel++;
+            if (gameVariables.colorLevel >= textures.length) {
+              gameVariables.colorLevel = 0;
+            }
+          }
           if (moveCounter.current % 2 === 0) {
-            console.log('odd');
-            groundTwo.current.position.z -= 700 * 2;
+            groundTwo.current.position.z -= MOVE_DISTANCE;
             lastMove.current = groundTwo.current.position.z;
-            planeTwo.current!.material.map = textures[gameVarMutation.colorLevel];
+            planeTwo.current!.material.map = textures[gameVariables.colorLevel];
           } else {
-            console.log('not odd');
-            ground.current.position.z -= 700 * 2;
+            ground.current.position.z -= MOVE_DISTANCE;
             lastMove.current = ground.current.position.z;
-            plane.current!.material.map = textures[gameVarMutation.colorLevel];
+            plane.current!.material.map = textures[gameVariables.colorLevel];
           }
         }
         moveCounter.current++;
       }
     }
-  })
+  });
 
   useLayoutEffect(() => {
     textures.forEach((texture) => {
@@ -77,7 +75,12 @@ const Ground = () => {
   return (
     <>
       <group ref={ground} position={[0, 0, -(PLANE_SIZE / 2)]}>
-        <mesh ref={plane} receiveShadow visible rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh
+          ref={plane}
+          receiveShadow={true}
+          visible={true}
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
           <planeGeometry
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
@@ -94,11 +97,11 @@ const Ground = () => {
           />
         </mesh>
       </group>
-      <group ref={groundTwo} position={[0, 0, 0]}>
+      <group ref={groundTwo} position={[0, 0, -PLANE_SIZE - PLANE_SIZE / 2]}>
         <mesh
           ref={planeTwo}
-          receiveShadow
-          visible
+          receiveShadow={true}
+          visible={true}
           rotation={[-Math.PI / 2, 0, 0]}
         >
           <planeGeometry

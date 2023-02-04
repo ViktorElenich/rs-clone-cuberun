@@ -1,38 +1,47 @@
-import React, { FC, useLayoutEffect, useRef } from "react";
+import React, { FC, useEffect, useLayoutEffect, useRef } from "react";
 import { PerspectiveCamera, useGLTF } from "@react-three/drei";
 import { GLTFResult } from "../../type";
-import { gameVarMutation, useStore } from "../../state";
+import { useStore } from "../../state";
 import { BikeProps, RefObject } from "../../interface";
 import { Mesh, MeshBasicMaterial, PointLight, Vector3 } from "three";
 import { useFrame } from "@react-three/fiber";
+import { gameVariables, INITIAL_GAME_SPEED } from "../../constants";
 
 const vector = new Vector3();
 
 const Bike: FC<BikeProps> = ({ children }) => {
   const bike = useStore((state) => state.bike);
   const camera = useStore((state) => state.camera);
+  const gameStart = useStore((state) => state.gameStart);
   const pointLight = useRef() as RefObject<PointLight>;
   const bikeLine = useRef() as RefObject<Mesh>;
 
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
   useFrame((state, delta) => {
-    const accelDelta = 1 * delta * 0.15;
+    const accelDelta = delta * 0.15;
 
-    bike.current!.position.z -= gameVarMutation.gameSpeed * delta * 165;
+    bike.current!.position.z -= gameVariables.gameSpeed * delta * 165;
 
     pointLight.current!.position.z = bike.current!.position.z + 1;
     pointLight.current!.position.x = bike.current!.position.x;
 
-    camera.current!.position.z = bike.current!.position.z - 15.5;
+    camera.current!.position.z = bike.current!.position.z + 19.5;
     camera.current!.position.y = bike.current!.position.y + 5;
     camera.current!.position.x = bike.current!.position.x;
 
-    //camera.current!.rotation.y = Math.PI;
+    camera.current!.rotation.y = Math.PI;
 
-    if (true) {
-      gameVarMutation.gameSpeed -= accelDelta;
+    if (gameStart) {
+      if (gameVariables.gameSpeed < gameVariables.desiredSpeed) {
+        if (gameVariables.gameSpeed + accelDelta > gameVariables.desiredSpeed) {
+          gameVariables.gameSpeed = gameVariables.desiredSpeed
+        } else {
+          gameVariables.gameSpeed += accelDelta
+        }
+      }
     }
+
   });
 
   useLayoutEffect(() => {
@@ -50,12 +59,22 @@ const Bike: FC<BikeProps> = ({ children }) => {
   }, [bike, camera]);
 
   useLayoutEffect(() => {
-    if (true) {
+    if (!gameStart) {
+      if (bikeLine.current!.material instanceof MeshBasicMaterial) {
+        bikeLine.current!.material.visible = false;
+      }
+    } else {
       if (bikeLine.current!.material instanceof MeshBasicMaterial) {
         bikeLine.current!.material.visible = true;
       }
     }
-  }, []);
+  }, [gameStart]);
+
+  useEffect(() => {
+    if (gameStart) {
+      gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
+    }
+  }, [gameStart])
 
   return (
     <>
@@ -64,7 +83,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
         color='#22BABB'
         decay={10}
         distance={40}
-        intensity={10}
+        intensity={5}
         position={[0, 3, -5]}
       />
       <PerspectiveCamera
@@ -74,7 +93,12 @@ const Bike: FC<BikeProps> = ({ children }) => {
         rotation={[0, Math.PI, 0]}
         position={[0, 10, -10]}
       />
-      <group ref={bike} dispose={null} position={[0, 3, -10]}>
+      <group
+        ref={bike}
+        dispose={null}
+        position={[0, 3, -10]}
+        rotation={[0, Math.PI, 0]}
+      >
         {children}
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>

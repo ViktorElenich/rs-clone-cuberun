@@ -13,9 +13,4 @@ const useStore = create<TronState>((set, get) => {
   };
 });
 
-const gameVarMutation = {
-  gameSpeed: 0.0,
-  colorLevel: 0,
-}
-
-export { useStore, gameVarMutation };
+export { useStore };

@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Bike from "./components/Bike";
 import { useStore } from "./state";
 import Ground from "./components/Ground";
+import LoadingGround from "./components/Loading/LoadingGround";
 
 function App() {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -27,7 +28,7 @@ function App() {
           )}
         </Bike>
       </Suspense>
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingGround />}>
         <Ground />
       </Suspense>
     </Canvas>
