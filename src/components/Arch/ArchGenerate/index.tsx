@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import Arch from '..';
-import { LEVEL_COLORS } from '../../../constants';
+import {
+  ARCH_AMOUNT,
+  CURRENT_LEVEL,
+  DISTANCE_ARCH,
+  FINISH_POSITION_ARCHES,
+  LEVEL_COLORS,
+  START_POSITION_ARCHES,
+} from '../../../constants';
 import { Arches, ArchGenerateProps } from '../../../interface';
-
-const CURRENT_LEVEL = 1;
-const DISTANCE_ARCH = 40;
-const ARCH_AMOUNT = 5;
-const START_POSITION_ARCHES = -300;
-const FINISH_POSITION_ARCHES = -2000;
 
 const ArchGenerate: FC<ArchGenerateProps> = ({ start }) => {
   const arches: Arches[] = [];

@@ -1,9 +1,6 @@
 import { FC } from 'react';
+import { RADIUS_ARCH, SEGMENTS_ARCH, TUBE_ARCH } from '../../constants';
 import { ArchProps } from '../../interface';
-
-const RADIUS_ARCH = 40;
-const TUBE_ARCH = 4;
-const SEGMENTS_ARCH = 20;
 
 const Arch: FC<ArchProps> = ({ position, color }) => {
   const { x, y, z } = position;
