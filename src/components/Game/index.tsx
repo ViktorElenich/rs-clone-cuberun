@@ -8,8 +8,9 @@ import CubeGenerationComponent from "../CubeGenerationComponent";
 import { Environment } from "@react-three/drei";
 import EnvironmentComponent from "../EnvironmentComponent";
 import ArchGenerate from "../Arch/ArchGenerate";
+import City from "../City";
 
-const Index = () => {
+const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
 
   return (
@@ -41,8 +42,9 @@ const Index = () => {
       <Environment background>
         <EnvironmentComponent />
       </Environment>
+      <City />
     </Canvas>
   )
 }
 
-export default Index;
+export default Game;
