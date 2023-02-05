@@ -7,6 +7,8 @@ const useStore = create<TronState>((set, get) => {
     set,
     get,
     gameStart: false,
+    level: 0,
+    score: 0,
     directionalLight: createRef(),
     bike: createRef(),
     camera: createRef(),
