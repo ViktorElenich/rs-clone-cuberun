@@ -1,11 +1,13 @@
-import { DirectionalLight, Group, PerspectiveCamera } from 'three';
+import { DirectionalLight, Group, PerspectiveCamera } from "three";
 import { ChangeEvent, ReactNode } from 'react';
+
 
 export interface RefObject<T> {
   readonly current: T | null;
 }
 
 export interface TronState {
+  gameStart: boolean;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
