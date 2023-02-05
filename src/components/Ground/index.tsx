@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useLayoutEffect, useRef } from "react";
 import { useTexture } from "@react-three/drei";
-import { BufferGeometry, Color, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from "three";
+import { BufferGeometry, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from "three";
 import { useStore } from "../../state";
 import { gameVariables, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from "../../constants";
 import { RefObject } from "../../interface";
@@ -14,7 +14,6 @@ import gridPink from "../../textures/grid-pink.png";
 import gridRainbow from "../../textures/grid-rainbow.png";
 import { useFrame } from "@react-three/fiber";
 
-const color = new Color(0x000000);
 
 const Ground = () => {
   const bike = useStore((state) => state.bike);
@@ -85,15 +84,15 @@ const Ground = () => {
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
           />
-          <meshBasicMaterial
+          <meshStandardMaterial
             color={'#0074cc'}
-            // emissiveMap={textures[1]}
-            // emissive={'#0074cc'}
-            // emissiveIntensity={0}
+            emissiveMap={textures[1]}
+            emissive={'#0074cc'}
+            emissiveIntensity={0}
             attach='material'
             map={textures[0]}
-            // roughness={1}
-            // metalness={0}
+            roughness={1}
+            metalness={0}
           />
         </mesh>
       </group>
@@ -108,14 +107,14 @@ const Ground = () => {
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
           />
-          <meshBasicMaterial
+          <meshStandardMaterial
             color={'#0074cc'}
-            //emissive={'#0074cc'}
-            //emissiveMap={textures[1]}
+            emissive={'#0074cc'}
+            emissiveMap={textures[1]}
             attach='material'
             map={textures[0]}
-            // roughness={1}
-            // metalness={0}
+            roughness={1}
+            metalness={0}
           />
         </mesh>
       </group>

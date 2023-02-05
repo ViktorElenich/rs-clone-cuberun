@@ -1,7 +1,7 @@
-import { RefObject, useEffect, useMemo, useRef } from 'react';
-import Cube from '../components/Cube';
-import { CUBE_AMOUNT, CUBE_SIZE, LEFT_BOUND, RIGHT_BOUND } from '../constants';
-import { randomInRange } from '../utils';
+import { useMemo, useRef } from "react";
+import Cube from "../Cube";
+import { CUBE_AMOUNT, CUBE_SIZE, LEFT_BOUND, RIGHT_BOUND } from "../../constants";
+import { randomInRange } from "../../utils";
 
 const CubeGenerationComponent = () => {
   const distance = CUBE_SIZE * 2;

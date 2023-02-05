@@ -1,5 +1,5 @@
 import { DirectionalLight, Group, PerspectiveCamera } from "three";
-import { ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from "react";
 
 
 export interface RefObject<T> {
@@ -25,6 +25,12 @@ export interface CubePositionCoords {
   x: number,
   y: number,
   z: number,
+}
+
+export interface CubeProps {
+  position: CubePositionCoords;
+  key: number;
+  cubeColor: string;
 }
 
 export interface inputProps {

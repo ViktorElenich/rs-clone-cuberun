@@ -1,26 +1,21 @@
-import { useTexture } from '@react-three/drei';
-import { FC, useEffect, useLayoutEffect, useRef } from 'react';
-import { CubePositionCoords } from '../../interface';
-import { angleToRadians } from '../../utils';
-import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
-import colorYellowTexture from '../../textures/customCubeTextures/basecolor_yellow.png';
-import colorRedTexture from '../../textures/customCubeTextures/basecolor_red.png';
-import colorPurpleTexture from '../../textures/customCubeTextures/basecolor_purple.png';
-import colorGreenTexture from '../../textures/customCubeTextures/basecolor_green.png';
-import roughTexture from '../../textures/customCubeTextures/roughness.png';
-import bumpTexture from '../../textures/customCubeTextures/heights.png';
-import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
+import { useTexture } from "@react-three/drei";
+import { FC, useLayoutEffect } from "react";
+import { CubeProps } from "../../interface";
+import colorBlueTexture from "../../textures/customCubeTextures/basecolor_blue.png";
+import colorYellowTexture from "../../textures/customCubeTextures/basecolor_yellow.png";
+import colorRedTexture from "../../textures/customCubeTextures/basecolor_red.png";
+import colorPurpleTexture from "../../textures/customCubeTextures/basecolor_purple.png";
+import colorGreenTexture from "../../textures/customCubeTextures/basecolor_green.png";
+import roughTexture from "../../textures/customCubeTextures/roughness.png";
+import bumpTexture from "../../textures/customCubeTextures/heights.png";
+import emissiveTexture from "../../textures/customCubeTextures/emissive.png";
 
-import { RepeatWrapping, Texture } from 'three';
-import { CUBE_SIZE } from '../../constants';
+import { RepeatWrapping, Texture } from "three";
+import { CUBE_SIZE } from "../../constants";
+import { cubeColorsType } from "../../type";
 
-const Cube: FC<{
-  position: CubePositionCoords;
-  key: number;
-  cubeColor: string;
-}> = (props) => {
-  const { x, y, z } = props.position;
-  const { cubeColor } = props;
+const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
+  const { x, y, z } = position;
   const boxHeight: number = Math.floor(Math.random() * 20) + 25;
   const txtrs = useTexture([
     colorBlueTexture,
@@ -29,10 +24,7 @@ const Cube: FC<{
     colorPurpleTexture,
     colorGreenTexture,
   ]);
-  console.log(txtrs);
-  type cubeColorsType = {
-    [key: string]: Texture;
-  };
+
 
   const cubeColors: cubeColorsType = {
     blue: txtrs[0],
@@ -58,7 +50,7 @@ const Cube: FC<{
 
   return (
     <>
-      <mesh position={[x, y + boxHeight / 2, z]} castShadow visible>
+      <mesh position={[x, y + boxHeight / 2, z]} castShadow={true} visible={true}>
         <boxGeometry args={[CUBE_SIZE, boxHeight, CUBE_SIZE]} />
         <meshStandardMaterial
           metalness={0.8}
@@ -66,7 +58,6 @@ const Cube: FC<{
           bumpMap={bumpMap}
           roughnessMap={roughMap}
           emissiveMap={emissiveMap}
-          // emissive={'#0074cc'}
           emissive={cubeColor}
           emissiveIntensity={2}
         />

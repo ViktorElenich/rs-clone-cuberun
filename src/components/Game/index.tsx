@@ -4,6 +4,9 @@ import LoadingGround from "../Loading/LoadingGround";
 import Ground from "../Ground";
 import { Canvas } from "@react-three/fiber";
 import { useStore } from "../../state";
+import CubeGenerationComponent from "../CubeGenerationComponent";
+import { Environment } from "@react-three/drei";
+import EnvironmentComponent from "../EnvironmentComponent";
 
 const Index = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -20,7 +23,7 @@ const Index = () => {
         intensity={3}
         position={[0, Math.PI, 0]}
       />
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.3} />
       <Suspense fallback={null}>
         <Bike>
           {directionalLight.current && (
@@ -31,6 +34,10 @@ const Index = () => {
       <Suspense fallback={<LoadingGround />}>
         <Ground />
       </Suspense>
+      <CubeGenerationComponent />
+      <Environment background>
+        <EnvironmentComponent />
+      </Environment>
     </Canvas>
   )
 }

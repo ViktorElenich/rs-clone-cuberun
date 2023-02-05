@@ -104,7 +104,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
     <>
       <pointLight
         ref={pointLight}
-        color='#22BABB'
+        color='#0074cc'
         decay={10}
         distance={40}
         intensity={5}
@@ -125,7 +125,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
       >
         {children}
         <Trail
-          width={20}
+          width={18}
           color={'#22BABB'}
           length={2}
           decay={1}
@@ -135,7 +135,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
           target={bikeLine}
           attenuation={(width) => width}
         >
-          <group rotation={[-Math.PI / 2, 0, 0]}>
+          <group rotation={[-Math.PI / 2, 0, 0]} scale={0.7}>
             <group rotation={[Math.PI / 2, 0, 0]}>
               <group rotation={[-Math.PI / 2, 0, 0]} scale={[1, 1.5, 1]}>
                 <mesh
