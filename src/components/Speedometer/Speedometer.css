@@ -20,3 +20,54 @@
     0 0 5px rgb(29, 202, 255);
     margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 850px) {
+    .dashboard {
+        top: 35% !important;
+        left: -5% !important;
+    }
+    .dashboard__title {
+        font-size: 4rem;
+    }
+    .dashboard__number {
+        font-size: 6rem;
+    }
+}
+@media screen and (max-width: 640px) {
+    .dashboard {
+        top: 45% !important;
+        left: -10% !important;
+    }
+    .dashboard__title {
+        font-size: 2.5rem;
+    }
+    .dashboard__number {
+        font-size: 4rem;
+    }
+}
+@media screen and (max-width: 400px) {
+    .dashboard {
+        top: 45% !important;
+        left: -13% !important;
+    }
+    .dashboard__title {
+        font-size: 1.5rem;
+    }
+    .dashboard__number {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-height: 760px) {
+    .dashboard {
+        top: 57% !important;
+        left: -17% !important;
+    }
+}
+
+@media screen and (max-height: 660px) {
+    .dashboard {
+        top: 45% !important;
+        left: -17% !important;
+    }
+}
