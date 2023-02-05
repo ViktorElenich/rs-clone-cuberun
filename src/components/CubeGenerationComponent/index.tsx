@@ -1,7 +1,12 @@
-import { useMemo, useRef } from "react";
-import Cube from "../Cube";
-import { CUBE_AMOUNT, CUBE_SIZE, LEFT_BOUND, RIGHT_BOUND } from "../../constants";
-import { randomInRange } from "../../utils";
+import { useMemo, useRef } from 'react';
+import Cube from '../Cube';
+import {
+  CUBE_AMOUNT,
+  CUBE_SIZE,
+  LEFT_BOUND,
+  RIGHT_BOUND,
+} from '../../constants';
+import { randomInRange } from '../../utils';
 
 const CubeGenerationComponent = () => {
   const distance = CUBE_SIZE * 2;
@@ -12,7 +17,7 @@ const CubeGenerationComponent = () => {
     for (let i = 0; i < CUBE_AMOUNT; i++) {
       const x = randomInRange(LEFT_BOUND, RIGHT_BOUND);
       const y = 0;
-      const z = -randomInRange(0, 900);
+      const z = randomInRange(300, 1500);
 
       temp.push({ x, y, z });
     }
