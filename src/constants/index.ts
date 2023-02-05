@@ -17,3 +17,15 @@ const gameVariables = {
 }
 
 export { gameVariables }
+
+export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300'];
+
+export const RADIUS_ARCH = 40;
+export const TUBE_ARCH = 4;
+export const SEGMENTS_ARCH = 20;
+
+export const CURRENT_LEVEL = 1;
+export const DISTANCE_ARCH = 40;
+export const ARCH_AMOUNT = 5;
+export const START_POSITION_ARCHES = -300;
+export const FINISH_POSITION_ARCHES = -2000;

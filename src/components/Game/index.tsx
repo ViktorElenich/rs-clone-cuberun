@@ -7,6 +7,7 @@ import { useStore } from "../../state";
 import CubeGenerationComponent from "../CubeGenerationComponent";
 import { Environment } from "@react-three/drei";
 import EnvironmentComponent from "../EnvironmentComponent";
+import ArchGenerate from "../Arch/ArchGenerate";
 
 const Index = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -34,6 +35,8 @@ const Index = () => {
       <Suspense fallback={<LoadingGround />}>
         <Ground />
       </Suspense>
+      <ArchGenerate start={true} />
+      <ArchGenerate start={false} />
       <CubeGenerationComponent />
       <Environment background>
         <EnvironmentComponent />
