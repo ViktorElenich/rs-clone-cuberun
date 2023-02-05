@@ -33,6 +33,19 @@ export interface CubeProps {
   cubeColor: string;
 }
 
+export interface ArchProps {
+  position: CubePositionCoords;
+  color: string;
+}
+
+export interface Arches extends CubePositionCoords {
+  color: string;
+}
+
+export interface ArchGenerateProps {
+  start: boolean;
+}
+
 export interface inputProps {
   placeholder: string;
   type: string;
@@ -48,3 +61,4 @@ export interface User {
 }
 
 export type UserCreate = Omit<User, "id">
+

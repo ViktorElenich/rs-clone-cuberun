@@ -1,13 +1,9 @@
 import { FC } from 'react';
+import { ArchProps } from '../../interface';
 
 const RADIUS_ARCH = 40;
 const TUBE_ARCH = 4;
 const SEGMENTS_ARCH = 20;
-
-export interface ArchProps {
-  position: { x: number; y: number; z: number };
-  color: string;
-}
 
 const Arch: FC<ArchProps> = ({ position, color }) => {
   const { x, y, z } = position;

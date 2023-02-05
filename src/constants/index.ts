@@ -17,3 +17,5 @@ const gameVariables = {
 }
 
 export { gameVariables }
+
+export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300'];
