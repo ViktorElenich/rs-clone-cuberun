@@ -10,6 +10,7 @@ import EnvironmentComponent from '../EnvironmentComponent';
 import ArchGenerate from '../Arch/ArchGenerate';
 import Speedometer from '../Speedometer';
 import FinishGame from '../FinishGame';
+import { MAIN_COLORS } from '../../constants';
 
 const Index = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -35,11 +36,11 @@ const Index = () => {
         </Bike>
       </Suspense>
       <Suspense fallback={<LoadingGround />}>
-        <Ground />
+        <Ground mainColor={MAIN_COLORS.BLUE} />
       </Suspense>
       <ArchGenerate start={true} />
       <ArchGenerate start={false} />
-      <CubeGenerationComponent />
+      <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
       <Environment background>
         <EnvironmentComponent />
       </Environment>
