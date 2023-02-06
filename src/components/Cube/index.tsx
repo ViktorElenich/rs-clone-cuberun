@@ -12,9 +12,13 @@ import emissiveTexture from "../../textures/customCubeTextures/emissive.png";
 
 import { RepeatWrapping, Texture } from "three";
 import { CUBE_SIZE } from "../../constants";
+import { useStore } from "../../state";
 import { cubeColorsType } from "../../type";
+import { useFrame } from "@react-three/fiber";
 
 const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
+  const bike = useStore((state) => state.bike);
+  const stopGame = useStore((state) => state.stopGame);
   const { x, y, z } = position;
   const boxHeight: number = Math.floor(Math.random() * 20) + 25;
   const txtrs = useTexture([
@@ -24,7 +28,6 @@ const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
     colorPurpleTexture,
     colorGreenTexture,
   ]);
-
 
   const cubeColors: cubeColorsType = {
     blue: txtrs[0],
@@ -48,9 +51,26 @@ const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
     });
   }, []);
 
+  useFrame((state, delta) => {
+    if (bike.current) {
+      if (
+        bike.current.position.x >= x - CUBE_SIZE / 1.5 &&
+        bike.current.position.x <= x + CUBE_SIZE / 1.5 &&
+        bike.current.position.z >= z - CUBE_SIZE &&
+        bike.current.position.z <= z + CUBE_SIZE
+      ) {
+        stopGame();
+      }
+    }
+  });
+
   return (
     <>
-      <mesh position={[x, y + boxHeight / 2, z]} castShadow={true} visible={true}>
+      <mesh
+        position={[x, y + boxHeight / 2, z]}
+        castShadow={true}
+        visible={true}
+      >
         <boxGeometry args={[CUBE_SIZE, boxHeight, CUBE_SIZE]} />
         <meshStandardMaterial
           metalness={0.8}

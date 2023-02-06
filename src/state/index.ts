@@ -9,9 +9,11 @@ const useStore = create<TronState>((set, get) => {
     gameStart: false,
     level: 0,
     score: 0,
+    gameFinish: false,
     directionalLight: createRef(),
     bike: createRef(),
     camera: createRef(),
+    stopGame: () => set((state) => ({ gameFinish: true }))
   };
 });
 
