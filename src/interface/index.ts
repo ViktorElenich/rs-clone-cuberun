@@ -8,6 +8,8 @@ export interface RefObject<T> {
 
 export interface TronState {
   gameStart: boolean;
+  level: number;
+  score: number;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;

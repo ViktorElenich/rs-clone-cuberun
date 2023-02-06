@@ -8,6 +8,7 @@ import CubeGenerationComponent from "../CubeGenerationComponent";
 import { Environment } from "@react-three/drei";
 import EnvironmentComponent from "../EnvironmentComponent";
 import ArchGenerate from "../Arch/ArchGenerate";
+import Speedometer from "../Speedometer";
 
 const Index = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -41,6 +42,7 @@ const Index = () => {
       <Environment background>
         <EnvironmentComponent />
       </Environment>
+      <Speedometer />
     </Canvas>
   )
 }
