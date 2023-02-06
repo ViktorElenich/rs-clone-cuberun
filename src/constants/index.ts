@@ -9,14 +9,12 @@ export const RIGHT_BOUND = (PLANE_SIZE / 2) - 30
 export const CUBE_SIZE = 10;
 export const CUBE_AMOUNT = 60
 
-const gameVariables = {
-    gameSpeed: 0.0,
-    colorLevel: 0,
-    desiredSpeed: 0.0,
-    velocity: 0,
+export const gameVariables = {
+  gameSpeed: 0.0,
+  colorLevel: 0,
+  desiredSpeed: 0.0,
+  velocity: 0,
 }
-
-export { gameVariables }
 
 export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300'];
 
@@ -33,9 +31,9 @@ export const FINISH_POSITION_ARCHES = -2000;
 export const WALL_THICKNESS = 20;
 
 export const MAIN_COLORS = {
-    BLUE: 'blue',
-    RED: 'red',
-    GREEN: 'green',
-    YELLOW: 'yellow',
-    PURPLE: 'purple',
+  BLUE: 'blue',
+  RED: 'red',
+  GREEN: 'green',
+  YELLOW: 'yellow',
+  PURPLE: 'purple',
 }

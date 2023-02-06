@@ -8,6 +8,8 @@ export interface RefObject<T> {
 
 export interface TronState {
   gameStart: boolean;
+  level: number;
+  score: number;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
@@ -60,9 +62,4 @@ export interface User {
   score: number
 }
 
-export type UserCreate = Omit<User, "id">
-
-export type CubeColorsType = {
-  [key: string]: Texture;
-};
 

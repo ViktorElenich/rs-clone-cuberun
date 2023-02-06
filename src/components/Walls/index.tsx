@@ -17,7 +17,7 @@ import colorPurpleTexture from '../../textures/customCubeTextures/basecolor_purp
 import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
 import roughTexture from '../../textures/customCubeTextures/roughness.png';
-import { CubeColorsType } from '../../interface';
+import { CubeColorsType } from '../../type';
 import { RepeatWrapping } from 'three';
 
 const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {
