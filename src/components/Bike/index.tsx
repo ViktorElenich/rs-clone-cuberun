@@ -78,6 +78,10 @@ const Bike: FC<BikeProps> = ({ children }) => {
         }
       }
     }
+
+    if (bike.current) {
+      gameVariables.score = Math.abs(bike.current.position.z) - 10;
+    }
   });
 
   useLayoutEffect(() => {
@@ -125,7 +129,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
       >
         {children}
         <Trail
-          width={18}
+          width={16}
           color={'#22BABB'}
           length={2}
           decay={1}

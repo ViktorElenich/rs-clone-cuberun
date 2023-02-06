@@ -10,6 +10,7 @@ import EnvironmentComponent from "../EnvironmentComponent";
 import ArchGenerate from "../Arch/ArchGenerate";
 import City from "../City";
 import CustomEffects from "../Effects";
+import Speedometer from "../Speedometer";
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -44,6 +45,7 @@ const Game = () => {
       </Environment>
       <City />
       <CustomEffects />
+      <Speedometer />
     </Canvas>
   )
 }
