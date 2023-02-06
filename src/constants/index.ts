@@ -14,6 +14,7 @@ export const gameVariables = {
   colorLevel: 0,
   desiredSpeed: 0.0,
   velocity: 0,
+  score: 0
 }
 
 export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300'];

@@ -1,6 +1,7 @@
 import { useTexture } from '@react-three/drei';
 import { FC, useLayoutEffect } from 'react';
-import { CubeColorsType, CubeProps } from '../../interface';
+import { CubeColorsType } from '../../type';
+import { CubeProps } from '../../interface';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
 import colorYellowTexture from '../../textures/customCubeTextures/basecolor_yellow.png';
 import colorRedTexture from '../../textures/customCubeTextures/basecolor_red.png';
