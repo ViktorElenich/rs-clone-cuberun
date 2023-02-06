@@ -69,7 +69,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
       }
     }
 
-    if (gameStart && !gameFinish) {
+    if (gameStart) {
       if (gameVariables.gameSpeed < gameVariables.desiredSpeed) {
         if (gameVariables.gameSpeed + accelDelta > gameVariables.desiredSpeed) {
           gameVariables.gameSpeed = gameVariables.desiredSpeed;
