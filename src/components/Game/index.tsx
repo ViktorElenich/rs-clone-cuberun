@@ -9,6 +9,7 @@ import { Environment } from "@react-three/drei";
 import EnvironmentComponent from "../EnvironmentComponent";
 import ArchGenerate from "../Arch/ArchGenerate";
 import City from "../City";
+import CustomEffects from "../Effects";
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -19,7 +20,6 @@ const Game = () => {
       dpr={[1, 1.5]}
       style={{ background: '#141622' }}
     >
-      <color attach='background' args={['blue']} />
       <directionalLight
         ref={directionalLight}
         intensity={3}
@@ -43,6 +43,7 @@ const Game = () => {
         <EnvironmentComponent />
       </Environment>
       <City />
+      <CustomEffects />
     </Canvas>
   )
 }

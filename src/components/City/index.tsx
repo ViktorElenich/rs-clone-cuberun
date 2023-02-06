@@ -23,13 +23,15 @@ const City = () => {
   return (
     <>
       <mesh ref={cityRef} position={[0, 200, -2000]}>
-        <boxGeometry attach="geometry" args={[1000, 1000, 1000]} />
+        <boxGeometry attach='geometry' args={[1000, 1000, 1000]} />
         <meshStandardMaterial
           flatShading={true}
           fog={true}
-          metalness={0.3}
+          metalness={0.2}
           map={texture[0]}
           emissiveIntensity={2}
+          emissiveMap={texture[0]}
+          emissive={'#16265c'}
         />
       </mesh>
     </>
