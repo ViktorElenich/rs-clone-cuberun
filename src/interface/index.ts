@@ -15,6 +15,7 @@ export interface TronState {
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
   stopGame: () => void;
+  startGame: () => void;
 }
 
 export interface BikeProps {
