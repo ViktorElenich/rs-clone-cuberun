@@ -1,6 +1,6 @@
-import { Environment, useTexture } from '@react-three/drei';
-import { BackSide, MirroredRepeatWrapping, RepeatWrapping } from 'three';
-import skyStars from '../../assets/stars.jpg';
+import { useTexture } from "@react-three/drei";
+import { BackSide, MirroredRepeatWrapping } from "three";
+import skyStars from "../../assets/stars.jpg";
 
 const EnvironmentComponent = () => {
   const texture = useTexture([skyStars]);

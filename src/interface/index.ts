@@ -1,11 +1,13 @@
-import { DirectionalLight, Group, PerspectiveCamera, Texture } from 'three';
-import { ChangeEvent, ReactNode } from 'react';
+import { DirectionalLight, Group, PerspectiveCamera, Texture } from "three";
+import { ChangeEvent, ReactNode } from "react";
+
 
 export interface RefObject<T> {
   readonly current: T | null;
 }
 
 export interface TronState {
+  gameStart: boolean;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
@@ -23,6 +25,25 @@ export interface CubePositionCoords {
   x: number,
   y: number,
   z: number,
+}
+
+export interface CubeProps {
+  position: CubePositionCoords;
+  key: number;
+  cubeColor: string;
+}
+
+export interface ArchProps {
+  position: CubePositionCoords;
+  color: string;
+}
+
+export interface Arches extends CubePositionCoords {
+  color: string;
+}
+
+export interface ArchGenerateProps {
+  start: boolean;
 }
 
 export interface inputProps {
@@ -44,3 +65,4 @@ export type UserCreate = Omit<User, "id">
 export type CubeColorsType = {
   [key: string]: Texture;
 };
+
