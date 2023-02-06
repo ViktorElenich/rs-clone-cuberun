@@ -54,8 +54,8 @@ const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
   useFrame((state, delta) => {
     if (bike.current) {
       if (
-        bike.current.position.x >= x - CUBE_SIZE / 1.5 &&
-        bike.current.position.x <= x + CUBE_SIZE / 1.5 &&
+        bike.current.position.x >= x - CUBE_SIZE / 1.8 &&
+        bike.current.position.x <= x + CUBE_SIZE / 1.8 &&
         bike.current.position.z >= z - CUBE_SIZE &&
         bike.current.position.z <= z + CUBE_SIZE
       ) {

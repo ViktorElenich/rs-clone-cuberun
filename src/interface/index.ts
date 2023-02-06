@@ -10,7 +10,7 @@ export interface TronState {
   gameStart: boolean;
   level: number;
   score: number;
-  gameFinish: boolean;
+  loseGame: boolean;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;

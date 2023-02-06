@@ -8,7 +8,7 @@
   height: 100vh;
   font-family: 'Tr2n', sans-serif;
   transform: none !important;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 1);
 }
 
 .window-loses__header {

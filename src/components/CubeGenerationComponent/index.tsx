@@ -7,8 +7,10 @@ import {
   RIGHT_BOUND,
 } from '../../constants';
 import { randomInRange } from '../../utils';
+import { useStore } from '../../state';
 
 const CubeGenerationComponent = () => {
+  const gameStart = useStore((state) => state.gameStart);
   const distance = CUBE_SIZE * 2;
   const ids = useRef(1);
   let cubeColor = 'blue';
@@ -22,7 +24,7 @@ const CubeGenerationComponent = () => {
       temp.push({ x, y, z });
     }
     return temp;
-  }, []);
+  }, [gameStart]);
 
   return (
     <>

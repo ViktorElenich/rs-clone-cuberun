@@ -13,7 +13,6 @@ import FinishGame from '../FinishGame';
 
 const Index = () => {
   const directionalLight = useStore((state) => state.directionalLight);
-  const gameFinish = useStore((state) => state.gameFinish);
 
   return (
     <Canvas
@@ -45,7 +44,7 @@ const Index = () => {
         <EnvironmentComponent />
       </Environment>
       <Speedometer />
-      {gameFinish && <FinishGame />}
+      <FinishGame />
     </Canvas>
   );
 };

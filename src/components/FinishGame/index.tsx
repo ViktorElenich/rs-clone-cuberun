@@ -7,6 +7,11 @@ import './style.css';
 const FinishGame = () => {
   const bike = useStore((state) => state.bike);
   const startGame = useStore((state) => state.startGame);
+  const loseGame = useStore((state) => state.loseGame);
+
+  if (!loseGame) {
+    return <></>;
+  }
 
   const tryAgainHanler = () => {
     if (bike.current) {
