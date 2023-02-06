@@ -1,4 +1,4 @@
-import { DirectionalLight, Group, PerspectiveCamera } from 'three';
+import { DirectionalLight, Group, PerspectiveCamera, Texture } from 'three';
 import { ChangeEvent, ReactNode } from 'react';
 
 export interface RefObject<T> {
@@ -40,3 +40,7 @@ export interface User {
 }
 
 export type UserCreate = Omit<User, "id">
+
+export type CubeColorsType = {
+  [key: string]: Texture;
+};

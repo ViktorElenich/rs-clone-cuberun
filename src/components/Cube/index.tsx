@@ -1,6 +1,6 @@
 import { useTexture } from '@react-three/drei';
 import { FC, useEffect, useLayoutEffect, useRef } from 'react';
-import { CubePositionCoords } from '../../interface';
+import { CubeColorsType, CubePositionCoords } from '../../interface';
 import { angleToRadians } from '../../utils';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
 import colorYellowTexture from '../../textures/customCubeTextures/basecolor_yellow.png';
@@ -29,12 +29,8 @@ const Cube: FC<{
     colorPurpleTexture,
     colorGreenTexture,
   ]);
-  console.log(txtrs);
-  type cubeColorsType = {
-    [key: string]: Texture;
-  };
 
-  const cubeColors: cubeColorsType = {
+  const cubeColors: CubeColorsType = {
     blue: txtrs[0],
     yellow: txtrs[1],
     red: txtrs[2],

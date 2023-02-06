@@ -1,18 +1,22 @@
-import { RefObject, useEffect, useMemo, useRef } from 'react';
+import { FC, RefObject, useEffect, useMemo, useRef } from 'react';
 import Cube from '../components/Cube';
-import { CUBE_AMOUNT, CUBE_SIZE, LEFT_BOUND, RIGHT_BOUND } from '../constants';
+import {
+  CUBE_AMOUNT,
+  CUBE_SIZE,
+  LEFT_BOUND,
+  PLANE_SIZE,
+  RIGHT_BOUND,
+} from '../constants';
 import { randomInRange } from '../utils';
 
-const CubeGenerationComponent = () => {
-  const distance = CUBE_SIZE * 2;
+const CubeGenerationComponent: FC<{ cubeColor: string }> = ({ cubeColor }) => {
   const ids = useRef(1);
-  let cubeColor = 'blue';
   const cubes = useMemo(() => {
     const temp = [];
     for (let i = 0; i < CUBE_AMOUNT; i++) {
       const x = randomInRange(LEFT_BOUND, RIGHT_BOUND);
       const y = 0;
-      const z = -randomInRange(0, 900);
+      const z = -randomInRange(0, PLANE_SIZE / 2);
 
       temp.push({ x, y, z });
     }
