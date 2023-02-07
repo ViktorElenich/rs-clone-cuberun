@@ -1,16 +1,17 @@
-import { Suspense } from "react";
-import Bike from "../Bike";
-import LoadingGround from "../Loading/LoadingGround";
-import Ground from "../Ground";
-import { Canvas } from "@react-three/fiber";
-import { useStore } from "../../state";
-import CubeGenerationComponent from "../CubeGenerationComponent";
-import { Environment } from "@react-three/drei";
-import EnvironmentComponent from "../EnvironmentComponent";
-import ArchGenerate from "../Arch/ArchGenerate";
-import City from "../City";
-import CustomEffects from "../Effects";
-import Speedometer from "../Speedometer";
+import { Suspense } from 'react';
+import Bike from '../Bike';
+import LoadingGround from '../Loading/LoadingGround';
+import Ground from '../Ground';
+import { Canvas } from '@react-three/fiber';
+import { useStore } from '../../state';
+import CubeGenerationComponent from '../CubeGenerationComponent';
+import { Environment } from '@react-three/drei';
+import EnvironmentComponent from '../EnvironmentComponent';
+import ArchGenerate from '../Arch/ArchGenerate';
+import Speedometer from '../Speedometer';
+import City from '../City';
+import CustomEffects from '../Effects';
+import { MAIN_COLORS } from '../../constants';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -35,11 +36,11 @@ const Game = () => {
         </Bike>
       </Suspense>
       <Suspense fallback={<LoadingGround />}>
-        <Ground />
+        <Ground mainColor={MAIN_COLORS.BLUE} />
       </Suspense>
       <ArchGenerate start={true} />
       <ArchGenerate start={false} />
-      <CubeGenerationComponent />
+      <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
       <Environment background>
         <EnvironmentComponent />
       </Environment>
@@ -47,7 +48,7 @@ const Game = () => {
       <CustomEffects />
       <Speedometer />
     </Canvas>
-  )
-}
+  );
+};
 
 export default Game;
