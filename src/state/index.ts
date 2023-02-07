@@ -6,6 +6,7 @@ const useStore = create<TronState>((set, get) => {
   return {
     set,
     get,
+    gameStart: true,
     gameStart: false,
     level: 0,
     score: 0,

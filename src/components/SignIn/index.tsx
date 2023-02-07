@@ -1,11 +1,11 @@
-import './style.css';
-import { ChangeEvent, useEffect, useState } from 'react';
-import BaseButton from '../BaseButton';
-import BaseInput from '../BaseInput';
+import "./style.css";
+import { ChangeEvent, useEffect, useState } from "react";
+import BaseButton from "../BaseButton";
+import BaseInput from "../BaseInput";
 
-import logo from '../../assets/logo-tron.png';
-import { checkExistentUser } from '../../utils/checkDataBase';
-import { User } from '../../interface';
+import logo from "../../assets/logo-tron.png";
+import { checkExistentUser } from "../../utils/checkDataBase";
+import { User } from "../../interface";
 
 const SignInComponent = () => {
   const [login, setLogin] = useState('');
@@ -40,7 +40,7 @@ const SignInComponent = () => {
         setWrongPassword(false);
         setUserExists(checkUser);
 
-        // redirect to Game menu timeout 3...2...1
+        // redirect to Index menu timeout 3...2...1
       } else {
         setWrongPassword(true);
       }

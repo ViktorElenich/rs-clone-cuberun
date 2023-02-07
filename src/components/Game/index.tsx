@@ -10,9 +10,11 @@ import EnvironmentComponent from '../EnvironmentComponent';
 import ArchGenerate from '../Arch/ArchGenerate';
 import Speedometer from '../Speedometer';
 import FinishGame from '../FinishGame';
+import City from '../City';
+import CustomEffects from '../Effects';
 import { MAIN_COLORS } from '../../constants';
 
-const Index = () => {
+const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
 
   return (
@@ -21,7 +23,6 @@ const Index = () => {
       dpr={[1, 1.5]}
       style={{ background: '#141622' }}
     >
-      <color attach='background' args={['blue']} />
       <directionalLight
         ref={directionalLight}
         intensity={3}
@@ -44,10 +45,12 @@ const Index = () => {
       <Environment background>
         <EnvironmentComponent />
       </Environment>
+      <City />
+      <CustomEffects />
       <Speedometer />
       <FinishGame />
     </Canvas>
   );
 };
 
-export default Index;
+export default Game;
