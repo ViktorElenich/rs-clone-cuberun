@@ -1,13 +1,7 @@
 import { Box, useTexture } from '@react-three/drei';
 import { FC, useLayoutEffect, useRef } from 'react';
 
-import {
-  LEFT_BOUND,
-  PLANE_SIZE,
-  RIGHT_BOUND,
-  TEXTURE_SIZE,
-  WALL_THICKNESS,
-} from '../../constants';
+import { LEFT_BOUND, PLANE_SIZE, RIGHT_BOUND, TEXTURE_SIZE, WALL_THICKNESS } from '../../constants';
 
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
 import colorRedTexture from '../../textures/customCubeTextures/basecolor_red.png';
@@ -18,11 +12,16 @@ import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
 import roughTexture from '../../textures/customCubeTextures/roughness.png';
 import { CubeColorsType } from '../../type';
-import { RepeatWrapping } from 'three';
+import { Mesh, RepeatWrapping } from 'three';
+import { useStore } from '../../state';
+import { useFrame } from '@react-three/fiber';
+import { RefObject } from '../../interface';
 
 const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {
+  const bike = useStore((state) => state.bike);
   const wallHeight = 50;
-  const rightWall = useRef();
+  const rightWall = useRef() as RefObject<Mesh>;
+  const leftWall = useRef() as RefObject<Mesh>;
   const colorTextures = useTexture([
     colorBlueTexture,
     colorRedTexture,
@@ -43,6 +42,13 @@ const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {
     roughTexture,
   ]);
   const actualColorMap = colorMaps[wallColor];
+
+  useFrame((state, delta) => {
+    if (bike.current) {
+      rightWall.current!.position.z = bike.current.position.z;
+      leftWall.current!.position.z = bike.current.position.z;
+    }
+  })
 
   useLayoutEffect(() => {
     [actualColorMap, roughMap, bumpMap, emissiveMap].forEach((texture) => {
@@ -70,7 +76,7 @@ const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {
         />
       </Box>
       <Box
-        ref={rightWall}
+        ref={leftWall}
         args={[WALL_THICKNESS, wallHeight, PLANE_SIZE * 2]}
         position={[RIGHT_BOUND, wallHeight / 2, 0]}
       >
