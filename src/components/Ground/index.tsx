@@ -1,19 +1,8 @@
 import React, { FC, MutableRefObject, useLayoutEffect, useRef } from 'react';
-import { Plane, useTexture } from '@react-three/drei';
-import {
-  BufferGeometry,
-  Group,
-  Mesh,
-  MeshStandardMaterial,
-  RepeatWrapping,
-} from 'three';
+import { useTexture } from '@react-three/drei';
+import { BufferGeometry, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from 'three';
 import { useStore } from '../../state';
-import {
-  gameVariables,
-  MOVE_DISTANCE,
-  PLANE_SIZE,
-  TEXTURE_SIZE,
-} from '../../constants';
+import { gameVariables, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from '../../constants';
 import { RefObject } from '../../interface';
 
 import gridRed from '../../textures/grid-red.png';
@@ -89,27 +78,46 @@ const Ground: FC<{ mainColor: string }> = ({ mainColor }) => {
 
   return (
     <>
-      <group ref={ground} position={[0, 0, PLANE_SIZE / 2]}>
-        <Plane
-          args={[PLANE_SIZE, PLANE_SIZE]}
+      <group ref={ground} position={[0, 0, -(PLANE_SIZE / 2)]}>
+        <mesh
           ref={plane}
-          receiveShadow
-          visible
           rotation={[-Math.PI / 2, 0, 0]}
         >
-          <meshBasicMaterial color={mainColor} map={textures[0]} />
-        </Plane>
+          <planeGeometry
+            attach='geometry'
+            args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
+          />
+          <meshStandardMaterial
+            color={mainColor}
+            emissiveMap={textures[1]}
+            emissive={'#0074cc'}
+            emissiveIntensity={0}
+            attach='material'
+            map={textures[0]}
+            roughness={1}
+            metalness={0}
+          />
+        </mesh>
       </group>
-      <group ref={groundBack} position={[0, 0, -(PLANE_SIZE / 2)]}>
-        <Plane
-          args={[PLANE_SIZE, PLANE_SIZE]}
+      <group ref={groundBack} position={[0, 0, -PLANE_SIZE - PLANE_SIZE / 2]}>
+        <mesh
           ref={planeTwo}
-          receiveShadow={true}
-          visible={true}
           rotation={[-Math.PI / 2, 0, 0]}
         >
-          <meshBasicMaterial color={mainColor} map={textures[0]} />
-        </Plane>
+          <planeGeometry
+            attach='geometry'
+            args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
+          />
+          <meshStandardMaterial
+            color={mainColor}
+            emissive={'#0074cc'}
+            emissiveMap={textures[1]}
+            attach='material'
+            map={textures[0]}
+            roughness={1}
+            metalness={0}
+          />
+        </mesh>
       </group>
     </>
   );
