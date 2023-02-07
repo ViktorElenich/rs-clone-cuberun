@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { KeyboardControls, KeyboardControlsEntry } from "@react-three/drei";
 import { Controls } from "./enums";
-import Game from "./components/Game";
+import Index from "./components/Game";
 
 function App() {
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
@@ -14,7 +14,7 @@ function App() {
 
   return (
     <KeyboardControls map={map}>
-      <Game />
+      <Index />
     </KeyboardControls>
   );
 }
