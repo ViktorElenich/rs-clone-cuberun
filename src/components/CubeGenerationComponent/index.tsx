@@ -8,8 +8,10 @@ import {
   RIGHT_BOUND,
 } from '../../constants';
 import { randomInRange } from '../../utils';
+import { useStore } from '../../state';
 
 const CubeGenerationComponent: FC<{ cubeColor: string }> = ({ cubeColor }) => {
+  const gameStart = useStore((state) => state.gameStart);
   const ids = useRef(1);
 
   const cubes = useMemo(() => {
@@ -22,7 +24,7 @@ const CubeGenerationComponent: FC<{ cubeColor: string }> = ({ cubeColor }) => {
       temp.push({ x, y, z });
     }
     return temp;
-  }, []);
+  }, [gameStart]);
 
   return (
     <>
