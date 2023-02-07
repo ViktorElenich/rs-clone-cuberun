@@ -9,6 +9,7 @@ import { Environment } from '@react-three/drei';
 import EnvironmentComponent from '../EnvironmentComponent';
 import ArchGenerate from '../Arch/ArchGenerate';
 import Speedometer from '../Speedometer';
+import FinishGame from '../FinishGame';
 import City from '../City';
 import CustomEffects from '../Effects';
 import Walls from '../Walls';
@@ -49,6 +50,7 @@ const Game = () => {
       <City />
       <CustomEffects />
       <Speedometer />
+      <FinishGame />
     </Canvas>
   );
 };
