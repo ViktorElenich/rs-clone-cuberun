@@ -1,12 +1,12 @@
-import React, { FC, MutableRefObject, useEffect, useLayoutEffect, useRef } from "react";
-import { PerspectiveCamera, Trail, useGLTF, useKeyboardControls } from "@react-three/drei";
-import { GLTFResult } from "../../type";
-import { useStore } from "../../state";
-import { BikeProps, RefObject } from "../../interface";
-import { Object3D, PointLight, Vector3 } from "three";
-import { useFrame } from "@react-three/fiber";
-import { gameVariables, INITIAL_GAME_SPEED } from "../../constants";
-import { Controls } from "../../enums";
+import React, { FC, MutableRefObject, useEffect, useLayoutEffect, useRef } from 'react';
+import { PerspectiveCamera, Trail, useGLTF, useKeyboardControls } from '@react-three/drei';
+import { GLTFResult } from '../../type';
+import { useStore } from '../../state';
+import { BikeProps, RefObject } from '../../interface';
+import { Object3D, PointLight, Vector3 } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { gameVariables, INITIAL_GAME_SPEED } from '../../constants';
+import { Controls } from '../../enums';
 
 const vector = new Vector3();
 
@@ -129,7 +129,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
       >
         {children}
         <Trail
-          width={16}
+          width={12}
           color={'#22BABB'}
           length={2}
           decay={1}

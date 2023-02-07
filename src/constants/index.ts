@@ -38,3 +38,10 @@ export const MAIN_COLORS = {
   YELLOW: 'yellow',
   PURPLE: 'purple',
 }
+
+export const HAS_GAP = true;
+export const GAP_SIZE = 3;
+export const SIZE_RHOMBUS = 21;
+export const TUNNEL_LENGTH = 10;
+export const parts = (PLANE_SIZE - WALL_THICKNESS / 2) / CUBE_SIZE;
+export const minusBound = -(PLANE_SIZE / 2) + WALL_THICKNESS / 2;

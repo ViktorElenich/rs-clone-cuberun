@@ -13,6 +13,7 @@ import City from '../City';
 import CustomEffects from '../Effects';
 import Walls from '../Walls';
 import { MAIN_COLORS } from '../../constants';
+import CubeTunel from '../CubeTunel';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -46,6 +47,7 @@ const Game = () => {
         <EnvironmentComponent />
       </Environment>
       <Walls wallColor={MAIN_COLORS.BLUE} />
+      <CubeTunel />
       <City />
       <CustomEffects />
       <Speedometer />
