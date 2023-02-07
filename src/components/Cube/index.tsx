@@ -13,8 +13,12 @@ import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
 
 import { RepeatWrapping, Texture } from 'three';
 import { CUBE_SIZE } from '../../constants';
+import { useStore } from '../../state';
+import { useFrame } from '@react-three/fiber';
 
 const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
+  const bike = useStore((state) => state.bike);
+  const stopGame = useStore((state) => state.stopGame);
   const { x, y, z } = position;
   const boxHeight: number = Math.floor(Math.random() * 20) + 25;
   const txtrs = useTexture([
@@ -46,6 +50,19 @@ const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
       texture.anisotropy = 16;
     });
   }, []);
+
+  useFrame((state, delta) => {
+    if (bike.current) {
+      if (
+        bike.current.position.x >= x - CUBE_SIZE / 1.8 &&
+        bike.current.position.x <= x + CUBE_SIZE / 1.8 &&
+        bike.current.position.z >= z - CUBE_SIZE &&
+        bike.current.position.z <= z + CUBE_SIZE
+      ) {
+        stopGame();
+      }
+    }
+  });
 
   return (
     <>

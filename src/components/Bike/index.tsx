@@ -14,10 +14,10 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const bike = useStore((state) => state.bike);
   const camera = useStore((state) => state.camera);
   const gameStart = useStore((state) => state.gameStart);
+  const loseGame = useStore((state) => state.loseGame);
   const pointLight = useRef() as RefObject<PointLight>;
   const bikeLine = useRef() as MutableRefObject<Object3D<Event>>;
   const [sub, get] = useKeyboardControls<Controls>();
-
 
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
@@ -61,15 +61,15 @@ const Bike: FC<BikeProps> = ({ children }) => {
     }
 
     if (gameVariables.gameSpeed > 0) {
-      if ((left && !right)) {
+      if (left && !right) {
         gameVariables.velocity = Math.max(-0.7, gameVariables.velocity - accelDeltaIncline);
       }
-      if ((!left && right)) {
+      if (!left && right) {
         gameVariables.velocity = Math.min(0.7, gameVariables.velocity + accelDeltaIncline);
       }
     }
 
-    if (gameStart) {
+    if (gameStart && !loseGame) {
       if (gameVariables.gameSpeed < gameVariables.desiredSpeed) {
         if (gameVariables.gameSpeed + accelDelta > gameVariables.desiredSpeed) {
           gameVariables.gameSpeed = gameVariables.desiredSpeed;
@@ -77,6 +77,11 @@ const Bike: FC<BikeProps> = ({ children }) => {
           gameVariables.gameSpeed += accelDelta;
         }
       }
+    }
+
+    if (loseGame) {
+      gameVariables.velocity = 0;
+      gameVariables.gameSpeed = 0;
     }
 
     if (bike.current) {
