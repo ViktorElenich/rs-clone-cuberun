@@ -7,7 +7,7 @@ const useStore = create<TronState>((set, get) => {
   return {
     set,
     get,
-
+    name: null,
     gameStart: true,
     level: 0,
     score: 0,
@@ -17,7 +17,6 @@ const useStore = create<TronState>((set, get) => {
     camera: createRef(),
     stopGame: () => set({ gameStart: false, loseGame: true }),
     startGame: () => set(() => ({ gameStart: true, loseGame: false })),
-    getAllScores: async () => await allScores()
   };
 });
 

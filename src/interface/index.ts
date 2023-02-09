@@ -7,6 +7,7 @@ export interface RefObject<T> {
 }
 
 export interface TronState {
+  name: string | null,
   gameStart: boolean;
   level: number;
   score: number;
@@ -63,6 +64,9 @@ export interface User {
   name: string,
   password: string,
   score: number
+}
+export interface ScoreMap {
+  userName: string, userScore: number
 }
 
 

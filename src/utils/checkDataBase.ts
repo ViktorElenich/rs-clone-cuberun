@@ -1,10 +1,10 @@
-import { User } from '../interface';
+import { ScoreMap, User } from '../interface';
 
-export async function checkExistentUser(name: string) {
+export async function checkExistentUser(name: string): Promise<User | null> {
     const users = await getUsers();
     console.log(users);
     if (users.length === 0) {
-        console.log("no users list recieved");
+        console.log("no users list received");
         return null
 
     }
@@ -24,21 +24,38 @@ export async function getUsers() {
             'Content-type': "application/json"
         }
     }).catch();
-    return await res.json().catch();
+    return await res.json();
 }
 
-export async function createUser(name: string, password: string, score: number = 0) {
-    return await fetch('https://cuberun-server.onrender.com/users', {
+
+export async function addNewUser(name: string, password: string, score: number = 0) {
+    const res = await fetch('https://cuberun-server.onrender.com/auth/registration', {
         method: "POST",
         headers: {
             'Content-type': "application/json",
-            body: JSON.stringify({ name, password, score })
-        }
-    }).catch();
+        },
+        body: JSON.stringify({ name, password, score })
+    }).catch()
+    console.log(res);
+    return res.ok;
 }
 
-export async function allScores() {
+export async function authorizeUser(name: string, password: string) {
+    const res = await fetch('https://cuberun-server.onrender.com/auth/login', {
+        method: "POST",
+        headers: {
+            'Content-type': "application/json",
+        },
+        body: JSON.stringify({ name, password, score: 0 })
+    }).catch();
+    console.log("---------------");
+    console.log(res);
+
+}
+
+export async function allScores(): Promise<ScoreMap[]> {
     const users = await getUsers();
     return users.map((u: User) => ({ userName: u.name, userScore: u.score }))
 
 }
+
