@@ -144,13 +144,6 @@ export const createRhombus = (sizeRhombus: number, tunnelLength: number) => {
     ...innerLeftWall,
     ...innerRightWall,
   ];
-  const secondRhombus = firstRhombus.map((coordinates, index) => ({
-    ...coordinates,
-    z:
-      index >= 42
-        ? coordinates.z - 700
-        : coordinates.z - sizeRhombus * CUBE_SIZE * 1.75,
-  }));
   const finalTunnel = [
     { x: 60, y: 10, z: -2045 },
     { x: -60, y: 10, z: -2045 },
@@ -178,7 +171,7 @@ export const createRhombus = (sizeRhombus: number, tunnelLength: number) => {
     { x: -40, y: 10, z: -2265 },
   ];
 
-  return [...firstRhombus, ...secondRhombus, ...finalTunnel];
+  return [...firstRhombus, ...finalTunnel];
 };
 
 export const generateRhombus = () => [
@@ -191,7 +184,7 @@ export const generateCubeTunnel = () => [
   ...createWallTunnel(HAS_GAP, GAP_SIZE),
   ...createTunnel()
 ];
-export const distance2D = (p1x: number, p1y: number, p2x: number, p2y: number) => {
+export const distanceBetweenCubes = (p1x: number, p1y: number, p2x: number, p2y: number) => {
   const a = p2x - p1x;
   const b = p2y - p1y;
 

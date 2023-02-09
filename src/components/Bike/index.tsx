@@ -1,17 +1,29 @@
-import React, { FC, MutableRefObject, useEffect, useLayoutEffect, useRef } from 'react';
-import { PerspectiveCamera, Trail, useGLTF, useKeyboardControls } from '@react-three/drei';
+import React, {
+  FC,
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react';
+import {
+  PerspectiveCamera,
+  Trail,
+  useGLTF,
+  useKeyboardControls,
+} from '@react-three/drei';
+import { Object3D, PointLight, Vector3 } from 'three';
+import { useFrame } from '@react-three/fiber';
 import { GLTFResult } from '../../type';
 import { useStore } from '../../state';
 import { BikeProps, RefObject } from '../../interface';
-import { Object3D, PointLight, Vector3 } from 'three';
-import { useFrame } from '@react-three/fiber';
-import { gameVariables, INITIAL_GAME_SPEED } from '../../constants';
+import { gameVariables, INITIAL_GAME_SPEED, PLANE_SIZE } from '../../constants';
 import { Controls } from '../../enums';
 
 const vector = new Vector3();
 
 const Bike: FC<BikeProps> = ({ children }) => {
   const bike = useStore((state) => state.bike);
+  const level = useStore((state) => state.level);
   const camera = useStore((state) => state.camera);
   const gameStart = useStore((state) => state.gameStart);
   const loseGame = useStore((state) => state.loseGame);
@@ -62,10 +74,16 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     if (gameVariables.gameSpeed > 0) {
       if (left && !right) {
-        gameVariables.velocity = Math.max(-0.7, gameVariables.velocity - accelDeltaIncline);
+        gameVariables.velocity = Math.max(
+          -0.7,
+          gameVariables.velocity - accelDeltaIncline,
+        );
       }
       if (!left && right) {
-        gameVariables.velocity = Math.min(0.7, gameVariables.velocity + accelDeltaIncline);
+        gameVariables.velocity = Math.min(
+          0.7,
+          gameVariables.velocity + accelDeltaIncline,
+        );
       }
     }
 
@@ -86,6 +104,10 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     if (bike.current) {
       gameVariables.score = Math.abs(bike.current.position.z) - 10;
+      gameVariables.shouldShiftItems =
+        bike.current.position.z < -400 &&
+        bike.current.position.z < gameVariables.currentLevelLength - 400 &&
+        bike.current.position.z > gameVariables.currentLevelLength - 1000;
     }
   });
 
@@ -108,6 +130,10 @@ const Bike: FC<BikeProps> = ({ children }) => {
       gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
     }
   }, [gameStart]);
+
+  useEffect(() => {
+    gameVariables.currentLevelLength = -(level * PLANE_SIZE * 6);
+  }, [level]);
 
   return (
     <>
@@ -135,7 +161,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
         {children}
         <Trail
           width={12}
-          color={'#22BABB'}
+          color='#22BABB'
           length={2}
           decay={1}
           local={false}

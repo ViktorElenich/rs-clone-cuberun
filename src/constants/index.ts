@@ -2,6 +2,7 @@ export const PLANE_SIZE = 1000;
 export const TEXTURE_SIZE = PLANE_SIZE * 0.05;
 export const MOVE_DISTANCE = PLANE_SIZE * 2;
 export const INITIAL_GAME_SPEED = 0.8;
+export const INCREMENT_GAME_SPEED = 0.2;
 
 export const LEFT_BOUND = (-PLANE_SIZE / 2) + 30
 export const RIGHT_BOUND = (PLANE_SIZE / 2) - 30
@@ -14,10 +15,12 @@ export const gameVariables = {
   colorLevel: 0,
   desiredSpeed: 0.0,
   velocity: 0,
-  score: 0
+  score: 0,
+  currentLevelLength: 0,
+  shouldShiftItems: false
 }
 
-export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300'];
+export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300', '#26a300', 'purple', '#38184C'];
 
 export const RADIUS_ARCH = 40;
 export const TUBE_ARCH = 4;
@@ -25,8 +28,8 @@ export const SEGMENTS_ARCH = 20;
 
 export const CURRENT_LEVEL = 1;
 export const DISTANCE_ARCH = 40;
-export const ARCH_AMOUNT = 5;
-export const START_POSITION_ARCHES = -300;
+export const ARCH_AMOUNT = 8;
+export const START_POSITION_ARCHES = -420;
 export const FINISH_POSITION_ARCHES = -2000;
 
 export const WALL_THICKNESS = 20;
@@ -40,8 +43,8 @@ export const MAIN_COLORS = {
 }
 
 export const HAS_GAP = true;
-export const GAP_SIZE = 3;
-export const SIZE_RHOMBUS = 21;
-export const TUNNEL_LENGTH = 10;
+export const GAP_SIZE = 7;
+export const SIZE_RHOMBUS = 90;
+export const TUNNEL_LENGTH = 2;
 export const parts = (PLANE_SIZE - WALL_THICKNESS / 2) / CUBE_SIZE;
 export const minusBound = -(PLANE_SIZE / 2) + WALL_THICKNESS / 2;

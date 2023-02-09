@@ -6,7 +6,7 @@ const useStore = create<TronState>((set, get) => {
   return {
     set,
     get,
-    gameStart: false,
+    gameStart: true,
     level: 0,
     score: 0,
     loseGame: false,
@@ -14,8 +14,9 @@ const useStore = create<TronState>((set, get) => {
     bike: createRef(),
     camera: createRef(),
     stopGame: () => set({ gameStart: false, loseGame: true }),
-    startGame: () => set(() => ({ gameStart: true, loseGame: false }))
+    startGame: () => set(() => ({ gameStart: true, loseGame: false })),
+    setLevelUp: () => set((state) => ({ level: state.level + 1})),
   };
 });
 
-export { useStore };
+export { useStore }

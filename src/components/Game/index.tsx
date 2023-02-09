@@ -14,7 +14,7 @@ import City from '../City';
 import CustomEffects from '../Effects';
 import Walls from '../Walls';
 import { MAIN_COLORS } from '../../constants';
-import CubeTunel from '../CubeTunel';
+import Tunnel from '../Tunnel';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -41,14 +41,14 @@ const Game = () => {
       <Suspense fallback={<LoadingGround />}>
         <Ground mainColor={MAIN_COLORS.BLUE} />
       </Suspense>
-      <ArchGenerate start={true} />
-      <ArchGenerate start={false} />
+      {/*<ArchGenerate start={true} />
+      <ArchGenerate start={false} />*/}
       <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
       <Environment background>
         <EnvironmentComponent />
       </Environment>
       <Walls wallColor={MAIN_COLORS.BLUE} />
-      <CubeTunel />
+      <Tunnel />
       <City />
       <CustomEffects />
       <Speedometer />

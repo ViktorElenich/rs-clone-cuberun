@@ -1,5 +1,7 @@
 import { useTexture } from '@react-three/drei';
-import { FC, useLayoutEffect } from 'react';
+import { FC, useLayoutEffect, useMemo } from 'react';
+import { RepeatWrapping, Texture } from 'three';
+import { useFrame } from '@react-three/fiber';
 import { CubeColorsType } from '../../type';
 import { CubeProps } from '../../interface';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
@@ -8,19 +10,18 @@ import colorRedTexture from '../../textures/customCubeTextures/basecolor_red.png
 import colorPurpleTexture from '../../textures/customCubeTextures/basecolor_purple.png';
 import colorGreenTexture from '../../textures/customCubeTextures/basecolor_green.png';
 import roughTexture from '../../textures/customCubeTextures/roughness.png';
+
 import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
-
-import { RepeatWrapping, Texture } from 'three';
-import { CUBE_SIZE } from '../../constants';
+import { CUBE_SIZE, PLANE_SIZE } from '../../constants';
 import { useStore } from '../../state';
-import { useFrame } from '@react-three/fiber';
 
 const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
   const bike = useStore((state) => state.bike);
   const stopGame = useStore((state) => state.stopGame);
   const { x, y, z } = position;
   const boxHeight: number = Math.floor(Math.random() * 20) + 25;
+
   const txtrs = useTexture([
     colorBlueTexture,
     colorYellowTexture,
