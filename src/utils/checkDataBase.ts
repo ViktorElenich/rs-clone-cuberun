@@ -46,11 +46,9 @@ export async function authorizeUser(name: string, password: string) {
         headers: {
             'Content-type': "application/json",
         },
-        body: JSON.stringify({ name, password, score: 0 })
+        body: JSON.stringify({ name, password })
     }).catch();
-    console.log("---------------");
-    console.log(res);
-
+    return res.status;
 }
 
 export async function allScores(): Promise<ScoreMap[]> {

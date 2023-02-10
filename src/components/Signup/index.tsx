@@ -3,11 +3,7 @@ import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
 import logo from '../../assets/logo-tron.png';
-import {
-  addNewUser,
-  checkExistentUser,
-  getUsers,
-} from '../../utils/checkDataBase';
+import { addNewUser, checkExistentUser } from '../../utils/checkDataBase';
 import { useStore } from '../../state';
 
 const SignUpForm = () => {
@@ -18,8 +14,6 @@ const SignUpForm = () => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
   const [inProgress, setInProgress] = useState(false);
-
-  const sub = useStore.subscribe(console.log);
 
   const changeLoginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -36,7 +30,6 @@ const SignUpForm = () => {
   async function createAccount() {
     if (login.trim() === '') {
       setEmptyLogin(true);
-
       return;
     }
     if (password.trim() === '') {
@@ -55,13 +48,16 @@ const SignUpForm = () => {
     const acc = await addNewUser(login, password, 0);
     if (acc) {
       setUserCreated(true);
-      useStore.setState({ name: login });
       // redirect to game menu
     }
-
-    console.log('acc', acc);
     setInProgress(false);
   }
+  useEffect(() => {
+    if (userCreated)
+      useStore.setState({
+        name: login,
+      });
+  }, [userCreated]);
 
   return (
     <div className='sign-up-menu'>

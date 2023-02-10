@@ -2,12 +2,10 @@ import './style.css';
 import { ChangeEvent, useEffect, useState } from 'react';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
-
 import logo from '../../assets/logo-tron.png';
 import { authorizeUser, checkExistentUser } from '../../utils/checkDataBase';
 import { User } from '../../interface';
 import { useStore } from '../../state';
-import { log } from 'console';
 
 const AuthForm = () => {
   const [login, setLogin] = useState('');
@@ -17,8 +15,6 @@ const AuthForm = () => {
   const [noUser, setNoUser] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
   const [inProgress, setInProgress] = useState(false);
-
-  const sub = useStore.subscribe(console.log);
 
   const changeLoginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -40,18 +36,18 @@ const AuthForm = () => {
     if (!checkUser) {
       setNoUser(true);
     } else {
-      if (checkUser.password === password) {
-        await authorizeUser(login, password);
-        setWrongPassword(false);
-        setUserExists(checkUser);
-        console.log(userExists);
-      } else {
+      const status = await authorizeUser(login, password);
+      if (status === 401) {
         setWrongPassword(true);
+        setInProgress(false);
+        return;
       }
-      useStore.setState({
-        name: userExists?.name,
-        score: userExists?.score,
-      });
+
+      if (status >= 200 && status < 300) {
+        setUserExists(checkUser);
+
+        console.log(userExists);
+      }
     }
     setInProgress(false);
   };
@@ -60,12 +56,16 @@ const AuthForm = () => {
     if (login.trim() !== '' && password.trim() !== '') {
       setEmptyFields(false);
       setNoUser(false);
+      setWrongPassword(false);
     }
   }, [login, password]);
-
   useEffect(() => {
-    console.log('inProgress', inProgress);
-  }, [inProgress]);
+    if (userExists)
+      useStore.setState({
+        name: userExists?.name,
+        score: userExists?.score,
+      });
+  }, [userExists]);
 
   return (
     <div className='signin-menu'>
