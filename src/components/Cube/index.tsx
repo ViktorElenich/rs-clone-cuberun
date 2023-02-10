@@ -17,11 +17,10 @@ import { useStore } from '../../state';
 import { useFrame } from '@react-three/fiber';
 import { randomInRange } from '../../utils';
 
-const Cube: FC<CubeProps & { tunnel?: boolean; visible?: boolean }> = ({
+const Cube: FC<CubeProps & { tunnel?: boolean }> = ({
   position,
   cubeColor,
   tunnel = false,
-  visible = true,
 }) => {
   const bike = useStore((state) => state.bike);
   const stopGame = useStore((state) => state.stopGame);
@@ -78,7 +77,7 @@ const Cube: FC<CubeProps & { tunnel?: boolean; visible?: boolean }> = ({
       <mesh
         position={[x, y + boxHeight / 2, z]}
         castShadow={true}
-        visible={visible}
+        visible={true}
       >
         <boxGeometry args={[CUBE_SIZE, boxHeight, CUBE_SIZE]} />
         <meshStandardMaterial
