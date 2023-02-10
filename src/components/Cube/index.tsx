@@ -15,12 +15,21 @@ import { RepeatWrapping, Texture } from 'three';
 import { CUBE_SIZE } from '../../constants';
 import { useStore } from '../../state';
 import { useFrame } from '@react-three/fiber';
+import { randomInRange } from '../../utils';
 
-const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
+const Cube: FC<CubeProps & { tunnel?: boolean; visible?: boolean }> = ({
+  position,
+  cubeColor,
+  tunnel = false,
+  visible = true,
+}) => {
   const bike = useStore((state) => state.bike);
   const stopGame = useStore((state) => state.stopGame);
   const { x, y, z } = position;
-  const boxHeight: number = Math.floor(Math.random() * 20) + 25;
+  const boxHeight: number = tunnel
+    ? Math.floor(Math.random() * 15) + 45
+    : Math.floor(Math.random() * 25) + 35;
+
   const txtrs = useTexture([
     colorBlueTexture,
     colorYellowTexture,
@@ -69,7 +78,7 @@ const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
       <mesh
         position={[x, y + boxHeight / 2, z]}
         castShadow={true}
-        visible={true}
+        visible={visible}
       >
         <boxGeometry args={[CUBE_SIZE, boxHeight, CUBE_SIZE]} />
         <meshStandardMaterial

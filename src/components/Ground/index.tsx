@@ -1,8 +1,19 @@
 import React, { FC, MutableRefObject, useLayoutEffect, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
-import { BufferGeometry, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from 'three';
+import {
+  BufferGeometry,
+  Group,
+  Mesh,
+  MeshStandardMaterial,
+  RepeatWrapping,
+} from 'three';
 import { useStore } from '../../state';
-import { gameVariables, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from '../../constants';
+import {
+  gameVariables,
+  MOVE_DISTANCE,
+  PLANE_SIZE,
+  TEXTURE_SIZE,
+} from '../../constants';
 import { RefObject } from '../../interface';
 
 import gridRed from '../../textures/grid-red.png';
@@ -79,10 +90,7 @@ const Ground: FC<{ mainColor: string }> = ({ mainColor }) => {
   return (
     <>
       <group ref={ground} position={[0, 0, -(PLANE_SIZE / 2)]}>
-        <mesh
-          ref={plane}
-          rotation={[-Math.PI / 2, 0, 0]}
-        >
+        <mesh ref={plane} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}
@@ -100,10 +108,7 @@ const Ground: FC<{ mainColor: string }> = ({ mainColor }) => {
         </mesh>
       </group>
       <group ref={groundBack} position={[0, 0, -PLANE_SIZE - PLANE_SIZE / 2]}>
-        <mesh
-          ref={planeTwo}
-          rotation={[-Math.PI / 2, 0, 0]}
-        >
+        <mesh ref={planeTwo} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry
             attach='geometry'
             args={[PLANE_SIZE, PLANE_SIZE, 1, 1]}

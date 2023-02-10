@@ -1,35 +1,61 @@
-import { FC, useMemo, useRef } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import Cube from '../Cube';
-import {
-  CUBE_AMOUNT,
-  CUBE_SIZE,
-  LEFT_BOUND,
-  PLANE_SIZE,
-  RIGHT_BOUND,
-} from '../../constants';
-import { randomInRange } from '../../utils';
 import { useStore } from '../../state';
+import { cubeCoords } from '../../utils/generation';
+import { useFrame } from '@react-three/fiber';
+import { PLANE_SIZE } from '../../constants';
 
 const CubeGenerationComponent: FC<{ cubeColor: string }> = ({ cubeColor }) => {
+  const bike = useStore((state) => state.bike);
   const gameStart = useStore((state) => state.gameStart);
   const ids = useRef(1);
+  const [cubeCoordsGen, setCubeCoordsGen] = useState([0, PLANE_SIZE / 2]);
+  const [cubeCoordsGenNext, setCubeCoordsGenNext] = useState([
+    PLANE_SIZE / 2,
+    (PLANE_SIZE / 2) * 2,
+  ]);
+  const [cubeCoordsGenLast, setCubeCoordsGenLast] = useState([
+    (PLANE_SIZE / 2) * 2,
+    (PLANE_SIZE / 2) * 3,
+  ]);
 
-  const cubes = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < CUBE_AMOUNT; i++) {
-      const x = randomInRange(LEFT_BOUND, RIGHT_BOUND);
-      const y = 0;
-      const z = randomInRange(0, PLANE_SIZE / 2);
+  let cubes = cubeCoords(...cubeCoordsGen);
+  let cubesNext = cubeCoords(...cubeCoordsGen);
+  useFrame((state, delta) => {
+    if (bike.current) {
+      console.log('not ===', -Math.round(bike.current.position.z));
+      console.log('not ===', cubeCoordsGen);
 
-      temp.push({ x, y, z });
+      if (-Math.round(bike.current.position.z) >= cubeCoordsGen[1]) {
+        console.log('yes');
+
+        setCubeCoordsGen(cubeCoordsGenNext);
+        setCubeCoordsGenLast((prev) => [
+          prev[0] + PLANE_SIZE / 2,
+          prev[1] + PLANE_SIZE / 2,
+        ]);
+        cubes = cubeCoords(...cubeCoordsGen);
+        console.log('after ===', bike.current.position.z);
+        console.log('after ===', cubeCoordsGen);
+      }
     }
-    return temp;
-  }, [gameStart]);
+  });
 
   return (
     <>
       {cubes.map((c, index) => (
         <Cube position={c} key={ids.current + index} cubeColor={cubeColor} />
+      ))}
+      {cubesNext.map((c, index) => (
+        <Cube position={c} key={ids.current + index} cubeColor={cubeColor} />
+      ))}
+      {cubesNext.map((c, index) => (
+        <Cube
+          position={c}
+          key={ids.current + index}
+          cubeColor={cubeColor}
+          visible={false}
+        />
       ))}
     </>
   );

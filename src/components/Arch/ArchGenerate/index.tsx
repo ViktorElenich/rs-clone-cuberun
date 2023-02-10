@@ -9,6 +9,7 @@ import {
   START_POSITION_ARCHES,
 } from '../../../constants';
 import { Arches, ArchGenerateProps } from '../../../interface';
+import TunnelWalls from '../../TunnelWalls';
 
 const ArchGenerate: FC<ArchGenerateProps> = ({ start }) => {
   const arches: Arches[] = [];
@@ -29,6 +30,7 @@ const ArchGenerate: FC<ArchGenerateProps> = ({ start }) => {
       {arches.map((arch, index) => (
         <Arch key={index} position={arch} color={arch.color} />
       ))}
+      <TunnelWalls start />
     </>
   );
 };
