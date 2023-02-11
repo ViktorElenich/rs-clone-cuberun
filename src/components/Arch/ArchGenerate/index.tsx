@@ -30,7 +30,7 @@ const ArchGenerate: FC<ArchGenerateProps> = ({ start }) => {
       {arches.map((arch, index) => (
         <Arch key={index} position={arch} color={arch.color} />
       ))}
-      <TunnelWalls start />
+      <TunnelWalls start={start} />
     </>
   );
 };

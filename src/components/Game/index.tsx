@@ -13,8 +13,6 @@ import City from '../City';
 import CustomEffects from '../Effects';
 import Walls from '../Walls';
 import { MAIN_COLORS } from '../../constants';
-import { AxesHelper } from 'three';
-import TunnelWalls from '../TunnelWalls';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -25,15 +23,12 @@ const Game = () => {
       dpr={[1, 1.5]}
       style={{ background: '#141622' }}
     >
-      <axesHelper scale={100} />
-      {/*    <Grid infiniteGrid cellColor={'red'} cellSize={5} /> */}
       <directionalLight
         ref={directionalLight}
         intensity={3}
         position={[0, Math.PI, 0]}
       />
       <ambientLight intensity={0.3} />
-      {/*   <OrbitControls /> */}
 
       <Suspense fallback={null}>
         <Bike>
@@ -46,8 +41,7 @@ const Game = () => {
         <Ground mainColor={MAIN_COLORS.BLUE} />
       </Suspense>
       <ArchGenerate start={true} />
-
-      {/*  <ArchGenerate start={false} /> */}
+      <ArchGenerate start={false} />
       <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
       <EnvironmentComponent />
       <Walls wallColor={MAIN_COLORS.BLUE} />

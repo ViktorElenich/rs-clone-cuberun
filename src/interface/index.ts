@@ -17,6 +17,8 @@ export interface TronState {
   camera: RefObject<PerspectiveCamera>;
   stopGame: () => void;
   startGame: () => void;
+  mainColor: string;
+  changeColor: (color: string) => void;
 
   getUsers: () => Promise<User[]>
   addNewUser: (name: string, password: string, score: number) => Promise<boolean>
@@ -74,4 +76,15 @@ export interface ScoreMap {
   userName: string, userScore: number
 }
 
+export interface CubesData {
+  x: number;
+  y: number;
+  z: number;
+  col: string;
+}
+export interface CornerData {
+  horizontal: "left" | "right",
+  vertical: "finish" | "start"
+
+}
 
