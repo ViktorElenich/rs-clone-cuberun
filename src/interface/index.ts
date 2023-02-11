@@ -7,6 +7,7 @@ export interface RefObject<T> {
 }
 
 export interface TronState {
+  name: string | null,
   gameStart: boolean;
   level: number;
   score: number;
@@ -16,6 +17,11 @@ export interface TronState {
   camera: RefObject<PerspectiveCamera>;
   stopGame: () => void;
   startGame: () => void;
+
+  getUsers: () => Promise<User[]>
+  addNewUser: (name: string, password: string, score: number) => Promise<boolean>
+  authorizeUser: (name: string, password: string) => Promise<number>
+  checkExistentUser: (name: string) => Promise<User | null>
 }
 
 export interface BikeProps {
@@ -63,6 +69,9 @@ export interface User {
   name: string,
   password: string,
   score: number
+}
+export interface ScoreMap {
+  userName: string, userScore: number
 }
 
 

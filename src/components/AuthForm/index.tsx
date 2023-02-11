@@ -1,19 +1,25 @@
-import "./style.css";
-import { ChangeEvent, useEffect, useState } from "react";
-import BaseButton from "../BaseButton";
-import BaseInput from "../BaseInput";
+import './style.css';
+import { ChangeEvent, useEffect, useState } from 'react';
+import BaseButton from '../BaseButton';
+import BaseInput from '../BaseInput';
+import logo from '../../assets/logo-tron.png';
+import {
+  authorizeUser,
+  checkExistentUser,
+} from '../../../../../../cv/checkDataBase';
+import { User } from '../../interface';
+import { useStore } from '../../state';
 
-import logo from "../../assets/logo-tron.png";
-import { checkExistentUser } from "../../utils/checkDataBase";
-import { User } from "../../interface";
-
-const SignInComponent = () => {
+const AuthForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [userExists, setUserExists] = useState<User | null>(null);
   const [emptyFields, setEmptyFields] = useState(false);
   const [noUser, setNoUser] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+
+  const store = useStore();
 
   const changeLoginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -27,33 +33,42 @@ const SignInComponent = () => {
   const authHandler = async () => {
     if (login.trim() === '' || password.trim() === '') {
       setEmptyFields(true);
-      return false;
+      return;
     }
-    const checkUser: User | null = await checkExistentUser(login);
+    setInProgress(true);
+    const checkUser: User | null = await store.checkExistentUser(login);
 
     if (!checkUser) {
       setNoUser(true);
-    } else setNoUser(false);
-
-    if (checkUser) {
-      if (checkUser.password === password) {
-        setWrongPassword(false);
-        setUserExists(checkUser);
-
-        // redirect to Index menu timeout 3...2...1
-      } else {
+    } else {
+      const status = await store.authorizeUser(login, password);
+      if (status === 401) {
         setWrongPassword(true);
+        setInProgress(false);
+        return;
+      }
+
+      if (status >= 200 && status < 300) {
+        setUserExists(checkUser);
       }
     }
-    return true;
+    setInProgress(false);
   };
 
   useEffect(() => {
     if (login.trim() !== '' && password.trim() !== '') {
       setEmptyFields(false);
       setNoUser(false);
+      setWrongPassword(false);
     }
   }, [login, password]);
+  useEffect(() => {
+    if (userExists)
+      useStore.setState({
+        name: userExists?.name,
+        score: userExists?.score,
+      });
+  }, [userExists]);
 
   return (
     <div className='signin-menu'>
@@ -62,7 +77,7 @@ const SignInComponent = () => {
       {userExists ? (
         <p className='titleText welcome-text'>{`Welcome back, ${userExists.name}! `}</p>
       ) : (
-        <form className='signin-menu_wrapper'>
+        <div className='signin-menu_wrapper'>
           <h1 className='titleText signin-menu_text'>Sign in</h1>
           <div className='input-wrapper'>
             <BaseInput
@@ -82,8 +97,12 @@ const SignInComponent = () => {
             <p className='simpleText'>Please enter login and password</p>
           )}
           {wrongPassword && <p className='simpleText'>Wrong password!</p>}
+          {inProgress ? (
+            <BaseButton btnText='Processing...' onClickCallback={() => {}} />
+          ) : (
+            <BaseButton btnText='Sign in' onClickCallback={authHandler} />
+          )}
 
-          <BaseButton btnText='Sign in' onClickCallback={authHandler} />
           {noUser && (
             <div className='noUser-wrapper'>
               <p className='simpleText'>No user found</p>
@@ -95,16 +114,15 @@ const SignInComponent = () => {
                 btnText='Sign up'
                 onClickCallback={() => {
                   console.log('sign up');
-
                   // go to sign-up form
                 }}
               />
             </div>
           )}
-        </form>
+        </div>
       )}
     </div>
   );
 };
 
-export default SignInComponent;
+export default AuthForm;

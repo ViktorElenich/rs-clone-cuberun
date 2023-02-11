@@ -1,12 +1,23 @@
-import React, { FC, MutableRefObject, useEffect, useLayoutEffect, useRef } from "react";
-import { PerspectiveCamera, Trail, useGLTF, useKeyboardControls } from "@react-three/drei";
-import { GLTFResult } from "../../type";
-import { useStore } from "../../state";
-import { BikeProps, RefObject } from "../../interface";
-import { Object3D, PointLight, Vector3 } from "three";
-import { useFrame } from "@react-three/fiber";
-import { gameVariables, INITIAL_GAME_SPEED } from "../../constants";
-import { Controls } from "../../enums";
+import React, {
+  FC,
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react';
+import {
+  PerspectiveCamera,
+  Trail,
+  useGLTF,
+  useKeyboardControls,
+} from '@react-three/drei';
+import { GLTFResult } from '../../type';
+import { useStore } from '../../state';
+import { BikeProps, RefObject } from '../../interface';
+import { Object3D, PointLight, Vector3 } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { gameVariables, INITIAL_GAME_SPEED } from '../../constants';
+import { Controls } from '../../enums';
 
 const vector = new Vector3();
 
@@ -62,10 +73,16 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     if (gameVariables.gameSpeed > 0) {
       if (left && !right) {
-        gameVariables.velocity = Math.max(-0.7, gameVariables.velocity - accelDeltaIncline);
+        gameVariables.velocity = Math.max(
+          -0.7,
+          gameVariables.velocity - accelDeltaIncline,
+        );
       }
       if (!left && right) {
-        gameVariables.velocity = Math.min(0.7, gameVariables.velocity + accelDeltaIncline);
+        gameVariables.velocity = Math.min(
+          0.7,
+          gameVariables.velocity + accelDeltaIncline,
+        );
       }
     }
 
@@ -134,7 +151,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
       >
         {children}
         <Trail
-          width={16}
+          width={8}
           color={'#22BABB'}
           length={2}
           decay={1}
@@ -142,7 +159,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
           stride={0}
           interval={1}
           target={bikeLine}
-          attenuation={(width) => width}
+          attenuation={(width) => width / 2}
         >
           <group rotation={[-Math.PI / 2, 0, 0]} scale={0.7}>
             <group rotation={[Math.PI / 2, 0, 0]}>
