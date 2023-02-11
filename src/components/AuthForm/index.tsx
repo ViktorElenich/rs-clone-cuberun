@@ -3,7 +3,10 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import logo from '../../assets/logo-tron.png';
-import { authorizeUser, checkExistentUser } from '../../utils/checkDataBase';
+import {
+  authorizeUser,
+  checkExistentUser,
+} from '../../../../../../cv/checkDataBase';
 import { User } from '../../interface';
 import { useStore } from '../../state';
 
@@ -15,6 +18,8 @@ const AuthForm = () => {
   const [noUser, setNoUser] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+
+  const store = useStore();
 
   const changeLoginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -31,12 +36,12 @@ const AuthForm = () => {
       return;
     }
     setInProgress(true);
-    const checkUser: User | null = await checkExistentUser(login);
+    const checkUser: User | null = await store.checkExistentUser(login);
 
     if (!checkUser) {
       setNoUser(true);
     } else {
-      const status = await authorizeUser(login, password);
+      const status = await store.authorizeUser(login, password);
       if (status === 401) {
         setWrongPassword(true);
         setInProgress(false);
@@ -45,8 +50,6 @@ const AuthForm = () => {
 
       if (status >= 200 && status < 300) {
         setUserExists(checkUser);
-
-        console.log(userExists);
       }
     }
     setInProgress(false);

@@ -3,8 +3,12 @@ import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
 import logo from '../../assets/logo-tron.png';
-import { addNewUser, checkExistentUser } from '../../utils/checkDataBase';
+import {
+  addNewUser,
+  checkExistentUser,
+} from '../../../../../../cv/checkDataBase';
 import { useStore } from '../../state';
+import { User } from '../../interface';
 
 const SignUpForm = () => {
   const [login, setLogin] = useState('');
@@ -14,6 +18,8 @@ const SignUpForm = () => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+
+  const store = useStore();
 
   const changeLoginHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -37,15 +43,14 @@ const SignUpForm = () => {
       return;
     }
     setInProgress(true);
-    const user = await checkExistentUser(login);
+    const user: User | null = await store.checkExistentUser(login);
     if (user) {
-      console.log(user);
       setInvalidLogin(true);
       setInProgress(false);
       return;
     }
     setInProgress(true);
-    const acc = await addNewUser(login, password, 0);
+    const acc = await store.addNewUser(login, password, 0);
     if (acc) {
       setUserCreated(true);
       // redirect to game menu
