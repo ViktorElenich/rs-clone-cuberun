@@ -30,6 +30,11 @@
 .sign-in_text {
   margin-top: 20px;
 }
+.welcome-text {
+  margin-top: 20%;
+  font-size: 2.5rem;
+  text-align: center;
+}
 
 @media (max-width: 600px) {
   .sign-up-wrapper {

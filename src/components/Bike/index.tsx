@@ -151,7 +151,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
       >
         {children}
         <Trail
-          width={16}
+          width={8}
           color={'#22BABB'}
           length={2}
           decay={1}
@@ -159,7 +159,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
           stride={0}
           interval={1}
           target={bikeLine}
-          attenuation={(width) => width}
+          attenuation={(width) => width / 2}
         >
           <group rotation={[-Math.PI / 2, 0, 0]} scale={0.7}>
             <group rotation={[Math.PI / 2, 0, 0]}>
