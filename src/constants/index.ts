@@ -30,6 +30,7 @@ export const DISTANCE_ARCH = 40;
 export const ARCH_AMOUNT = 5;
 export const START_POSITION_ARCHES = -200;
 export const FINISH_POSITION_ARCHES = -2000;
+export const DISTANCE_LEVEL = 2500;
 
 
 

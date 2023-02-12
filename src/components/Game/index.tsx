@@ -40,8 +40,7 @@ const Game = () => {
       <Suspense fallback={<LoadingGround />}>
         <Ground mainColor={MAIN_COLORS.BLUE} />
       </Suspense>
-      <ArchGenerate start={true} />
-      <ArchGenerate start={false} />
+      <ArchGenerate />
       <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
       <EnvironmentComponent />
       <Walls wallColor={MAIN_COLORS.BLUE} />

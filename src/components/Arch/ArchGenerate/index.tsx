@@ -1,36 +1,51 @@
-import { FC } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useEffect, useState } from 'react';
 import Arch from '..';
 import {
   ARCH_AMOUNT,
-  CURRENT_LEVEL,
   DISTANCE_ARCH,
-  FINISH_POSITION_ARCHES,
+  DISTANCE_LEVEL,
   LEVEL_COLORS,
   START_POSITION_ARCHES,
 } from '../../../constants';
 import { Arches, ArchGenerateProps } from '../../../interface';
+import { useStore } from '../../../state';
 import TunnelWalls from '../../TunnelWalls';
 
-const ArchGenerate: FC<ArchGenerateProps> = ({ start }) => {
-  const arches: Arches[] = [];
+const ArchGenerate = () => {
+  // const arches: Arches[] = [];
+  const [arches, setArches] = useState<Arches[]>([]);
+  const bike = useStore((state) => state.bike);
+  const level = useStore((state) => state.level);
+  const newLevel = useStore((state) => state.level);
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    for (let i = 0; i < ARCH_AMOUNT; i++) {
+      const x = 0;
+      const y = 0;
+      const z =
+        i * DISTANCE_ARCH + START_POSITION_ARCHES - count * DISTANCE_LEVEL;
+      const color = LEVEL_COLORS[i];
+      setArches((prev) => [...prev, { x, y, z, color }]);
+      // arches.push({ x, y, z, color });
+    }
+  }, [count]);
 
-  for (let i = 0; i < ARCH_AMOUNT; i++) {
-    const x = 0;
-    const y = 0;
-    const z =
-      i * DISTANCE_ARCH +
-      (start ? START_POSITION_ARCHES : FINISH_POSITION_ARCHES);
-    const color = start ? LEVEL_COLORS[i] : LEVEL_COLORS[CURRENT_LEVEL];
-
-    arches.push({ x, y, z, color });
-  }
+  useFrame(() => {
+    if (bike.current && arches.length > 0) {
+      if (bike.current.position.z < arches[0].z - 100) {
+        setArches([]);
+        setCount((prev) => prev + 1);
+      }
+    }
+  });
 
   return (
     <>
       {arches.map((arch, index) => (
         <Arch key={index} position={arch} color={arch.color} />
       ))}
-      <TunnelWalls start={start} />
+      <TunnelWalls position={START_POSITION_ARCHES - count * DISTANCE_LEVEL} />
     </>
   );
 };

@@ -1,19 +1,13 @@
 import { FC } from 'react';
 
-import {
-  CUBE_SIZE,
-  FINISH_POSITION_ARCHES,
-  SAVE_SPACE,
-  START_POSITION_ARCHES,
-} from '../../constants';
+import { CUBE_SIZE, SAVE_SPACE, START_POSITION_ARCHES } from '../../constants';
 import { useStore } from '../../state';
-import { ArchGenerateProps, CubesData } from '../../interface';
+import { CubesData } from '../../interface';
 import Cube from '../Cube';
 import { cornerCoords } from '../../utils/generation';
 
-const TunnelWalls: FC<ArchGenerateProps> = ({ start }) => {
+const TunnelWalls = ({ position }: { position: number }) => {
   const bike = useStore((state) => state.bike);
-  console.log('start ---> ', start);
 
   const tunnelColors = ['blue', 'red', 'red', 'red', 'purple', 'green', 'blue'];
   const leftCornerCoords = cornerCoords({
@@ -27,28 +21,24 @@ const TunnelWalls: FC<ArchGenerateProps> = ({ start }) => {
   const leftEndCornerCoords = cornerCoords({
     horizontal: 'left',
     vertical: 'finish',
-  }).map((coordZ) =>
-    start
-      ? { ...coordZ, z: coordZ.z + START_POSITION_ARCHES + SAVE_SPACE.z - 10 }
-      : { ...coordZ, z: coordZ.z + FINISH_POSITION_ARCHES + SAVE_SPACE.z - 10 },
-  );
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + position + SAVE_SPACE.z - 10,
+  }));
   const rightEndCornerCoords = cornerCoords({
     horizontal: 'right',
     vertical: 'finish',
-  }).map((coordZ) =>
-    start
-      ? { ...coordZ, z: coordZ.z + START_POSITION_ARCHES + SAVE_SPACE.z - 10 }
-      : { ...coordZ, z: coordZ.z + FINISH_POSITION_ARCHES + SAVE_SPACE.z - 10 },
-  );
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + position + SAVE_SPACE.z - 10,
+  }));
   const mainColor = useStore((state) => state.mainColor);
 
   const coordsRight: CubesData[] = [];
   const coordsLeft: CubesData[] = [];
   for (let i = 0, cindex = 0; i <= SAVE_SPACE.z; i += CUBE_SIZE + 2, cindex++) {
     const x = -SAVE_SPACE.x + 22;
-    const z = start
-      ? START_POSITION_ARCHES - 5 + i
-      : FINISH_POSITION_ARCHES - 5 + i;
+    const z = position - 5 + i;
     const col = tunnelColors[cindex];
     coordsRight.push({
       x,
