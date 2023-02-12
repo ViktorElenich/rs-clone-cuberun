@@ -5,7 +5,6 @@ import Ground from '../Ground';
 import { Canvas } from '@react-three/fiber';
 import { useStore } from '../../state';
 import CubeGenerationComponent from '../CubeGenerationComponent';
-import { Environment } from '@react-three/drei';
 import EnvironmentComponent from '../EnvironmentComponent';
 import ArchGenerate from '../Arch/ArchGenerate';
 import Speedometer from '../Speedometer';
@@ -44,9 +43,7 @@ const Game = () => {
       {/*<ArchGenerate start={true} />
       <ArchGenerate start={false} />*/}
       <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
-      <Environment background>
-        <EnvironmentComponent />
-      </Environment>
+      <EnvironmentComponent />
       <Walls wallColor={MAIN_COLORS.BLUE} />
       <Tunnel />
       <City />
