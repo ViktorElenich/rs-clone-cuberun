@@ -3,10 +3,6 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import logo from '../../assets/logo-tron.png';
-import {
-  authorizeUser,
-  checkExistentUser,
-} from '../../../../../../cv/checkDataBase';
 import { User } from '../../interface';
 import { useStore } from '../../state';
 

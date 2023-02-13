@@ -17,8 +17,9 @@ import { useStore } from '../../state';
 import { useFrame } from '@react-three/fiber';
 import { RefObject } from '../../interface';
 
-const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {
+const Walls = () => {
   const bike = useStore((state) => state.bike);
+  const wallColor = useStore((state) => state.mainColor);
   const wallHeight = 50;
   const rightWall = useRef() as RefObject<Mesh>;
   const leftWall = useRef() as RefObject<Mesh>;
@@ -56,7 +57,7 @@ const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {
       texture.repeat.set(TEXTURE_SIZE * 1, 1);
       texture.anisotropy = 16;
     });
-  }, []);
+  }, [wallColor]);
 
   return (
     <>

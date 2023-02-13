@@ -1,7 +1,7 @@
 import { createRef } from 'react';
 import { create } from 'zustand';
 import { TronState, User } from '../interface';
-import { allScores } from '../../../../../cv/checkDataBase';
+import { MAIN_COLORS } from '../constants';
 
 const useStore = create<TronState>((set, get) => {
   return {
@@ -16,7 +16,10 @@ const useStore = create<TronState>((set, get) => {
     bike: createRef(),
     camera: createRef(),
     stopGame: () => set({ gameStart: false, loseGame: true }),
-    startGame: () => set(() => ({ gameStart: true, loseGame: false })),
+    startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE })),
+    newLevel: () => set((state) => ({ level: state.level + 1 })),
+    mainColor: MAIN_COLORS.BLUE,
+    changeColor: (color: string) => set(() => ({ mainColor: color })),
 
     getUsers: async () => {
       const res = await fetch('https://cuberun-server.onrender.com/users', {

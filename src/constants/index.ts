@@ -6,8 +6,10 @@ export const INITIAL_GAME_SPEED = 0.8;
 export const LEFT_BOUND = (-PLANE_SIZE / 2) + 30
 export const RIGHT_BOUND = (PLANE_SIZE / 2) - 30
 
-export const CUBE_SIZE = 10;
-export const CUBE_AMOUNT = 60
+export const CUBE_SIZE = 30;
+export const CUBE_AMOUNT = 120;
+
+
 
 export const gameVariables = {
   gameSpeed: 0.0,
@@ -26,10 +28,17 @@ export const SEGMENTS_ARCH = 20;
 export const CURRENT_LEVEL = 1;
 export const DISTANCE_ARCH = 40;
 export const ARCH_AMOUNT = 5;
-export const START_POSITION_ARCHES = -300;
+export const START_POSITION_ARCHES = -200;
 export const FINISH_POSITION_ARCHES = -2000;
+export const DISTANCE_LEVEL = 2500;
+
+
 
 export const WALL_THICKNESS = 20;
+export const WALL_THICKNESS_TUNNEL = 20;
+
+export const WALL_HEIGHT = 50;
+export const WALL_HEIGHT_TUNNEL = 20;
 
 export const MAIN_COLORS = {
   BLUE: 'blue',
@@ -37,4 +46,11 @@ export const MAIN_COLORS = {
   GREEN: 'green',
   YELLOW: 'yellow',
   PURPLE: 'purple',
+}
+
+export const MAIN_COLORS_ARR = Object.values(MAIN_COLORS);
+
+export const SAVE_SPACE = {
+  x: RADIUS_ARCH + TUBE_ARCH + 20,
+  z: TUBE_ARCH * 5 + DISTANCE_ARCH * 4 + 30
 }

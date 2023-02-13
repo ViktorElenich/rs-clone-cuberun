@@ -1,30 +1,37 @@
-import { FC, useMemo, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Cube from '../Cube';
-import {
-  CUBE_AMOUNT,
-  CUBE_SIZE,
-  LEFT_BOUND,
-  PLANE_SIZE,
-  RIGHT_BOUND,
-} from '../../constants';
-import { randomInRange } from '../../utils';
+import { cubeCoords } from '../../utils/generation';
+import { DISTANCE_LEVEL, MAIN_COLORS_ARR, PLANE_SIZE } from '../../constants';
+import { CubePositionCoords } from '../../interface';
 import { useStore } from '../../state';
+import { useFrame } from '@react-three/fiber';
 
-const CubeGenerationComponent: FC<{ cubeColor: string }> = ({ cubeColor }) => {
-  const gameStart = useStore((state) => state.gameStart);
+const CubeGenerationComponent = () => {
   const ids = useRef(1);
+  const bike = useStore((state) => state.bike);
+  const cubeColor = useStore((state) => state.mainColor);
+  const changeColor = useStore((state) => state.changeColor);
+  const [localLevel, setLocalLevel] = useState(1);
+  const [cubeCoordsGen, setCubeCoordsGen] = useState([350, 2200]);
 
-  const cubes = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < CUBE_AMOUNT; i++) {
-      const x = randomInRange(LEFT_BOUND, RIGHT_BOUND);
-      const y = 0;
-      const z = randomInRange(0, PLANE_SIZE / 2);
+  const [cubes, setCubes] = useState<CubePositionCoords[]>([]);
 
-      temp.push({ x, y, z });
+  useFrame(() => {
+    if (bike.current) {
+      if (bike.current.position.z < -DISTANCE_LEVEL * localLevel) {
+        setLocalLevel(localLevel + 1);
+        changeColor(MAIN_COLORS_ARR[localLevel % 5]);
+        setCubeCoordsGen([
+          350 + localLevel * DISTANCE_LEVEL,
+          2200 + localLevel * DISTANCE_LEVEL,
+        ]);
+      }
     }
-    return temp;
-  }, [gameStart]);
+  });
+
+  useEffect(() => {
+    setCubes(cubeCoords(...cubeCoordsGen));
+  }, [cubeCoordsGen]);
 
   return (
     <>

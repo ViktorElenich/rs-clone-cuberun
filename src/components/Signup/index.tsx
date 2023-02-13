@@ -3,10 +3,6 @@ import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
 import logo from '../../assets/logo-tron.png';
-import {
-  addNewUser,
-  checkExistentUser,
-} from '../../../../../../cv/checkDataBase';
 import { useStore } from '../../state';
 import { User } from '../../interface';
 
