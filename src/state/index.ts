@@ -16,7 +16,7 @@ const useStore = create<TronState>((set, get) => {
     bike: createRef(),
     camera: createRef(),
     stopGame: () => set({ gameStart: false, loseGame: true }),
-    startGame: () => set(() => ({ gameStart: true, loseGame: false })),
+    startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE })),
     newLevel: () => set((state) => ({ level: state.level + 1 })),
     mainColor: MAIN_COLORS.BLUE,
     changeColor: (color: string) => set(() => ({ mainColor: color })),

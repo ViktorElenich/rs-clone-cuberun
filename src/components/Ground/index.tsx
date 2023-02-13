@@ -1,7 +1,14 @@
-import React, { FC, MutableRefObject, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  MutableRefObject,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useTexture } from '@react-three/drei';
 import {
   BufferGeometry,
+  Color,
   Group,
   Mesh,
   MeshStandardMaterial,
@@ -15,14 +22,11 @@ import {
   TEXTURE_SIZE,
 } from '../../constants';
 import { RefObject } from '../../interface';
+import groundTexture from '../../textures/metalBroken/basecolor.png';
+import bumpTexture from '../../textures/metalBroken/height.png';
+import normalTexture from '../../textures/metalBroken/normal.png';
+import emissiveTexture from '../../textures/metalBroken/emissive.png';
 
-import gridRed from '../../textures/grid-red.png';
-import gridOrange from '../../textures/grid-orange.png';
-import gridGreen from '../../textures/grid-green.png';
-import gridBlue from '../../textures/grid-blue.png';
-import gridPurple from '../../textures/grid-purple.png';
-import gridPink from '../../textures/grid-pink.png';
-import gridRainbow from '../../textures/grid-rainbow.png';
 import { useFrame } from '@react-three/fiber';
 
 const Ground = () => {
@@ -39,15 +43,9 @@ const Ground = () => {
   const moveCounter = useRef(1);
   const lastMove = useRef(0);
 
-  const textures = useTexture([
-    gridBlue,
-    gridPink,
-    gridRed,
-    gridOrange,
-    gridGreen,
-    gridPurple,
-    gridRainbow,
-  ]);
+  const textures = useTexture([bumpTexture, normalTexture, emissiveTexture]);
+
+  const groundColorMap = useTexture([groundTexture])[0];
 
   useFrame((state, delta) => {
     if (bike.current) {
@@ -59,35 +57,28 @@ const Ground = () => {
           moveCounter.current === 1 ||
           Math.abs(bike.current.position.z) - Math.abs(lastMove.current) < 0
         ) {
-          if (moveCounter.current % 6 === 0) {
-            gameVariables.colorLevel++;
-            if (gameVariables.colorLevel >= textures.length) {
-              gameVariables.colorLevel = 0;
-            }
-          }
           if (moveCounter.current % 2 === 0) {
             groundBack.current.position.z -= MOVE_DISTANCE;
             lastMove.current = groundBack.current.position.z;
-            planeTwo.current!.material.map = textures[gameVariables.colorLevel];
+            planeTwo.current!.material.color = new Color(mainColor);
+            planeTwo.current!.material.emissive = new Color(mainColor);
           } else {
             ground.current.position.z -= MOVE_DISTANCE;
             lastMove.current = ground.current.position.z;
-            plane.current!.material.map = textures[gameVariables.colorLevel];
+            plane.current!.material.color = new Color(mainColor);
+            plane.current!.material.emissive = new Color(mainColor);
           }
         }
         moveCounter.current++;
       }
     }
   });
-
-  useLayoutEffect(() => {
-    textures.forEach((texture) => {
-      texture.wrapS = texture.wrapT = RepeatWrapping;
-      texture.repeat.set(TEXTURE_SIZE, TEXTURE_SIZE);
-      texture.anisotropy = 16;
-    });
-  }, [textures]);
-
+  useLayoutEffect(() => {}, []);
+  [...textures, groundColorMap].forEach((mp) => {
+    mp.wrapS = mp.wrapT = RepeatWrapping;
+    mp.repeat.set(24, 24);
+    mp.anisotropy = 16;
+  });
   return (
     <>
       <group ref={ground} position={[0, 0, -(PLANE_SIZE / 2)]}>
@@ -98,13 +89,13 @@ const Ground = () => {
           />
           <meshStandardMaterial
             color={mainColor}
-            emissiveMap={textures[1]}
-            emissive={'#0074cc'}
-            emissiveIntensity={0}
+            emissiveMap={textures[2]}
+            emissive={mainColor}
+            emissiveIntensity={0.5}
+            bumpMap={textures[0]}
+            normalMap={textures[1]}
             attach='material'
-            map={textures[0]}
-            roughness={1}
-            metalness={0}
+            map={groundColorMap}
           />
         </mesh>
       </group>
@@ -116,12 +107,13 @@ const Ground = () => {
           />
           <meshStandardMaterial
             color={mainColor}
-            emissive={'#0074cc'}
-            emissiveMap={textures[1]}
+            emissiveMap={textures[2]}
+            emissive={mainColor}
+            emissiveIntensity={0.5}
+            bumpMap={textures[0]}
+            normalMap={textures[1]}
             attach='material'
-            map={textures[0]}
-            roughness={1}
-            metalness={0}
+            map={groundColorMap}
           />
         </mesh>
       </group>
