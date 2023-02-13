@@ -1,6 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
-import { CUBE_SIZE, SAVE_SPACE, START_POSITION_ARCHES } from '../../constants';
+import {
+  CUBE_SIZE,
+  MAIN_COLORS_ARR,
+  SAVE_SPACE,
+  START_POSITION_ARCHES,
+} from '../../constants';
 import { useStore } from '../../state';
 import { CubesData } from '../../interface';
 import Cube from '../Cube';
@@ -8,7 +13,8 @@ import { cornerCoords } from '../../utils/generation';
 
 const TunnelWalls = ({ positionZ }: { positionZ: number }) => {
   const bike = useStore((state) => state.bike);
-
+  const [mainColor, setMainColor] = useState(MAIN_COLORS_ARR[0]);
+  const level = useStore((state) => state.level);
   const tunnelColors = ['blue', 'red', 'red', 'red', 'purple', 'green', 'blue'];
   const leftCornerCoords = cornerCoords({
     horizontal: 'left',
@@ -38,7 +44,6 @@ const TunnelWalls = ({ positionZ }: { positionZ: number }) => {
     ...coordZ,
     z: coordZ.z + positionZ + SAVE_SPACE.z - 10,
   }));
-  const mainColor = useStore((state) => state.mainColor);
 
   const coordsRight: CubesData[] = [];
   const coordsLeft: CubesData[] = [];
@@ -61,6 +66,10 @@ const TunnelWalls = ({ positionZ }: { positionZ: number }) => {
       col,
     });
   }
+
+  useEffect(() => {
+    setMainColor(MAIN_COLORS_ARR[level % 5]);
+  }, [level]);
 
   return (
     <>

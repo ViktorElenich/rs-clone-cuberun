@@ -48,6 +48,8 @@ export const MAIN_COLORS = {
   PURPLE: 'purple',
 }
 
+export const MAIN_COLORS_ARR = Object.values(MAIN_COLORS);
+
 export const SAVE_SPACE = {
   x: RADIUS_ARCH + TUBE_ARCH + 20,
   z: TUBE_ARCH * 5 + DISTANCE_ARCH * 4 + 30
