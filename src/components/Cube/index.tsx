@@ -1,5 +1,5 @@
 import { useTexture } from '@react-three/drei';
-import { FC, useLayoutEffect } from 'react';
+import { FC, RefObject, useLayoutEffect, useRef } from 'react';
 import { CubeColorsType } from '../../type';
 import { CubeProps } from '../../interface';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
@@ -11,7 +11,7 @@ import roughTexture from '../../textures/customCubeTextures/roughness.png';
 import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
 
-import { RepeatWrapping, Texture } from 'three';
+import { Mesh, RepeatWrapping, Texture } from 'three';
 import { CUBE_SIZE } from '../../constants';
 import { useStore } from '../../state';
 import { useFrame } from '@react-three/fiber';
@@ -24,6 +24,7 @@ const Cube: FC<CubeProps & { tunnel?: boolean }> = ({
 }) => {
   const bike = useStore((state) => state.bike);
   const stopGame = useStore((state) => state.stopGame);
+  const cube = useRef() as RefObject<Mesh>;
   const { x, y, z } = position;
   const boxHeight: number = tunnel
     ? Math.floor(Math.random() * 15) + 45
@@ -72,12 +73,21 @@ const Cube: FC<CubeProps & { tunnel?: boolean }> = ({
     }
   });
 
+  useFrame(() => {
+    if (cube.current) {
+      if (cube.current.position.y < boxHeight / 2) {
+        cube.current.position.y += 0.5;
+      }
+    }
+  });
+
   return (
     <>
       <mesh
-        position={[x, y + boxHeight / 2, z]}
+        position={[x, y - boxHeight / 2, z]}
         castShadow={true}
         visible={true}
+        ref={cube}
       >
         <boxGeometry args={[CUBE_SIZE, boxHeight, CUBE_SIZE]} />
         <meshStandardMaterial

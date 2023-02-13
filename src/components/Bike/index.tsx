@@ -23,6 +23,7 @@ const vector = new Vector3();
 
 const Bike: FC<BikeProps> = ({ children }) => {
   const bike = useStore((state) => state.bike);
+  const level = useStore((state) => state.level);
   const camera = useStore((state) => state.camera);
   const gameStart = useStore((state) => state.gameStart);
   const loseGame = useStore((state) => state.loseGame);
@@ -125,6 +126,12 @@ const Bike: FC<BikeProps> = ({ children }) => {
       gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
     }
   }, [gameStart]);
+
+  useEffect(() => {
+    if (level) {
+      gameVariables.desiredSpeed += 0.2;
+    }
+  }, [level]);
 
   return (
     <>

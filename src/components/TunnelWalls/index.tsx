@@ -6,31 +6,37 @@ import { CubesData } from '../../interface';
 import Cube from '../Cube';
 import { cornerCoords } from '../../utils/generation';
 
-const TunnelWalls = ({ position }: { position: number }) => {
+const TunnelWalls = ({ positionZ }: { positionZ: number }) => {
   const bike = useStore((state) => state.bike);
 
   const tunnelColors = ['blue', 'red', 'red', 'red', 'purple', 'green', 'blue'];
   const leftCornerCoords = cornerCoords({
     horizontal: 'left',
     vertical: 'start',
-  });
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + positionZ + 300,
+  }));
   const rightCornerCoords = cornerCoords({
     horizontal: 'right',
     vertical: 'start',
-  });
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + positionZ + 300,
+  }));
   const leftEndCornerCoords = cornerCoords({
     horizontal: 'left',
     vertical: 'finish',
   }).map((coordZ) => ({
     ...coordZ,
-    z: coordZ.z + position + SAVE_SPACE.z - 10,
+    z: coordZ.z + positionZ + SAVE_SPACE.z - 10,
   }));
   const rightEndCornerCoords = cornerCoords({
     horizontal: 'right',
     vertical: 'finish',
   }).map((coordZ) => ({
     ...coordZ,
-    z: coordZ.z + position + SAVE_SPACE.z - 10,
+    z: coordZ.z + positionZ + SAVE_SPACE.z - 10,
   }));
   const mainColor = useStore((state) => state.mainColor);
 
@@ -38,7 +44,7 @@ const TunnelWalls = ({ position }: { position: number }) => {
   const coordsLeft: CubesData[] = [];
   for (let i = 0, cindex = 0; i <= SAVE_SPACE.z; i += CUBE_SIZE + 2, cindex++) {
     const x = -SAVE_SPACE.x + 22;
-    const z = position - 5 + i;
+    const z = positionZ - 5 + i;
     const col = tunnelColors[cindex];
     coordsRight.push({
       x,

@@ -17,6 +17,7 @@ export interface TronState {
   camera: RefObject<PerspectiveCamera>;
   stopGame: () => void;
   startGame: () => void;
+  newLevel: () => void;
   mainColor: string;
   changeColor: (color: string) => void;
 
