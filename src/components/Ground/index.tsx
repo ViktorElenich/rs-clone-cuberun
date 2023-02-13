@@ -1,4 +1,4 @@
-import React, { FC, MutableRefObject, useLayoutEffect, useRef } from 'react';
+import React, { FC, MutableRefObject, useLayoutEffect, useRef, useState } from 'react';
 import { useTexture } from '@react-three/drei';
 import {
   BufferGeometry,
@@ -25,8 +25,9 @@ import gridPink from '../../textures/grid-pink.png';
 import gridRainbow from '../../textures/grid-rainbow.png';
 import { useFrame } from '@react-three/fiber';
 
-const Ground: FC<{ mainColor: string }> = ({ mainColor }) => {
+const Ground = () => {
   const bike = useStore((state) => state.bike);
+  const mainColor = useStore((state) => state.mainColor);
   const ground = useRef() as MutableRefObject<Group>;
   const groundBack = useRef() as MutableRefObject<Group>;
   const plane = useRef() as RefObject<

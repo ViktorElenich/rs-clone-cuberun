@@ -17,6 +17,7 @@ const useStore = create<TronState>((set, get) => {
     camera: createRef(),
     stopGame: () => set({ gameStart: false, loseGame: true }),
     startGame: () => set(() => ({ gameStart: true, loseGame: false })),
+    newLevel: () => set((state) => ({ level: state.level + 1 })),
     mainColor: MAIN_COLORS.BLUE,
     changeColor: (color: string) => set(() => ({ mainColor: color })),
 

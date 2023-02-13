@@ -17,6 +17,7 @@ export interface TronState {
   camera: RefObject<PerspectiveCamera>;
   stopGame: () => void;
   startGame: () => void;
+  newLevel: () => void;
   mainColor: string;
   changeColor: (color: string) => void;
 
@@ -55,8 +56,8 @@ export interface Arches extends CubePositionCoords {
   color: string;
 }
 
-export interface ArchGenerateProps {
-  start: boolean;
+export interface TunnelWallsProps {
+  positionZ: number;
 }
 
 export interface inputProps {

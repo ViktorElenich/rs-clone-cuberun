@@ -1,54 +1,55 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import {
   CUBE_SIZE,
-  FINISH_POSITION_ARCHES,
+  MAIN_COLORS_ARR,
   SAVE_SPACE,
   START_POSITION_ARCHES,
 } from '../../constants';
 import { useStore } from '../../state';
-import { ArchGenerateProps, CubesData } from '../../interface';
+import { CubesData, TunnelWallsProps } from '../../interface';
 import Cube from '../Cube';
 import { cornerCoords } from '../../utils/generation';
 
-const TunnelWalls: FC<ArchGenerateProps> = ({ start }) => {
+const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
   const bike = useStore((state) => state.bike);
-  console.log('start ---> ', start);
-
+  const [mainColor, setMainColor] = useState(MAIN_COLORS_ARR[0]);
+  const level = useStore((state) => state.level);
   const tunnelColors = ['blue', 'red', 'red', 'red', 'purple', 'green', 'blue'];
   const leftCornerCoords = cornerCoords({
     horizontal: 'left',
     vertical: 'start',
-  });
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + positionZ + 300,
+  }));
   const rightCornerCoords = cornerCoords({
     horizontal: 'right',
     vertical: 'start',
-  });
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + positionZ + 300,
+  }));
   const leftEndCornerCoords = cornerCoords({
     horizontal: 'left',
     vertical: 'finish',
-  }).map((coordZ) =>
-    start
-      ? { ...coordZ, z: coordZ.z + START_POSITION_ARCHES + SAVE_SPACE.z - 10 }
-      : { ...coordZ, z: coordZ.z + FINISH_POSITION_ARCHES + SAVE_SPACE.z - 10 },
-  );
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + positionZ + SAVE_SPACE.z - 10,
+  }));
   const rightEndCornerCoords = cornerCoords({
     horizontal: 'right',
     vertical: 'finish',
-  }).map((coordZ) =>
-    start
-      ? { ...coordZ, z: coordZ.z + START_POSITION_ARCHES + SAVE_SPACE.z - 10 }
-      : { ...coordZ, z: coordZ.z + FINISH_POSITION_ARCHES + SAVE_SPACE.z - 10 },
-  );
-  const mainColor = useStore((state) => state.mainColor);
+  }).map((coordZ) => ({
+    ...coordZ,
+    z: coordZ.z + positionZ + SAVE_SPACE.z - 10,
+  }));
 
   const coordsRight: CubesData[] = [];
   const coordsLeft: CubesData[] = [];
   for (let i = 0, cindex = 0; i <= SAVE_SPACE.z; i += CUBE_SIZE + 2, cindex++) {
     const x = -SAVE_SPACE.x + 22;
-    const z = start
-      ? START_POSITION_ARCHES - 5 + i
-      : FINISH_POSITION_ARCHES - 5 + i;
+    const z = positionZ - 5 + i;
     const col = tunnelColors[cindex];
     coordsRight.push({
       x,
@@ -65,6 +66,10 @@ const TunnelWalls: FC<ArchGenerateProps> = ({ start }) => {
       col,
     });
   }
+
+  useEffect(() => {
+    setMainColor(MAIN_COLORS_ARR[level % 5]);
+  }, [level]);
 
   return (
     <>
