@@ -56,8 +56,8 @@ export interface Arches extends CubePositionCoords {
   color: string;
 }
 
-export interface ArchGenerateProps {
-  start: boolean;
+export interface TunnelWallsProps {
+  positionZ: number;
 }
 
 export interface inputProps {

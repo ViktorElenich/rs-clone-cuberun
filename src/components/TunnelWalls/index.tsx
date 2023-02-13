@@ -7,11 +7,11 @@ import {
   START_POSITION_ARCHES,
 } from '../../constants';
 import { useStore } from '../../state';
-import { CubesData } from '../../interface';
+import { CubesData, TunnelWallsProps } from '../../interface';
 import Cube from '../Cube';
 import { cornerCoords } from '../../utils/generation';
 
-const TunnelWalls = ({ positionZ }: { positionZ: number }) => {
+const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
   const bike = useStore((state) => state.bike);
   const [mainColor, setMainColor] = useState(MAIN_COLORS_ARR[0]);
   const level = useStore((state) => state.level);
