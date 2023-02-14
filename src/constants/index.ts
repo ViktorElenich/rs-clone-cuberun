@@ -2,7 +2,6 @@ export const PLANE_SIZE = 1000;
 export const TEXTURE_SIZE = PLANE_SIZE * 0.05;
 export const MOVE_DISTANCE = PLANE_SIZE * 2;
 export const INITIAL_GAME_SPEED = 0.8;
-export const INCREMENT_GAME_SPEED = 0.2;
 
 export const LEFT_BOUND = (-PLANE_SIZE / 2) + 30
 export const RIGHT_BOUND = (PLANE_SIZE / 2) - 30
@@ -15,9 +14,7 @@ export const gameVariables = {
   colorLevel: 0,
   desiredSpeed: 0.0,
   velocity: 0,
-  score: 0,
-  currentLevelLength: 0,
-  shouldShiftItems: false
+  score: 0
 }
 
 export const LEVEL_COLORS = ['#217aff', '#bd4902', '#ff2919', '#ff69b4', '#26a300', '#26a300', 'purple', '#38184C'];

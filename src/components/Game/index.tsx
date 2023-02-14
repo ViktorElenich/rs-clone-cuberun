@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import Bike from '../Bike';
 import LoadingGround from '../Loading/LoadingGround';
-import Ground from '../Ground';
-import { Canvas } from '@react-three/fiber';
 import { useStore } from '../../state';
+import Ground from '../Ground';
 import CubeGenerationComponent from '../CubeGenerationComponent';
 import EnvironmentComponent from '../EnvironmentComponent';
 import ArchGenerate from '../Arch/ArchGenerate';
@@ -13,7 +13,7 @@ import City from '../City';
 import CustomEffects from '../Effects';
 import Walls from '../Walls';
 import { MAIN_COLORS } from '../../constants';
-import Tunnel from '../Tunnel';
+import Sound from '../Sound';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -40,16 +40,16 @@ const Game = () => {
       <Suspense fallback={<LoadingGround />}>
         <Ground mainColor={MAIN_COLORS.BLUE} />
       </Suspense>
-      {/*<ArchGenerate start={true} />
-      <ArchGenerate start={false} />*/}
+      <ArchGenerate start={true} />
+      <ArchGenerate start={false} />
       <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
       <EnvironmentComponent />
       <Walls wallColor={MAIN_COLORS.BLUE} />
-      <Tunnel />
       <City />
       <CustomEffects />
       <Speedometer />
       <FinishGame />
+      <Sound />
     </Canvas>
   );
 };

@@ -1,8 +1,9 @@
 import { Box, useTexture } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { Mesh, RepeatWrapping } from 'three';
 import { FC, useLayoutEffect, useRef } from 'react';
 
 import { LEFT_BOUND, PLANE_SIZE, RIGHT_BOUND, TEXTURE_SIZE, WALL_THICKNESS } from '../../constants';
-
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
 import colorRedTexture from '../../textures/customCubeTextures/basecolor_red.png';
 import colorGreenTexture from '../../textures/customCubeTextures/basecolor_green.png';
@@ -12,9 +13,7 @@ import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
 import roughTexture from '../../textures/customCubeTextures/roughness.png';
 import { CubeColorsType } from '../../type';
-import { Mesh, RepeatWrapping } from 'three';
 import { useStore } from '../../state';
-import { useFrame } from '@react-three/fiber';
 import { RefObject } from '../../interface';
 
 const Walls: FC<{ wallColor: string }> = ({ wallColor }) => {

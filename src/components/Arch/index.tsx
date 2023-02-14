@@ -7,13 +7,6 @@ import { useStore } from '../../state';
 const Arch: FC<ArchProps> = ({ position, color }) => {
   const bike = useStore((state) => state.bike);
   const { x, y, z } = position;
-  useFrame((state, delta) => {
-    if (bike.current) {
-      if (gameVariables.shouldShiftItems) {
-        position.z = gameVariables.currentLevelLength - PLANE_SIZE * (6 - 2) - 300
-      }
-    }
-  })
   return (
     <>
       <mesh position={[x, y, z]}>

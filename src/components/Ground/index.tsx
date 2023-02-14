@@ -3,7 +3,7 @@ import { useTexture } from '@react-three/drei';
 import { BufferGeometry, Group, Mesh, MeshStandardMaterial, RepeatWrapping } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useStore } from '../../state';
-import { gameVariables, INCREMENT_GAME_SPEED, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from '../../constants';
+import { gameVariables, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from '../../constants';
 
 import { RefObject } from '../../interface';
 import gridRed from '../../textures/grid-red.png';
@@ -16,7 +16,6 @@ import gridRainbow from '../../textures/grid-rainbow.png';
 
 const Ground: FC<{ mainColor: string }> = ({ mainColor }) => {
   const bike = useStore((state) => state.bike);
-  const setLevelUp = useStore((state) => state.setLevelUp);
   const ground = useRef() as MutableRefObject<Group>;
   const groundBack = useRef() as MutableRefObject<Group>;
   const plane = useRef() as RefObject<
@@ -49,9 +48,7 @@ const Ground: FC<{ mainColor: string }> = ({ mainColor }) => {
           Math.abs(bike.current.position.z) - Math.abs(lastMove.current) < 0
         ) {
           if (moveCounter.current % 6 === 0) {
-            setLevelUp();
             gameVariables.colorLevel++;
-            gameVariables.desiredSpeed += INCREMENT_GAME_SPEED;
             if (gameVariables.colorLevel >= textures.length) {
               gameVariables.colorLevel = 0;
             }

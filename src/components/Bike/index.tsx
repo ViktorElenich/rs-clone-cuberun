@@ -101,14 +101,6 @@ const Bike: FC<BikeProps> = ({ children }) => {
       gameVariables.velocity = 0;
       gameVariables.gameSpeed = 0;
     }
-
-    if (bike.current) {
-      gameVariables.score = Math.abs(bike.current.position.z) - 10;
-      gameVariables.shouldShiftItems =
-        bike.current.position.z < -400 &&
-        bike.current.position.z < gameVariables.currentLevelLength - 400 &&
-        bike.current.position.z > gameVariables.currentLevelLength - 1000;
-    }
   });
 
   useLayoutEffect(() => {
@@ -130,10 +122,6 @@ const Bike: FC<BikeProps> = ({ children }) => {
       gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
     }
   }, [gameStart]);
-
-  useEffect(() => {
-    gameVariables.currentLevelLength = -(level * PLANE_SIZE * 6);
-  }, [level]);
 
   return (
     <>
