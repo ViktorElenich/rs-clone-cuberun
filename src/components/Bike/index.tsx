@@ -11,12 +11,12 @@ import {
   useGLTF,
   useKeyboardControls,
 } from '@react-three/drei';
-import { Object3D, PointLight, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
+import { Object3D, PointLight, Vector3 } from 'three';
 import { GLTFResult } from '../../type';
 import { useStore } from '../../state';
 import { BikeProps, RefObject } from '../../interface';
-import { gameVariables, INITIAL_GAME_SPEED, PLANE_SIZE } from '../../constants';
+import { gameVariables, INITIAL_GAME_SPEED } from '../../constants';
 import { Controls } from '../../enums';
 
 const vector = new Vector3();
@@ -101,6 +101,10 @@ const Bike: FC<BikeProps> = ({ children }) => {
       gameVariables.velocity = 0;
       gameVariables.gameSpeed = 0;
     }
+
+    if (bike.current) {
+      gameVariables.score = Math.abs(bike.current.position.z) - 10;
+    }
   });
 
   useLayoutEffect(() => {
@@ -122,6 +126,12 @@ const Bike: FC<BikeProps> = ({ children }) => {
       gameVariables.desiredSpeed = INITIAL_GAME_SPEED;
     }
   }, [gameStart]);
+
+  useEffect(() => {
+    if (level) {
+      gameVariables.desiredSpeed += 0.2;
+    }
+  }, [level]);
 
   return (
     <>

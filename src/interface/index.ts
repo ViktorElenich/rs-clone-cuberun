@@ -12,11 +12,16 @@ export interface TronState {
   level: number;
   score: number;
   loseGame: boolean;
+  sound: boolean;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
   stopGame: () => void;
   startGame: () => void;
+  newLevel: () => void;
+  mainColor: string;
+  changeColor: (color: string) => void;
+  setSound: (sound: boolean) => void;
   getUsers: () => Promise<User[]>
   addNewUser: (name: string, password: string, score: number) => Promise<boolean>
   authorizeUser: (name: string, password: string) => Promise<number>
@@ -41,6 +46,7 @@ export interface CubeProps {
   position: CubePositionCoords;
   key: number;
   cubeColor: string;
+  tunnel?: boolean;
 }
 
 export interface ArchProps {
@@ -52,8 +58,8 @@ export interface Arches extends CubePositionCoords {
   color: string;
 }
 
-export interface ArchGenerateProps {
-  start: boolean;
+export interface TunnelWallsProps {
+  positionZ: number;
 }
 
 export interface inputProps {
@@ -73,4 +79,15 @@ export interface ScoreMap {
   userName: string, userScore: number
 }
 
+export interface CubesData {
+  x: number;
+  y: number;
+  z: number;
+  col: string;
+}
+export interface CornerData {
+  horizontal: "left" | "right",
+  vertical: "finish" | "start"
+
+}
 

@@ -30,6 +30,7 @@ const Game = () => {
         position={[0, Math.PI, 0]}
       />
       <ambientLight intensity={0.3} />
+
       <Suspense fallback={null}>
         <Bike>
           {directionalLight.current && (
@@ -38,13 +39,12 @@ const Game = () => {
         </Bike>
       </Suspense>
       <Suspense fallback={<LoadingGround />}>
-        <Ground mainColor={MAIN_COLORS.BLUE} />
+        <Ground />
       </Suspense>
-      <ArchGenerate start={true} />
-      <ArchGenerate start={false} />
-      <CubeGenerationComponent cubeColor={MAIN_COLORS.BLUE} />
+      <ArchGenerate />
+      <CubeGenerationComponent />
       <EnvironmentComponent />
-      <Walls wallColor={MAIN_COLORS.BLUE} />
+      <Walls />
       <City />
       <CustomEffects />
       <Speedometer />

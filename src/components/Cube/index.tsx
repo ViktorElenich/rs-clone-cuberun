@@ -1,7 +1,8 @@
 import { useTexture } from '@react-three/drei';
-import { FC, useLayoutEffect, useMemo } from 'react';
-import { RepeatWrapping, Texture } from 'three';
+import { FC, RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Mesh, RepeatWrapping, Texture } from 'three';
 import { useFrame } from '@react-three/fiber';
+import { useSound } from 'use-sound';
 import { CubeColorsType } from '../../type';
 import { CubeProps } from '../../interface';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
@@ -13,14 +14,25 @@ import roughTexture from '../../textures/customCubeTextures/roughness.png';
 
 import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
-import { CUBE_SIZE, PLANE_SIZE } from '../../constants';
+import { CUBE_SIZE } from '../../constants';
 import { useStore } from '../../state';
+import { randomInRange } from '../../utils';
 
-const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
+const Cube: FC<CubeProps> = ({
+  position,
+  cubeColor,
+  tunnel = false,
+}) => {
   const bike = useStore((state) => state.bike);
+  const sound = useStore((state) => state.sound);
   const stopGame = useStore((state) => state.stopGame);
+  const cube = useRef() as RefObject<Mesh>;
   const { x, y, z } = position;
-  const boxHeight: number = Math.floor(Math.random() * 20) + 25;
+  const boxHeight: number = tunnel
+    ? Math.floor(Math.random() * 15) + 45
+    : Math.floor(Math.random() * 25) + 35;
+  const [audio, { stop }] = useSound('/sound/bum.mp3', { volume: 0.5 });
+  const [isPlay, setIsPlay] = useState(false);
 
   const txtrs = useTexture([
     colorBlueTexture,
@@ -61,16 +73,30 @@ const Cube: FC<CubeProps> = ({ position, cubeColor }) => {
         bike.current.position.z <= z + CUBE_SIZE
       ) {
         stopGame();
+        setIsPlay(sound);
       }
     }
   });
 
+  useFrame(() => {
+    if (cube.current) {
+      if (cube.current.position.y < boxHeight / 2) {
+        cube.current.position.y += 0.5;
+      }
+    }
+  });
+
+  useEffect(() => {
+    isPlay ? audio() : stop();
+  }, [isPlay])
+
   return (
     <>
       <mesh
-        position={[x, y + boxHeight / 2, z]}
+        position={[x, y - boxHeight / 2, z]}
         castShadow={true}
         visible={true}
+        ref={cube}
       >
         <boxGeometry args={[CUBE_SIZE, boxHeight, CUBE_SIZE]} />
         <meshStandardMaterial

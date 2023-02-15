@@ -3,7 +3,8 @@ import { useStore } from '../../state';
 
 const Sound = () => {
   const gameStart = useStore((state) => state.gameStart);
-  return gameStart ? (
+  const sound = useStore((state) => state.sound);
+  return gameStart && sound ? (
     <PositionalAudio
       url='/sound/Daft_Punk_-_End_Of_Line.mp3'
       loop
