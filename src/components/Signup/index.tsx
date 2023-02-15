@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
@@ -14,6 +14,7 @@ const SignUpForm = () => {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [userCreated, setUserCreated] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+  const [passVisible, setPassVisible] = useState(false);
 
   const store = useStore();
 
@@ -53,6 +54,15 @@ const SignUpForm = () => {
     }
     setInProgress(false);
   }
+
+  function makePassVisible() {
+    if (passVisible) {
+      setPassVisible(false);
+    } else {
+      setPassVisible(true);
+    }
+  }
+
   useEffect(() => {
     if (userCreated)
       useStore.setState({
@@ -84,12 +94,22 @@ const SignUpForm = () => {
             {invalidPassword && (
               <p className='simpleText'>Not empty password is required</p>
             )}
-            <BaseInput
-              type='password'
-              placeholder='Password...'
-              value={password}
-              onChange={changePasswordHandler}
-            />
+            <div className='baseInput_wrapper'>
+              <BaseInput
+                type={passVisible ? 'text' : 'password'}
+                placeholder='Password...'
+                value={password}
+                onChange={changePasswordHandler}
+              />
+              <div
+                onClick={makePassVisible}
+                className={
+                  passVisible
+                    ? 'visibility-control visibility-control_visible'
+                    : 'visibility-control'
+                }
+              />
+            </div>
           </div>
           {inProgress ? (
             <BaseButton btnText='Processing...' onClickCallback={() => {}} />
