@@ -4,7 +4,6 @@ import { Canvas } from '@react-three/fiber';
 import { useStore } from '../../state';
 import Speedometer from '../Speedometer';
 import FinishGame from '../FinishGame';
-import CustomEffects from '../Effects';
 import CityElements from '../CityElements';
 import Loader from '../Loader';
 
@@ -32,9 +31,7 @@ const Game = () => {
               <primitive object={directionalLight.current.target} />
             )}
           </Bike>
-
           {gameStart && <CityElements />}
-          <CustomEffects />
           <Speedometer />
           <FinishGame />
         </Suspense>

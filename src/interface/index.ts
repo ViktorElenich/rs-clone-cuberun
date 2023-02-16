@@ -8,6 +8,7 @@ export interface RefObject<T> {
 
 export interface TronState {
   name: string | null,
+  password: string | null,
   gameStart: boolean;
   level: number;
   score: number;

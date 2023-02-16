@@ -8,6 +8,7 @@ const useStore = create<TronState>((set, get) => {
     set,
     get,
     name: null,
+    password: null,
     gameStart: true,
     level: 0,
     score: 0,
@@ -40,6 +41,7 @@ const useStore = create<TronState>((set, get) => {
         },
         body: JSON.stringify({ name, password, score })
       }).catch()
+      if (res.ok) { set({ name: name, password: password }) }
       return res.ok;
     },
 
@@ -51,6 +53,7 @@ const useStore = create<TronState>((set, get) => {
         },
         body: JSON.stringify({ name, password })
       }).catch();
+      if (res.ok) { set({ name: name, password: password }) }
       return res.status;
     },
     checkExistentUser: async (name: string) => {
@@ -72,15 +75,18 @@ const useStore = create<TronState>((set, get) => {
     sendScoreToServer: async (scoreEarned: number) => {
       if (get().name) {
         const res = await fetch("https://cuberun-server.onrender.com/users").catch()
-        const users = await res.json()
-        const prevScore = users.filter((u: User) => u.name === get().name);
-        if (prevScore < get().score) {
+        const allUsers = await res.json()
+
+        const users: User[] = allUsers.filter((u: User) => u.name === get().name);
+        if (users.length === 0) return;
+        const prevScore = users[0].score;
+        if (prevScore < scoreEarned) {
           await fetch("https://cuberun-server.onrender.com/users", {
             method: "POST",
             headers: {
               'Content-type': "application/json",
             },
-            body: JSON.stringify({ name: get().name, score: get().score })
+            body: JSON.stringify({ name: get().name, password: get().password, score: scoreEarned })
           }).catch()
         }
       }

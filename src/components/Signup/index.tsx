@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
