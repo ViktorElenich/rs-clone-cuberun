@@ -8,6 +8,7 @@ const useStore = create<TronState>((set, get) => {
     set,
     get,
     name: null,
+    password: null,
     gameStart: true,
     level: 0,
     score: 0,
@@ -15,9 +16,11 @@ const useStore = create<TronState>((set, get) => {
     directionalLight: createRef(),
     bike: createRef(),
     camera: createRef(),
+
     stopGame: () => set({ gameStart: false, loseGame: true }),
-    startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE })),
+    startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE, score: 0 })),
     newLevel: () => set((state) => ({ level: state.level + 1 })),
+
     mainColor: MAIN_COLORS.BLUE,
     changeColor: (color: string) => set(() => ({ mainColor: color })),
 
@@ -38,6 +41,7 @@ const useStore = create<TronState>((set, get) => {
         },
         body: JSON.stringify({ name, password, score })
       }).catch()
+      if (res.ok) { set({ name: name, password: password }) }
       return res.ok;
     },
 
@@ -49,6 +53,7 @@ const useStore = create<TronState>((set, get) => {
         },
         body: JSON.stringify({ name, password })
       }).catch();
+      if (res.ok) { set({ name: name, password: password }) }
       return res.status;
     },
     checkExistentUser: async (name: string) => {
@@ -65,6 +70,25 @@ const useStore = create<TronState>((set, get) => {
       }
       else {
         return existent[0];
+      }
+    },
+    sendScoreToServer: async (scoreEarned: number) => {
+      if (get().name) {
+        const res = await fetch("https://cuberun-server.onrender.com/users").catch()
+        const allUsers = await res.json()
+
+        const users: User[] = allUsers.filter((u: User) => u.name === get().name);
+        if (users.length === 0) return;
+        const prevScore = users[0].score;
+        if (prevScore < scoreEarned) {
+          await fetch("https://cuberun-server.onrender.com/users", {
+            method: "POST",
+            headers: {
+              'Content-type': "application/json",
+            },
+            body: JSON.stringify({ name: get().name, password: get().password, score: scoreEarned })
+          }).catch()
+        }
       }
     }
   };

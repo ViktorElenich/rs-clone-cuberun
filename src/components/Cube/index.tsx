@@ -15,7 +15,6 @@ import { Mesh, RepeatWrapping, Texture } from 'three';
 import { CUBE_SIZE } from '../../constants';
 import { useStore } from '../../state';
 import { useFrame } from '@react-three/fiber';
-import { randomInRange } from '../../utils';
 
 const Cube: FC<CubeProps & { tunnel?: boolean }> = ({
   position,

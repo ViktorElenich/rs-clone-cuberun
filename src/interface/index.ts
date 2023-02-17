@@ -8,6 +8,7 @@ export interface RefObject<T> {
 
 export interface TronState {
   name: string | null,
+  password: string | null,
   gameStart: boolean;
   level: number;
   score: number;
@@ -25,6 +26,7 @@ export interface TronState {
   addNewUser: (name: string, password: string, score: number) => Promise<boolean>
   authorizeUser: (name: string, password: string) => Promise<number>
   checkExistentUser: (name: string) => Promise<User | null>
+  sendScoreToServer: (scoreEarned: number) => void
 }
 
 export interface BikeProps {
