@@ -21,7 +21,6 @@ const ArchGenerate = () => {
   const sound = useStore((state) => state.sound);
   const [localLevel, setLocalLevel] = useState(0);
   const [audio] = useSound('/sound/speedup.mp3', { volume: 0.75 });
-  const [showText, setShowText] = useState(false);
   let positionArch = START_POSITION_ARCHES - localLevel * DISTANCE_LEVEL;
 
   useFrame(() => {
@@ -36,7 +35,6 @@ const ArchGenerate = () => {
   useEffect(() => {
     if (localLevel > level + 1) {
       newLevel();
-      setShowText(true);
       if (sound) audio();
     }
 

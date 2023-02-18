@@ -32,7 +32,6 @@ const Cube: FC<CubeProps> = ({
     ? Math.floor(Math.random() * 15) + 45
     : Math.floor(Math.random() * 25) + 35;
   const [audio, { stop }] = useSound('/sound/bum.mp3', { volume: 0.5 });
-  const [isPlay, setIsPlay] = useState(false);
 
   const txtrs = useTexture([
     colorBlueTexture,
@@ -73,7 +72,7 @@ const Cube: FC<CubeProps> = ({
         bike.current.position.z <= z + CUBE_SIZE
       ) {
         stopGame();
-        setIsPlay(sound);
+        if (sound) audio();
       }
     }
   });
@@ -85,10 +84,6 @@ const Cube: FC<CubeProps> = ({
       }
     }
   });
-
-  useEffect(() => {
-    isPlay ? audio() : stop();
-  }, [isPlay])
 
   return (
     <>

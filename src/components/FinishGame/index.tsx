@@ -6,12 +6,29 @@ import BaseButton from '../BaseButton';
 import './style.css';
 
 const FinishGame = () => {
+  const bike = useStore((state) => state.bike);
+  const startGame = useStore((state) => state.startGame);
   const loseGame = useStore((state) => state.loseGame);
+  const sendScore = useStore((state) => state.sendScoreToServer);
   const navigate = useNavigate();
 
   if (!loseGame) {
     return <></>;
   }
+
+  function goToGameMenu() {
+    sendScore(+getScore());
+    navigate('/')
+  }
+
+  const tryAgainHanler = () => {
+    sendScore(+getScore());
+    if (bike.current) {
+      bike.current!.position.x = 0;
+      bike.current!.position.z = -10;
+      startGame();
+    }
+  };
 
   return (
     <Html
@@ -26,10 +43,8 @@ const FinishGame = () => {
       <h1 className='window-loses__header'>No wonder you lost.</h1>
       <h2>You score: {getScore()}</h2>
       <div className='window-loses__wrapper-btn'>
-        <BaseButton
-          onClickCallback={() => navigate('/')}
-          btnText='To main menu'
-        />
+        <BaseButton onClickCallback={tryAgainHanler} btnText='Try again!' />
+        <BaseButton onClickCallback={goToGameMenu} btnText='To main menu' />
       </div>
     </Html>
   );

@@ -1,23 +1,28 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Bike from '../Bike';
-import LoadingGround from '../Loading/LoadingGround';
+import { useProgress } from '@react-three/drei';
 import { useStore } from '../../state';
-import Ground from '../Ground';
-import CubeGenerationComponent from '../CubeGenerationComponent';
-import EnvironmentComponent from '../EnvironmentComponent';
-import ArchGenerate from '../Arch/ArchGenerate';
+import Bike from '../Bike';
 import Speedometer from '../Speedometer';
 import FinishGame from '../FinishGame';
-import City from '../City';
-import CustomEffects from '../Effects';
-import Walls from '../Walls';
-import { MAIN_COLORS } from '../../constants';
-import Sound from '../Sound';
-import Text from '../Text';
+import CityElements from '../CityElements';
+import Loader from '../Loader';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
+  const gameStart = useStore((state) => state.gameStart);
+  const { active, progress } = useProgress();
+  const [isLoad, setIsLoad] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (progress >= 100) {
+      timer = setTimeout(() => setIsLoad(true), 300);
+    }
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [progress]);
 
   return (
     <>
@@ -26,33 +31,25 @@ const Game = () => {
         dpr={[1, 1.5]}
         style={{ background: '#141622' }}
       >
-        <directionalLight
-          ref={directionalLight}
-          intensity={3}
-          position={[0, Math.PI, 0]}
-        />
-        <ambientLight intensity={0.3} />
         <Suspense fallback={null}>
+          <directionalLight
+            ref={directionalLight}
+            intensity={3}
+            position={[0, Math.PI, 0]}
+          />
+          <ambientLight intensity={0.3} />
+
           <Bike>
             {directionalLight.current && (
               <primitive object={directionalLight.current.target} />
             )}
           </Bike>
+          {gameStart && <CityElements />}
+          <Speedometer />
+          <FinishGame />
         </Suspense>
-        <Suspense fallback={<LoadingGround />}>
-          <Ground />
-        </Suspense>
-        <ArchGenerate />
-        <CubeGenerationComponent />
-        <EnvironmentComponent />
-        <Walls />
-        <City />
-        <CustomEffects />
-        <Speedometer />
-        <FinishGame />
-        <Sound />
       </Canvas>
-      <Text />
+      {!isLoad ? <Loader /> : null}
     </>
   );
 };

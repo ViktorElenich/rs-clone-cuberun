@@ -6,6 +6,7 @@ import Game from './components/Game';
 import MainMenu from './components/MainMenu';
 import AuthForm from './components/AuthForm';
 import Signup from './components/Signup';
+import ScoreTable from './components/ScoreTable';
 
 function App() {
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
@@ -23,6 +24,7 @@ function App() {
         <Route path={RoutesEnum.Game} element={<Game />} />
         <Route path={RoutesEnum.Auth} element={<AuthForm />} />
         <Route path={RoutesEnum.Sigup} element={<Signup />} />
+        <Route path={RoutesEnum.Score} element={<ScoreTable />} />
       </Routes>
     </KeyboardControls>
   );

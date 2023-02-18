@@ -14,6 +14,7 @@ const AuthForm = () => {
   const [noUser, setNoUser] = useState(false);
   const [wrongPassword, setWrongPassword] = useState(false);
   const [inProgress, setInProgress] = useState(false);
+  const [passVisible, setPassVisible] = useState(false);
 
   const store = useStore();
 
@@ -50,6 +51,13 @@ const AuthForm = () => {
     }
     setInProgress(false);
   };
+  function makePassVisible() {
+    if (passVisible) {
+      setPassVisible(false);
+    } else {
+      setPassVisible(true);
+    }
+  }
 
   useEffect(() => {
     if (login.trim() !== '' && password.trim() !== '') {
@@ -83,10 +91,19 @@ const AuthForm = () => {
               onChange={changeLoginHandler}
             />
             <BaseInput
-              type='password'
+              type={passVisible ? 'text' : 'password'}
               placeholder='Password...'
               value={password}
               onChange={changePasswordHandler}
+            />
+            <div
+              role='presentation'
+              onClick={makePassVisible}
+              className={
+                passVisible
+                  ? 'visibility-control visibility-control_visible'
+                  : 'visibility-control'
+              }
             />
           </div>
           {emptyFields && (
