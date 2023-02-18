@@ -1,0 +1,84 @@
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: url('../../assets/bg2.jpg') no-repeat center;
+  background-size: cover;
+  font-family: 'Orbitron', 'Tr2n', sans-serif;
+  color: white;
+}
+
+.score__header {
+  margin-bottom: 10px;
+}
+
+.wrapper-btn {
+  position: relative;
+  left: -200px;
+}
+
+.table-wrapper {
+  height: 311px;
+}
+
+.score__table {
+  text-align: center;
+  width: 500px;
+  border-collapse: collapse;
+}
+
+.score__thead,
+td {
+  border-bottom: 2px solid rgb(98, 98, 255);
+  height: 50px;
+}
+
+.table-header__score {
+  position: relative;
+  cursor: pointer;
+}
+
+.table-header__score:hover {
+  color: rgb(98, 98, 255);
+}
+
+.table-header__score-ASC::before {
+  content: '';
+  position: absolute;
+  right: 30%;
+  top: 55%;
+  border: 5px solid transparent; 
+  border-top: 5px solid white;
+}
+
+.table-header__score-DESC::before {
+  content: '';
+  position: absolute;
+  right: 30%;
+  top: 30%;
+  border: 5px solid transparent; 
+  border-bottom: 5px solid white;
+}
+
+.pagination__page {
+  font-size: 24px;
+  margin: 0 20px;
+}
+
+@media screen and (max-width: 520px) {
+  .score__table {
+    width: 300px;
+  }
+
+  .table-header__score-DESC::before,
+  .table-header__score-ASC::before {
+    right: 20%;
+  }
+
+  .wrapper-btn {
+    left: -100px;
+  }
+}
