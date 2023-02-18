@@ -6,5 +6,7 @@ export enum Controls {
 export enum RoutesEnum {
   Home = '/',
   Game = '/game',
-  Score = '/score'
+  Score = '/score',
+  Auth = '/auth',
+  Sigup = '/signup'
 }

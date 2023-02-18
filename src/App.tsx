@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import { Controls, RoutesEnum } from './enums';
 import Game from './components/Game';
 import MainMenu from './components/MainMenu';
+import AuthForm from './components/AuthForm';
+import Signup from './components/Signup';
 
 function App() {
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
@@ -19,6 +21,8 @@ function App() {
       <Routes>
         <Route path={RoutesEnum.Home} element={<MainMenu />} />
         <Route path={RoutesEnum.Game} element={<Game />} />
+        <Route path={RoutesEnum.Auth} element={<AuthForm />} />
+        <Route path={RoutesEnum.Sigup} element={<Signup />} />
       </Routes>
     </KeyboardControls>
   );

@@ -14,43 +14,46 @@ import CustomEffects from '../Effects';
 import Walls from '../Walls';
 import { MAIN_COLORS } from '../../constants';
 import Sound from '../Sound';
+import Text from '../Text';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
 
   return (
-    <Canvas
-      gl={{ antialias: false, alpha: false }}
-      dpr={[1, 1.5]}
-      style={{ background: '#141622' }}
-    >
-      <directionalLight
-        ref={directionalLight}
-        intensity={3}
-        position={[0, Math.PI, 0]}
-      />
-      <ambientLight intensity={0.3} />
-
-      <Suspense fallback={null}>
-        <Bike>
-          {directionalLight.current && (
-            <primitive object={directionalLight.current.target} />
-          )}
-        </Bike>
-      </Suspense>
-      <Suspense fallback={<LoadingGround />}>
-        <Ground />
-      </Suspense>
-      <ArchGenerate />
-      <CubeGenerationComponent />
-      <EnvironmentComponent />
-      <Walls />
-      <City />
-      <CustomEffects />
-      <Speedometer />
-      <FinishGame />
-      <Sound />
-    </Canvas>
+    <>
+      <Canvas
+        gl={{ antialias: false, alpha: false }}
+        dpr={[1, 1.5]}
+        style={{ background: '#141622' }}
+      >
+        <directionalLight
+          ref={directionalLight}
+          intensity={3}
+          position={[0, Math.PI, 0]}
+        />
+        <ambientLight intensity={0.3} />
+        <Suspense fallback={null}>
+          <Bike>
+            {directionalLight.current && (
+              <primitive object={directionalLight.current.target} />
+            )}
+          </Bike>
+        </Suspense>
+        <Suspense fallback={<LoadingGround />}>
+          <Ground />
+        </Suspense>
+        <ArchGenerate />
+        <CubeGenerationComponent />
+        <EnvironmentComponent />
+        <Walls />
+        <City />
+        <CustomEffects />
+        <Speedometer />
+        <FinishGame />
+        <Sound />
+      </Canvas>
+      <Text />
+    </>
   );
 };
 

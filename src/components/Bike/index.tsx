@@ -27,6 +27,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const camera = useStore((state) => state.camera);
   const gameStart = useStore((state) => state.gameStart);
   const loseGame = useStore((state) => state.loseGame);
+  const setSpeedUp = useStore((state) => state.setSpeedUp);
   const pointLight = useRef() as RefObject<PointLight>;
   const bikeLine = useRef() as MutableRefObject<Object3D<Event>>;
   const [sub, get] = useKeyboardControls<Controls>();
@@ -89,11 +90,14 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     if (gameStart && !loseGame) {
       if (gameVariables.gameSpeed < gameVariables.desiredSpeed) {
+        setSpeedUp(true);
         if (gameVariables.gameSpeed + accelDelta > gameVariables.desiredSpeed) {
           gameVariables.gameSpeed = gameVariables.desiredSpeed;
         } else {
           gameVariables.gameSpeed += accelDelta;
         }
+      } else {
+        setSpeedUp(false);
       }
     }
 

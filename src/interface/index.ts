@@ -13,6 +13,7 @@ export interface TronState {
   score: number;
   loseGame: boolean;
   sound: boolean;
+  speedUp: boolean;
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
@@ -22,6 +23,7 @@ export interface TronState {
   mainColor: string;
   changeColor: (color: string) => void;
   setSound: (sound: boolean) => void;
+  setSpeedUp: (speedUp: boolean) => void;
   getUsers: () => Promise<User[]>
   addNewUser: (name: string, password: string, score: number) => Promise<boolean>
   authorizeUser: (name: string, password: string) => Promise<number>

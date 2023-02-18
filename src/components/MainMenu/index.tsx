@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSound } from 'use-sound';
 import BaseButton from '../BaseButton';
@@ -12,16 +12,14 @@ const MainMenu = () => {
   const setSound = useStore((state) => state.setSound);
   const navigate = useNavigate();
   const [audio, { stop }] = useSound('/sound/drum1.mp3', { volume: 0.5 });
-  const [isPlay, setIsPlay] = useState(false);
 
   const playAdio = () => {
-    setIsPlay(!isPlay);
-    setSound(!isPlay);
+    setSound(!sound);
   };
 
   useEffect(() => {
     sound ? audio() : stop();
-  }, [sound]);
+  }, [sound]);  
 
   return (
     <div className='main-wrapper'>
@@ -29,11 +27,11 @@ const MainMenu = () => {
       <div className='main-menu'>
         <BaseButton
           btnText='Log in'
-          onClickCallback={() => console.log('navigate to log in form')}
+          onClickCallback={() => navigate('/auth')}
         />
         <BaseButton
           btnText='Sign up'
-          onClickCallback={() => console.log('navigate to sign up form')}
+          onClickCallback={() => navigate('/signup')}
         />
         <BaseButton
           btnText='Anonymous play'

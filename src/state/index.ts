@@ -13,6 +13,7 @@ const useStore = create<TronState>((set, get) => {
     score: 0,
     loseGame: false,
     sound: false,
+    speedUp: false,
     directionalLight: createRef(),
     bike: createRef(),
     camera: createRef(),
@@ -22,6 +23,7 @@ const useStore = create<TronState>((set, get) => {
     newLevel: () => set((state) => ({ level: state.level + 1 })),
     changeColor: (color: string) => set(() => ({ mainColor: color })),
     setSound: (sound) => set(() => ({ sound: sound })),
+    setSpeedUp: (speedUp) => set(() => ({ speedUp: speedUp })),
     getUsers: async () => {
       const res = await fetch('https://cuberun-server.onrender.com/users', {
         method: "GET",
