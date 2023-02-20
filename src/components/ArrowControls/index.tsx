@@ -2,23 +2,20 @@ import { useStore } from '../../state';
 import './style.css';
 
 const ArrowControls = () => {
-  const start = useStore((state) => state.gameStart);
-
   const loseGame = useStore((state) => state.loseGame);
 
   const setDirection = useStore((state) => state.setDirection);
 
-  function changeDirectionHandler(e: React.PointerEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    const target = e.target as HTMLButtonElement;
-    if (target.classList.contains('left')) {
-      setDirection('left');
-    } else if (target.classList.contains('right')) {
-      setDirection('right');
-    } else setDirection(null);
+  function goLeft() {
+    setDirection('left');
+  }
+  function goRight() {
+    setDirection('right');
+  }
+  function goStraight() {
+    setDirection(null);
   }
 
-  /* if (!ismobile) return <></>; */
   if (loseGame) {
     return <></>;
   }
@@ -27,15 +24,15 @@ const ArrowControls = () => {
     <div className='arrow-control__wrapper'>
       <button
         className={`arrow-control arrow__left titleText`}
-        onPointerDown={(e) => changeDirectionHandler(e)}
-        onPointerUp={(e) => changeDirectionHandler(e)}
+        onPointerDown={() => goLeft()}
+        onPointerUp={() => goStraight()}
       >
         {'<'}
       </button>
       <button
         className={`arrow-control arrow__left titleText`}
-        onPointerDown={(e) => changeDirectionHandler(e)}
-        onPointerUp={(e) => changeDirectionHandler(e)}
+        onPointerDown={() => goRight()}
+        onPointerUp={() => goStraight()}
       >
         {'>'}
       </button>

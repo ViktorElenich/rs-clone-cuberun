@@ -7,6 +7,7 @@ import FinishGame from '../FinishGame';
 import CityElements from '../CityElements';
 import Loader from '../Loader';
 import ArrowControls from '../ArrowControls';
+import { isMobile } from 'react-device-detect';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -14,7 +15,7 @@ const Game = () => {
 
   return (
     <>
-      <ArrowControls />
+      {isMobile && <ArrowControls />}
       <Canvas
         gl={{ antialias: false, alpha: false }}
         dpr={[1, 1.5]}
