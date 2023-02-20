@@ -14,3 +14,5 @@ export type UserCreate = Omit<User, "id">
 export type CubeColorsType = {
   [key: string]: Texture;
 };
+
+export type DirectionType = 'left' | 'right' | null

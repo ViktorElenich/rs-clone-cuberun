@@ -2,6 +2,7 @@ import { createRef } from 'react';
 import { create } from 'zustand';
 import { TronState, User } from '../interface';
 import { MAIN_COLORS } from '../constants';
+import { DirectionType } from '../type';
 
 const useStore = create<TronState>((set, get) => {
   return {
@@ -16,6 +17,8 @@ const useStore = create<TronState>((set, get) => {
     directionalLight: createRef(),
     bike: createRef(),
     camera: createRef(),
+    direction: null,
+    setDirection: (dir: DirectionType) => set(({ direction: dir })),
 
     stopGame: () => set({ gameStart: false, loseGame: true }),
     startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE, score: 0 })),

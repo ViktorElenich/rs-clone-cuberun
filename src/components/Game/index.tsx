@@ -6,6 +6,7 @@ import Speedometer from '../Speedometer';
 import FinishGame from '../FinishGame';
 import CityElements from '../CityElements';
 import Loader from '../Loader';
+import ArrowControls from '../ArrowControls';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
@@ -13,6 +14,7 @@ const Game = () => {
 
   return (
     <>
+      <ArrowControls />
       <Canvas
         gl={{ antialias: false, alpha: false }}
         dpr={[1, 1.5]}

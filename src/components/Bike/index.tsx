@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useLayoutEffect,
   useRef,
+  useState,
 } from 'react';
 import {
   PerspectiveCamera,
@@ -30,12 +31,14 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const pointLight = useRef() as RefObject<PointLight>;
   const bikeLine = useRef() as MutableRefObject<Object3D<Event>>;
   const [sub, get] = useKeyboardControls<Controls>();
+  const direction = useStore((state) => state.direction);
+  const setDirection = useStore((state) => state.setDirection);
 
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
   useFrame((state, delta) => {
     const accelDelta = delta * 0.15;
-    const accelDeltaIncline = delta * 1.8;
+    const accelDeltaIncline = direction ? delta * 3 : delta * 1.8;
     const left = get().left;
     const right = get().right;
 
@@ -55,7 +58,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     camera.current!.rotation.y = Math.PI;
 
-    if ((left && right) || (!left && !right)) {
+    if ((left && right) || (!left && !right) || !direction) {
       if (gameVariables.velocity < 0) {
         if (gameVariables.velocity + accelDeltaIncline > 0) {
           gameVariables.velocity = 0;
@@ -73,13 +76,13 @@ const Bike: FC<BikeProps> = ({ children }) => {
     }
 
     if (gameVariables.gameSpeed > 0) {
-      if (left && !right) {
+      if ((left && !right) || direction === 'left') {
         gameVariables.velocity = Math.max(
           -0.7,
           gameVariables.velocity - accelDeltaIncline,
         );
       }
-      if (!left && right) {
+      if ((!left && right) || direction === 'right') {
         gameVariables.velocity = Math.min(
           0.7,
           gameVariables.velocity + accelDeltaIncline,
@@ -100,6 +103,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
     if (loseGame) {
       gameVariables.velocity = 0;
       gameVariables.gameSpeed = 0;
+      setDirection(null);
     }
 
     if (bike.current) {

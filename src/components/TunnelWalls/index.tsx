@@ -14,7 +14,7 @@ const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
   const [mainColor, setMainColor] = useState(MAIN_COLORS_ARR[0]);
   const level = useStore((state) => state.level);
 
-  const [textLevel, setTextLevel] = useState(1);
+  const [textLevel, setTextLevel] = useState(level);
 
   const tunnelColors = ['blue', 'red', 'red', 'red', 'purple', 'green', 'blue'];
   const leftCornerCoords = cornerCoords({
@@ -70,6 +70,7 @@ const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
 
   useEffect(() => {
     setMainColor(MAIN_COLORS_ARR[level % 5]);
+
     setTextLevel((prev) => prev + 1);
   }, [level]);
 
