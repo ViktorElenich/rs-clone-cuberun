@@ -1,10 +1,12 @@
-import './style.css';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import logo from '../../assets/logo-tron.png';
 import { User } from '../../interface';
 import { useStore } from '../../state';
+import './style.css';
+import { RoutesEnum } from '../../enums';
 
 const AuthForm = () => {
   const [login, setLogin] = useState('');
@@ -15,6 +17,7 @@ const AuthForm = () => {
   const [wrongPassword, setWrongPassword] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [passVisible, setPassVisible] = useState(false);
+  const navigate = useNavigate();
 
   const store = useStore();
 
@@ -126,8 +129,7 @@ const AuthForm = () => {
               <BaseButton
                 btnText='Sign up'
                 onClickCallback={() => {
-                  console.log('sign up');
-                  // go to sign-up form
+                  navigate(`${RoutesEnum.Signup}`)
                 }}
               />
             </div>

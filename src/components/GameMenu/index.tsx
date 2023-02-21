@@ -1,9 +1,13 @@
-import BaseButton from '../BaseButton';
-import './style.css';
-import logo from '../../assets/logo-tron.png';
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import BaseButton from '../BaseButton';
+import logo from '../../assets/logo-tron.png';
+import './style.css';
+import { RoutesEnum } from '../../enums';
+
 const GameMenu: FC<{ name: string | null }> = ({ name }) => {
   const [instructionsOpen, setInstructionsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className='game-menu__wrapper'>
@@ -41,7 +45,7 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
         <div className='main-menu'>
           <BaseButton
             btnText='Play'
-            onClickCallback={() => console.log('start game')}
+            onClickCallback={() => navigate(`${RoutesEnum.Game}`)}
           />
           <BaseButton
             btnText='Instructions'
@@ -49,12 +53,12 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
           />
           <BaseButton
             btnText='Score'
-            onClickCallback={() => console.log('got to score page')}
+            onClickCallback={() => navigate(`${RoutesEnum.Score}`)}
           />
 
           <BaseButton
             btnText='Quit'
-            onClickCallback={() => console.log('got to the main manu')}
+            onClickCallback={() => navigate(`${RoutesEnum.Home}`)}
           />
         </div>
       )}

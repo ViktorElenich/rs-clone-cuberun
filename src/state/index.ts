@@ -57,7 +57,6 @@ const useStore = create<TronState>((set, get) => {
     checkExistentUser: async (name: string) => {
       const users = await get().getUsers();
       if (users.length === 0) {
-        console.log("no users list received");
         return null;
       }
       const existent = users.filter((u: User) => u.name === name)
