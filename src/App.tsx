@@ -23,7 +23,7 @@ function App() {
         <Route path={RoutesEnum.Home} element={<MainMenu />} />
         <Route path={RoutesEnum.Game} element={<Game />} />
         <Route path={RoutesEnum.Auth} element={<AuthForm />} />
-        <Route path={RoutesEnum.Sigup} element={<Signup />} />
+        <Route path={RoutesEnum.Signup} element={<Signup />} />
         <Route path={RoutesEnum.Score} element={<ScoreTable />} />
       </Routes>
     </KeyboardControls>

@@ -8,5 +8,5 @@ export enum RoutesEnum {
   Game = '/game',
   Score = '/score',
   Auth = '/auth',
-  Sigup = '/signup'
+  Signup = '/signup'
 }
