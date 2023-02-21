@@ -15,12 +15,15 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/three": "^0.148.1",
+    "eslint": "^8.33.0",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "^5.0.1",
     "three": "^0.148.0",
     "typescript": "^4.9.4",
+    "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4",
     "zustand": "^4.3.2"
   },
@@ -28,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --fix --ext .ts,.tsx ."
   },
   "eslintConfig": {
     "extends": [
@@ -50,15 +54,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.22.0",
-    "eslint": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-typescript": "^0.14.0",
     "gltf-loader-ts": "^0.3.1",
     "prettier": "^2.6.2"
   }

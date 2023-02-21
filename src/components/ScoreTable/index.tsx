@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RoutesEnum } from '../../enums';
 import { User } from '../../interface';
 import { useStore } from '../../state';
 import BaseButton from '../BaseButton';
@@ -9,6 +11,7 @@ const ScoreTable = () => {
   const [page, setPage] = useState(1);
   const getUsers = useStore((state) => state.getUsers);
   const [orderSort, setOrderSort] = useState('ASC');
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsers().then((res) =>
@@ -46,7 +49,7 @@ const ScoreTable = () => {
       <div className='wrapper-btn'>
         <BaseButton
           btnText='⇐ Menu'
-          onClickCallback={() => console.log('to main menu')}
+          onClickCallback={() => navigate(`${RoutesEnum.Home}`)}
         />
       </div>
       <div className='table-wrapper'>

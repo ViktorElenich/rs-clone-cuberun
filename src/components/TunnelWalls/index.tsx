@@ -1,13 +1,13 @@
 import { FC, Suspense, useEffect, useState } from 'react';
 
+import { Float, Text3D } from '@react-three/drei/core';
+import { Text } from '@react-three/drei';
+import { DoubleSide } from 'three';
 import { CUBE_SIZE, MAIN_COLORS_ARR, SAVE_SPACE } from '../../constants';
 import { useStore } from '../../state';
 import { CubesData, TunnelWallsProps } from '../../interface';
 import Cube from '../Cube';
 import { cornerCoords } from '../../utils/generation';
-import { Float, Text3D } from '@react-three/drei/core';
-import { Text } from '@react-three/drei';
-import { DoubleSide } from 'three';
 
 const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
   const bike = useStore((state) => state.bike);

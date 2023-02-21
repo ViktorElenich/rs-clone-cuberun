@@ -1,5 +1,8 @@
 import { useTexture } from '@react-three/drei';
-import { FC, RefObject, useLayoutEffect, useRef } from 'react';
+import { FC, RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Mesh, RepeatWrapping, Texture } from 'three';
+import { useFrame } from '@react-three/fiber';
+import { useSound } from 'use-sound';
 import { CubeColorsType } from '../../type';
 import { CubeProps } from '../../interface';
 import colorBlueTexture from '../../textures/customCubeTextures/basecolor_blue.png';
@@ -8,26 +11,27 @@ import colorRedTexture from '../../textures/customCubeTextures/basecolor_red.png
 import colorPurpleTexture from '../../textures/customCubeTextures/basecolor_purple.png';
 import colorGreenTexture from '../../textures/customCubeTextures/basecolor_green.png';
 import roughTexture from '../../textures/customCubeTextures/roughness.png';
+
 import bumpTexture from '../../textures/customCubeTextures/heights.png';
 import emissiveTexture from '../../textures/customCubeTextures/emissive.png';
-
-import { Mesh, RepeatWrapping, Texture } from 'three';
 import { CUBE_SIZE } from '../../constants';
 import { useStore } from '../../state';
-import { useFrame } from '@react-three/fiber';
+import { randomInRange } from '../../utils';
 
-const Cube: FC<CubeProps & { tunnel?: boolean }> = ({
+const Cube: FC<CubeProps> = ({
   position,
   cubeColor,
   tunnel = false,
 }) => {
   const bike = useStore((state) => state.bike);
+  const sound = useStore((state) => state.sound);
   const stopGame = useStore((state) => state.stopGame);
   const cube = useRef() as RefObject<Mesh>;
   const { x, y, z } = position;
   const boxHeight: number = tunnel
     ? Math.floor(Math.random() * 15) + 45
     : Math.floor(Math.random() * 25) + 35;
+  const [audio, { stop }] = useSound('/sound/bum.mp3', { volume: 0.5 });
 
   const txtrs = useTexture([
     colorBlueTexture,
@@ -68,6 +72,7 @@ const Cube: FC<CubeProps & { tunnel?: boolean }> = ({
         bike.current.position.z <= z + CUBE_SIZE
       ) {
         stopGame();
+        if (sound) audio();
       }
     }
   });

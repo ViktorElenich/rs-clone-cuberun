@@ -9,6 +9,9 @@
   opacity: 1;
   overflow-x: hidden;
   background-color: var(--color_bg);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .preloader {
   position: relative;

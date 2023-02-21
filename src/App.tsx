@@ -1,7 +1,12 @@
-import { useMemo } from "react";
-import { KeyboardControls, KeyboardControlsEntry } from "@react-three/drei";
-import { Controls } from "./enums";
-import Index from "./components/Game";
+import { useMemo } from 'react';
+import { KeyboardControls, KeyboardControlsEntry } from '@react-three/drei';
+import { Route, Routes } from 'react-router-dom';
+import { Controls, RoutesEnum } from './enums';
+import Game from './components/Game';
+import MainMenu from './components/MainMenu';
+import AuthForm from './components/AuthForm';
+import Signup from './components/Signup';
+import ScoreTable from './components/ScoreTable';
 
 function App() {
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
@@ -14,7 +19,13 @@ function App() {
 
   return (
     <KeyboardControls map={map}>
-      <Index />
+      <Routes>
+        <Route path={RoutesEnum.Home} element={<MainMenu />} />
+        <Route path={RoutesEnum.Game} element={<Game />} />
+        <Route path={RoutesEnum.Auth} element={<AuthForm />} />
+        <Route path={RoutesEnum.Signup} element={<Signup />} />
+        <Route path={RoutesEnum.Score} element={<ScoreTable />} />
+      </Routes>
     </KeyboardControls>
   );
 }

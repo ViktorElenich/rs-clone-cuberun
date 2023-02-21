@@ -4,6 +4,7 @@ import CubeGenerationComponent from '../CubeGenerationComponent';
 import CustomEffects from '../Effects';
 import EnvironmentComponent from '../EnvironmentComponent';
 import Ground from '../Ground';
+import Sound from '../Sound';
 import Walls from '../Walls';
 
 const CityElements = () => {
@@ -13,9 +14,10 @@ const CityElements = () => {
       <ArchGenerate />
       <CubeGenerationComponent />
       <EnvironmentComponent />
+      <CustomEffects />
       <Walls />
       <City />
-      <CustomEffects />
+      <Sound />
     </>
   );
 };

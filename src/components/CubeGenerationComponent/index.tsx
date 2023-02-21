@@ -1,10 +1,10 @@
 import { FC, useEffect, useRef, useState } from 'react';
+import { useFrame } from '@react-three/fiber';
 import Cube from '../Cube';
 import { cubeCoords } from '../../utils/generation';
 import { DISTANCE_LEVEL, MAIN_COLORS_ARR, PLANE_SIZE } from '../../constants';
 import { CubePositionCoords } from '../../interface';
 import { useStore } from '../../state';
-import { useFrame } from '@react-three/fiber';
 
 const CubeGenerationComponent = () => {
   const ids = useRef(1);

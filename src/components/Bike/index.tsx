@@ -12,11 +12,11 @@ import {
   useGLTF,
   useKeyboardControls,
 } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { Object3D, PointLight, Vector3 } from 'three';
 import { GLTFResult } from '../../type';
 import { useStore } from '../../state';
 import { BikeProps, RefObject } from '../../interface';
-import { Object3D, PointLight, Vector3 } from 'three';
-import { useFrame } from '@react-three/fiber';
 import { gameVariables, INITIAL_GAME_SPEED } from '../../constants';
 import { Controls } from '../../enums';
 
