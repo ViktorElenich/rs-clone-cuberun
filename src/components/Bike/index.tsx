@@ -37,8 +37,6 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
   useFrame((state, delta) => {
-    console.log(direction);
-
     const accelDelta = delta * 0.15;
     const accelDeltaIncline = delta * 1.8;
     const left = get().left;
