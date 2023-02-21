@@ -13,44 +13,46 @@ const MainMenu = () => {
   const navigate = useNavigate();
   const [audio, { stop }] = useSound('/sound/drum1.mp3', { volume: 0.5 });
 
-  const playAdio = () => {
+  const playAudio = () => {
     setSound(!sound);
   };
 
   useEffect(() => {
     sound ? audio() : stop();
-  }, [sound]);  
+  }, [sound]);
 
   return (
     <div className='main-wrapper'>
       <img src={logo} alt='Tron-game logo' className='tron-logo' />
-      <div className='main-menu'>
-        <BaseButton
-          btnText='Log in'
-          onClickCallback={() => navigate('/auth')}
-        />
-        <BaseButton
-          btnText='Sign up'
-          onClickCallback={() => navigate('/signup')}
-        />
-        <BaseButton
-          btnText='Anonymous play'
-          onClickCallback={() => {
-            navigate('/game');
-            startGame();
-            stop();
-          }}
-        />
-        <p className='infotip simpleText'>
-          You can play without sign-in, but your score will not be saved
-        </p>
-        <p className='infotip simpleText'>
-          PLay music
+      <div className='main-menu__container'>
+        <div className='main-menu'>
           <BaseButton
-            btnText={sound ? 'Off' : 'On'}
-            onClickCallback={playAdio}
+            btnText='Log in'
+            onClickCallback={() => navigate('/auth')}
           />
-        </p>
+          <BaseButton
+            btnText='Sign up'
+            onClickCallback={() => navigate('/signup')}
+          />
+          <BaseButton
+            btnText='Anonymous play'
+            onClickCallback={() => {
+              navigate('/game');
+              startGame();
+              stop();
+            }}
+          />
+          <p className='infotip simpleText'>
+            You can play without sign-in, but your score will not be saved
+          </p>
+          <p className='infotip simpleText'>
+            PLay music
+            <BaseButton
+              btnText={sound ? 'Off' : 'On'}
+              onClickCallback={playAudio}
+            />
+          </p>
+        </div>
       </div>
     </div>
   );

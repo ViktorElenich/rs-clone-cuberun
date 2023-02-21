@@ -4,10 +4,13 @@ import BaseButton from '../BaseButton';
 import logo from '../../assets/logo-tron.png';
 import './style.css';
 import { RoutesEnum } from '../../enums';
+import { useStore } from '../../state';
 
 const GameMenu: FC<{ name: string | null }> = ({ name }) => {
   const [instructionsOpen, setInstructionsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const startGame = useStore((state) => state.startGame);
 
   return (
     <div className='game-menu__wrapper'>
@@ -42,10 +45,13 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
           />
         </div>
       ) : (
-        <div className='main-menu'>
+        <div className='game-menu__main-menu'>
           <BaseButton
             btnText='Play'
-            onClickCallback={() => navigate(`${RoutesEnum.Game}`)}
+            onClickCallback={() => {
+              startGame();
+              navigate(`${RoutesEnum.Game}`);
+            }}
           />
           <BaseButton
             btnText='Instructions'
