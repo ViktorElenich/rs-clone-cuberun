@@ -1,8 +1,8 @@
 import { Html } from "@react-three/drei";
-import { useStore } from "../../state";
-import { useEffect, useState } from "react";
-import { getScore, getSpeed } from "../../utils";
 import { addEffect } from "@react-three/fiber";
+import { useEffect, useState } from "react";
+import { useStore } from "../../state";
+import { getScore, getSpeed } from "../../utils";
 import "./Speedometer.css";
 
 

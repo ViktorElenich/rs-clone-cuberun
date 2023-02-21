@@ -1,4 +1,5 @@
 import { Html } from '@react-three/drei';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../state';
 import { getScore } from '../../utils';
 import BaseButton from '../BaseButton';
@@ -9,6 +10,7 @@ const FinishGame = () => {
   const startGame = useStore((state) => state.startGame);
   const loseGame = useStore((state) => state.loseGame);
   const sendScore = useStore((state) => state.sendScoreToServer);
+  const navigate = useNavigate();
 
   if (!loseGame) {
     return <></>;
@@ -16,7 +18,7 @@ const FinishGame = () => {
 
   function goToGameMenu() {
     sendScore(+getScore());
-    //navigate to Game Menu
+    navigate('/')
   }
 
   const tryAgainHanler = () => {

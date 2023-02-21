@@ -102,6 +102,7 @@ const SignUpForm = () => {
                 onChange={changePasswordHandler}
               />
               <div
+                role='presentation'
                 onClick={makePassVisible}
                 className={
                   passVisible

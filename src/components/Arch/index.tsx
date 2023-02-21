@@ -1,8 +1,10 @@
 import { FC } from 'react';
 import { RADIUS_ARCH, SEGMENTS_ARCH, TUBE_ARCH } from '../../constants';
 import { ArchProps } from '../../interface';
+import { useStore } from '../../state';
 
 const Arch: FC<ArchProps> = ({ position, color }) => {
+  const bike = useStore((state) => state.bike);
   const { x, y, z } = position;
   return (
     <>

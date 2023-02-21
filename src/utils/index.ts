@@ -6,4 +6,3 @@ export const randomInRange = (from: number, to: number) => Math.floor(Math.rando
 
 export const getSpeed = () => `${(gameVariables.gameSpeed * 400).toFixed(0)}`;
 export const getScore = () => `${gameVariables.score.toFixed(0)}`;
-

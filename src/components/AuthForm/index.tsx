@@ -97,6 +97,7 @@ const AuthForm = () => {
               onChange={changePasswordHandler}
             />
             <div
+              role='presentation'
               onClick={makePassVisible}
               className={
                 passVisible
