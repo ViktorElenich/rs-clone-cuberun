@@ -1,5 +1,5 @@
-import { FC, useRef } from 'react';
-import { gameVariables, PLANE_SIZE, RADIUS_ARCH, SEGMENTS_ARCH, TUBE_ARCH } from '../../constants';
+import { FC } from 'react';
+import { RADIUS_ARCH, SEGMENTS_ARCH, TUBE_ARCH } from '../../constants';
 import { ArchProps } from '../../interface';
 import { useStore } from '../../state';
 
