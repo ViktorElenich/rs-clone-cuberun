@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { useTexture } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 import {
   BufferGeometry,
   Color,
@@ -15,19 +16,20 @@ import {
   RepeatWrapping,
 } from 'three';
 import { useStore } from '../../state';
-import {
-  gameVariables,
-  MOVE_DISTANCE,
-  PLANE_SIZE,
-  TEXTURE_SIZE,
-} from '../../constants';
+import { gameVariables, MOVE_DISTANCE, PLANE_SIZE, TEXTURE_SIZE } from '../../constants';
 import { RefObject } from '../../interface';
+import gridRed from '../../textures/grid-red.png';
+import gridOrange from '../../textures/grid-orange.png';
+import gridGreen from '../../textures/grid-green.png';
+import gridBlue from '../../textures/grid-blue.png';
+import gridPurple from '../../textures/grid-purple.png';
+import gridPink from '../../textures/grid-pink.png';
+import gridRainbow from '../../textures/grid-rainbow.png';
 import groundTexture from '../../textures/metalBroken/basecolor.png';
 import bumpTexture from '../../textures/metalBroken/height.png';
 import normalTexture from '../../textures/metalBroken/normal.png';
 import emissiveTexture from '../../textures/metalBroken/emissive.png';
 
-import { useFrame } from '@react-three/fiber';
 
 const Ground = () => {
   const bike = useStore((state) => state.bike);

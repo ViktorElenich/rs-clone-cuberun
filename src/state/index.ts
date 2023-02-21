@@ -1,32 +1,31 @@
 import { createRef } from 'react';
 import { create } from 'zustand';
-import { TronState, User } from '../interface';
 import { MAIN_COLORS } from '../constants';
 import { DirectionType } from '../type';
+import { TronState, User } from '../interface';
 
 const useStore = create<TronState>((set, get) => {
   return {
     set,
     get,
     name: null,
+    gameStart: false,
     password: null,
-    gameStart: true,
     level: 0,
     score: 0,
     loseGame: false,
+    sound: false,
     directionalLight: createRef(),
     bike: createRef(),
     camera: createRef(),
     direction: null,
+    mainColor: MAIN_COLORS.BLUE,
     setDirection: (dir: DirectionType) => set(({ direction: dir })),
-
     stopGame: () => set({ gameStart: false, loseGame: true }),
     startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE, score: 0 })),
     newLevel: () => set((state) => ({ level: state.level + 1 })),
-
-    mainColor: MAIN_COLORS.BLUE,
     changeColor: (color: string) => set(() => ({ mainColor: color })),
-
+    setSound: (sound) => set(() => ({ sound: sound })),
     getUsers: async () => {
       const res = await fetch('https://cuberun-server.onrender.com/users', {
         method: "GET",
@@ -47,7 +46,6 @@ const useStore = create<TronState>((set, get) => {
       if (res.ok) { set({ name: name, password: password }) }
       return res.ok;
     },
-
     authorizeUser: async (name: string, password: string) => {
       const res = await fetch('https://cuberun-server.onrender.com/auth/login', {
         method: "POST",
@@ -61,8 +59,6 @@ const useStore = create<TronState>((set, get) => {
     },
     checkExistentUser: async (name: string) => {
       const users = await get().getUsers();
-
-      console.log(users);
       if (users.length === 0) {
         console.log("no users list received");
         return null;
@@ -97,4 +93,4 @@ const useStore = create<TronState>((set, get) => {
   };
 });
 
-export { useStore };
+export { useStore }
