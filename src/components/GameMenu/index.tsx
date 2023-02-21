@@ -11,6 +11,7 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
   const navigate = useNavigate();
 
   const startGame = useStore((state) => state.startGame);
+  const quitGame = useStore((state) => state.quitGame);
 
   return (
     <div className='game-menu__wrapper'>
@@ -64,7 +65,10 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
 
           <BaseButton
             btnText='Quit'
-            onClickCallback={() => navigate(`${RoutesEnum.Home}`)}
+            onClickCallback={() => {
+              quitGame();
+              navigate(`${RoutesEnum.Home}`);
+            }}
           />
         </div>
       )}

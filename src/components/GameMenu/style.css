@@ -74,19 +74,19 @@
 }
 @media (max-width: 700px) {
   .game-menu__wrapper .tron-logo,
-  .game-menu__wrapper .main-menu {
-    max-width: 300px;
+  .game-menu__main-menu {
+    max-width: 320px;
   }
 }
 @media (max-width: 600px) {
   .game-menu__wrapper .tron-logo,
-  .game-menu__wrapper .main-menu {
-    max-width: 250px;
+  .game-menu__main-menu {
+    max-width: 300px;
   }
 }
 @media (max-width: 400px) {
   .game-menu__wrapper .tron-logo,
-  .game-menu__wrapper .main-menu {
-    max-width: 200px;
+  .game-menu__main-menu {
+    max-width: 270px;
   }
 }
