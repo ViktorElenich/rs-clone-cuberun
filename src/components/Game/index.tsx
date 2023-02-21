@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useProgress } from '@react-three/drei';
 import { useStore } from '../../state';
 import Bike from '../Bike';
 import Speedometer from '../Speedometer';
@@ -10,19 +9,6 @@ import Loader from '../Loader';
 
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
-  const gameStart = useStore((state) => state.gameStart);
-  const { active, progress } = useProgress();
-  const [isLoad, setIsLoad] = useState(false);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (progress >= 100) {
-      timer = setTimeout(() => setIsLoad(true), 300);
-    }
-    return () => {
-      clearTimeout(timer);
-    }
-  }, [progress]);
 
   return (
     <>
@@ -31,7 +17,7 @@ const Game = () => {
         dpr={[1, 1.5]}
         style={{ background: '#141622' }}
       >
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader />}>
           <directionalLight
             ref={directionalLight}
             intensity={3}
@@ -44,12 +30,11 @@ const Game = () => {
               <primitive object={directionalLight.current.target} />
             )}
           </Bike>
-          {gameStart && <CityElements />}
+          <CityElements />
           <Speedometer />
           <FinishGame />
         </Suspense>
       </Canvas>
-      {!isLoad ? <Loader /> : null}
     </>
   );
 };
