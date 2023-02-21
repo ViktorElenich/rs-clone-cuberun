@@ -37,8 +37,10 @@ const Bike: FC<BikeProps> = ({ children }) => {
   const { nodes, materials } = useGLTF('/bike/scene.gltf') as GLTFResult;
 
   useFrame((state, delta) => {
+    console.log(direction);
+
     const accelDelta = delta * 0.15;
-    const accelDeltaIncline = direction ? delta * 3 : delta * 1.8;
+    const accelDeltaIncline = delta * 1.8;
     const left = get().left;
     const right = get().right;
 
@@ -58,7 +60,7 @@ const Bike: FC<BikeProps> = ({ children }) => {
 
     camera.current!.rotation.y = Math.PI;
 
-    if ((left && right) || (!left && !right) || !direction) {
+    if (((left && right) || (!left && !right)) && !direction) {
       if (gameVariables.velocity < 0) {
         if (gameVariables.velocity + accelDeltaIncline > 0) {
           gameVariables.velocity = 0;
