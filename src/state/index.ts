@@ -4,6 +4,7 @@ import { TronState, User } from '../interface';
 import { MAIN_COLORS } from '../constants';
 import { DirectionType } from '../type';
 
+
 const useStore = create<TronState>((set, get) => {
   return {
     set,
@@ -19,12 +20,11 @@ const useStore = create<TronState>((set, get) => {
     bike: createRef(),
     camera: createRef(),
     direction: null,
+    mainColor: MAIN_COLORS.BLUE,
     setDirection: (dir: DirectionType) => set(({ direction: dir })),
-
     stopGame: () => set({ gameStart: false, loseGame: true }),
     startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE, score: 0 })),
     newLevel: () => set((state) => ({ level: state.level + 1 })),
-    mainColor: MAIN_COLORS.BLUE,
     changeColor: (color: string) => set(() => ({ mainColor: color })),
     setSound: (sound) => set(() => ({ sound: sound })),
     getUsers: async () => {
