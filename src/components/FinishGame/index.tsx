@@ -1,5 +1,6 @@
 import { Html } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
+import { RoutesEnum } from '../../enums';
 import { useStore } from '../../state';
 import { getScore } from '../../utils';
 import BaseButton from '../BaseButton';
@@ -10,6 +11,7 @@ const FinishGame = () => {
   const startGame = useStore((state) => state.startGame);
   const loseGame = useStore((state) => state.loseGame);
   const sendScore = useStore((state) => state.sendScoreToServer);
+  const username = useStore((state) => state.name);
   const navigate = useNavigate();
 
   if (!loseGame) {
@@ -18,11 +20,13 @@ const FinishGame = () => {
 
   function goToGameMenu() {
     sendScore(+getScore());
-    navigate('/')
+    if (username) navigate(RoutesEnum.GameMenu);
+    else navigate(RoutesEnum.Home);
   }
 
   const tryAgainHanler = () => {
-    sendScore(+getScore());
+    if (username) sendScore(+getScore());
+
     if (bike.current) {
       bike.current!.position.x = 0;
       bike.current!.position.z = -10;

@@ -25,6 +25,7 @@ export interface TronState {
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
   direction: DirectionType;
+  quitGame: () => void;
   setDirection: (dir: DirectionType) => void;
 
   stopGame: () => void;

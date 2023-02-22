@@ -32,7 +32,7 @@
 
 .score__thead,
 td {
-  border-bottom: 2px solid rgb(98, 98, 255);
+  border-bottom: 2px solid var(--color_primary-alternative);
   height: 50px;
 }
 
@@ -42,7 +42,9 @@ td {
 }
 
 .table-header__score:hover {
-  color: rgb(98, 98, 255);
+  color: rgb(255, 249, 194);
+  text-shadow: 0 0 30px rgba(255, 179, 38, 0.8), 0 0 20px rgb(252, 255, 83),
+    0 0 5px rgb(255, 234, 46);
 }
 
 .table-header__score-ASC::before {
@@ -50,7 +52,7 @@ td {
   position: absolute;
   right: 30%;
   top: 55%;
-  border: 5px solid transparent; 
+  border: 5px solid transparent;
   border-top: 5px solid white;
 }
 
@@ -59,13 +61,18 @@ td {
   position: absolute;
   right: 30%;
   top: 30%;
-  border: 5px solid transparent; 
+  border: 5px solid transparent;
   border-bottom: 5px solid white;
 }
 
 .pagination__page {
   font-size: 24px;
   margin: 0 20px;
+}
+.scoreText__name {
+  color: #bce2eb;
+  text-shadow: 0 0 30px rgba(11, 198, 255, 0.8), 0 0 20px rgb(57, 184, 224),
+    0 0 5px rgb(29, 202, 255);
 }
 
 @media screen and (max-width: 520px) {

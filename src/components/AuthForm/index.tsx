@@ -70,11 +70,13 @@ const AuthForm = () => {
     }
   }, [login, password]);
   useEffect(() => {
-    if (userExists)
+    if (userExists) {
       useStore.setState({
         name: userExists?.name,
         score: userExists?.score,
       });
+      setTimeout(() => navigate(RoutesEnum.GameMenu), 2000);
+    }
   }, [userExists]);
 
   return (
@@ -129,7 +131,7 @@ const AuthForm = () => {
               <BaseButton
                 btnText='Sign up'
                 onClickCallback={() => {
-                  navigate(`${RoutesEnum.Signup}`)
+                  navigate(`${RoutesEnum.Signup}`);
                 }}
               />
             </div>

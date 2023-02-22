@@ -1,10 +1,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BaseButton from '../BaseButton';
 import BaseInput from '../BaseInput';
 import './style.css';
 import logo from '../../assets/logo-tron.png';
 import { useStore } from '../../state';
 import { User } from '../../interface';
+import { RoutesEnum } from '../../enums';
 
 const SignUpForm = () => {
   const [login, setLogin] = useState('');
@@ -15,6 +17,8 @@ const SignUpForm = () => {
   const [userCreated, setUserCreated] = useState(false);
   const [inProgress, setInProgress] = useState(false);
   const [passVisible, setPassVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   const store = useStore();
 
@@ -50,7 +54,7 @@ const SignUpForm = () => {
     const acc = await store.addNewUser(login, password, 0);
     if (acc) {
       setUserCreated(true);
-      // redirect to game menu
+      setTimeout(() => navigate(RoutesEnum.GameMenu), 1000);
     }
     setInProgress(false);
   }

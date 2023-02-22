@@ -45,20 +45,20 @@ const ScoreTable = () => {
 
   return (
     <div className='score'>
-      <h1 className='score__header'>Score</h1>
+      <h1 className='titleText score__header'>Score</h1>
       <div className='wrapper-btn'>
         <BaseButton
           btnText='⇐ Menu'
-          onClickCallback={() => navigate(`${RoutesEnum.Home}`)}
+          onClickCallback={() => navigate(`${RoutesEnum.GameMenu}`)}
         />
       </div>
       <div className='table-wrapper'>
         <table className='score__table'>
           <thead className='score__thead'>
             <tr>
-              <th>Name</th>
+              <th className='simpleText scoreText__name'>Name</th>
               <th
-                className={`table-header__score table-header__score-${orderSort}`}
+                className={`simpleText scoreText__name table-header__score table-header__score-${orderSort}`}
                 onClick={sortHandler}
               >
                 Score
@@ -68,8 +68,8 @@ const ScoreTable = () => {
           <tbody>
             {users.slice((page - 1) * 5, page * 5).map((user) => (
               <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.score}</td>
+                <td className='simpleText scoreText__name'>{user.name}</td>
+                <td className='simpleText scoreText__score'>{user.score}</td>
               </tr>
             ))}
           </tbody>
