@@ -1,6 +1,6 @@
 import { FC, Suspense, useEffect, useState } from 'react';
 
-import { Float, Text3D } from '@react-three/drei/core';
+import { Float } from '@react-three/drei/core';
 import { Text } from '@react-three/drei';
 import { DoubleSide } from 'three';
 import { CUBE_SIZE, MAIN_COLORS_ARR, SAVE_SPACE } from '../../constants';
@@ -10,11 +10,11 @@ import Cube from '../Cube';
 import { cornerCoords } from '../../utils/generation';
 
 const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
-  const bike = useStore((state) => state.bike);
   const [mainColor, setMainColor] = useState(MAIN_COLORS_ARR[0]);
   const level = useStore((state) => state.level);
+  const [firstTimeLevel, setFirstTimeLevel] = useState(true);
 
-  const [textLevel, setTextLevel] = useState(level);
+  const [textLevel, setTextLevel] = useState(1);
 
   const tunnelColors = ['blue', 'red', 'red', 'red', 'purple', 'green', 'blue'];
   const leftCornerCoords = cornerCoords({
@@ -70,9 +70,14 @@ const TunnelWalls: FC<TunnelWallsProps> = ({ positionZ }) => {
 
   useEffect(() => {
     setMainColor(MAIN_COLORS_ARR[level % 5]);
+    if (!firstTimeLevel) setTextLevel((prev) => prev + 1);
+  }, [level, firstTimeLevel]);
 
-    setTextLevel((prev) => prev + 1);
-  }, [level]);
+  useEffect(() => {
+    setTimeout(() => {
+      setFirstTimeLevel(false);
+    }, 5000);
+  }, []);
 
   return (
     <>

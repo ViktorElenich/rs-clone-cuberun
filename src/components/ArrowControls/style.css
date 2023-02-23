@@ -8,25 +8,26 @@
   align-self: center;
   /*  margin-top: 20%; */
   position: absolute;
-  bottom: 20%;
+  bottom: 15%;
   left: 0;
   z-index: 10;
 }
 .arrow-control {
-  width: 100px !important;
-  height: 100px !important;
+  width: 70px !important;
+  height: 70px !important;
   border-radius: 50% !important;
   font-size: 30px !important;
   background: transparent;
   border: 3px solid var(--color_primary);
   text-align: center;
   font-size: 2rem;
-  padding: 20px;
+  padding: 15px;
   text-shadow: 0 0 30px rgba(11, 198, 255, 0.8), 0 0 20px rgb(57, 184, 224),
     0 0 5px rgb(29, 202, 255);
-  opacity: 0.5;
+  opacity: 0.2;
   cursor: pointer;
   transition: 0.3s;
+  user-select: none;
 }
 .arrow-control:hover {
   opacity: 1;
