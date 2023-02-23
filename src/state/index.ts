@@ -10,7 +10,7 @@ const useStore = create<TronState>((set, get) => {
     set,
     get,
     name: null,
-    gameStart: false,
+    gameStart: true,
     password: null,
     level: 0,
     score: 0,

@@ -28,7 +28,7 @@ const Game = () => {
 
   return (
     <>
-      {isMobile && <ArrowControls />}
+      {isMobile && isLoad && <ArrowControls />}
       <Canvas
         gl={{ antialias: false, alpha: false }}
         dpr={[1, 1.5]}
@@ -52,7 +52,7 @@ const Game = () => {
           <FinishGame />
         </Suspense>
       </Canvas>
-      {!isLoad ? <Loader /> : null}
+      {!isLoad ? <Loader /> : <></>}
     </>
   );
 };
