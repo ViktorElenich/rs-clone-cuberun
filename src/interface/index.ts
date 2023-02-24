@@ -1,5 +1,6 @@
-import { DirectionalLight, Group, PerspectiveCamera, Texture } from 'three';
-import { ChangeEvent, ReactNode } from 'react';
+import { DirectionalLight, Group, PerspectiveCamera, Texture } from "three";
+import { ChangeEvent, ReactNode } from "react";
+import { DirectionType } from '../type';
 
 export interface User {
   id: number;
@@ -23,6 +24,10 @@ export interface TronState {
   directionalLight: RefObject<DirectionalLight>;
   bike: RefObject<Group>;
   camera: RefObject<PerspectiveCamera>;
+  direction: DirectionType;
+  quitGame: () => void;
+  setDirection: (dir: DirectionType) => void;
+
   stopGame: () => void;
   startGame: () => void;
   newLevel: () => void;
@@ -39,6 +44,7 @@ export interface TronState {
   checkExistentUser: (name: string) => Promise<User | null>;
   sendScoreToServer: (scoreEarned: number) => void;
 }
+
 
 export interface BikeProps {
   children: ReactNode;

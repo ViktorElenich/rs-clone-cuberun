@@ -51,7 +51,7 @@
   margin: 20px;
 }
 
-.visibility-control {
+.signin-menu_wrapper .visibility-control {
   width: 24px;
   height: 24px;
   position: absolute;
@@ -63,10 +63,10 @@
   cursor: pointer;
   transition: 0.3s;
 }
-.visibility-control:hover {
+.signin-menu_wrapper .visibility-control:hover {
   opacity: 1;
 }
-.visibility-control_visible {
+.signin-menu_wrapper .visibility-control_visible {
   background: url('../../assets/visible-icon.png') no-repeat center;
 }
 
