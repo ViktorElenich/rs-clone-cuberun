@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
   background: url('../../assets/bg2.jpg') no-repeat center;
@@ -17,16 +18,16 @@
   width: 100%;
 }
 
-.tron-logo {
-  margin-top: 5%;
-  max-width: 300px;
+.sign-up-menu .tron-logo {
+  max-width: 600px;
+  width: 100%;
 }
 
 .sign-up-wrapper {
   color: white;
   display: flex;
   flex-direction: column;
-  width: 370px;
+  width: 490px;
   padding: 20px;
   text-align: center;
   background-color: black;
@@ -66,7 +67,7 @@
 
 @media (max-width: 600px) {
   .sign-up-wrapper {
-    max-width: 250px;
+    max-width: 300px;
   }
 }
 
