@@ -1,11 +1,11 @@
-import { useTexture } from "@react-three/drei";
-import { Mesh } from "three";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
+import { useTexture } from '@react-three/drei';
+import { Mesh } from 'three';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useRef } from 'react';
 
-import city from "../../textures/city1.png";
-import { useStore } from "../../state";
-import { RefObject } from "../../interface";
+import city from '../../textures/city2.png';
+import { useStore } from '../../state';
+import { RefObject } from '../../interface';
 
 const City = () => {
   const texture = useTexture([city]);
