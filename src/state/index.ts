@@ -11,7 +11,6 @@ const useStore = create<TronState>((set, get) => {
     get,
     name: null,
     gameStart: true,
-    password: null,
     level: 0,
     score: 0,
     loseGame: false,
@@ -21,12 +20,13 @@ const useStore = create<TronState>((set, get) => {
     camera: createRef(),
     direction: null,
     mainColor: MAIN_COLORS.BLUE,
-    quitGame: () => set({ name: null, password: null, score: 0 }),
+    quitGame: () => set({ name: null, score: 0 }),
     setDirection: (dir: DirectionType) => set(({ direction: dir })),
     stopGame: () => set({ gameStart: false, loseGame: true }),
     startGame: () => set(() => ({ gameStart: true, loseGame: false, level: 0, mainColor: MAIN_COLORS.BLUE, score: 0 })),
     newLevel: () => set((state) => ({ level: state.level + 1 })),
     changeColor: (color: string) => set(() => ({ mainColor: color })),
+    changeName: (name: string | null) => set(() => ({ name })),
     setSound: (sound) => set(() => ({ sound: sound })),
     getUsers: async () => {
       const res = await fetch('https://cuberun-server.onrender.com/users', {
@@ -37,15 +37,21 @@ const useStore = create<TronState>((set, get) => {
       }).catch();
       return await res.json();
     },
-    addNewUser: async (name: string, password: string, score: number = 0) => {
+    addNewUser: async (name: string, password: string) => {
       const res = await fetch('https://cuberun-server.onrender.com/auth/registration', {
         method: "POST",
         headers: {
           'Content-type': "application/json",
         },
-        body: JSON.stringify({ name, password, score })
+        body: JSON.stringify({ name, password })
       }).catch()
-      if (res.ok) { set({ name: name, password: password }) }
+      if (res.ok) { 
+        set({ name: name })
+        const json = await res.json();
+        localStorage.setItem('token', JSON.stringify(json.token));
+        localStorage.setItem('username', name);
+      }
+      
       return res.ok;
     },
     authorizeUser: async (name: string, password: string) => {
@@ -56,7 +62,12 @@ const useStore = create<TronState>((set, get) => {
         },
         body: JSON.stringify({ name, password })
       }).catch();
-      if (res.ok) { set({ name: name, password: password }) }
+      if (res.ok) { 
+        set({ name: name })
+        const json = await res.json();
+        localStorage.setItem('token', json.token);
+        localStorage.setItem('username', name);
+      }
       return res.status;
     },
     checkExistentUser: async (name: string) => {
@@ -74,21 +85,13 @@ const useStore = create<TronState>((set, get) => {
     },
     sendScoreToServer: async (scoreEarned: number) => {
       if (get().name) {
-        const res = await fetch("https://cuberun-server.onrender.com/users").catch()
-        const allUsers = await res.json()
-
-        const users: User[] = allUsers.filter((u: User) => u.name === get().name);
-        if (users.length === 0) return;
-        const prevScore = users[0].score;
-        if (prevScore < scoreEarned) {
-          await fetch("https://cuberun-server.onrender.com/users", {
-            method: "POST",
-            headers: {
-              'Content-type': "application/json",
-            },
-            body: JSON.stringify({ name: get().name, password: get().password, score: scoreEarned })
-          }).catch()
-        }
+        await fetch("https://cuberun-server.onrender.com/auth/score", {
+          method: "PATCH",
+          headers: {
+            'Content-type': "application/json",
+          },
+          body: JSON.stringify({ score: scoreEarned, token: localStorage.getItem('token') })
+        }).catch()
       }
     }
   };

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { KeyboardControls, KeyboardControlsEntry } from '@react-three/drei';
 import { Route, Routes } from 'react-router-dom';
 import { Controls, RoutesEnum } from './enums';
@@ -11,7 +11,8 @@ import GameMenu from './components/GameMenu';
 import { useStore } from './state';
 
 function App() {
-  const username = useStore((state) => state.name);
+  const changeName = useStore((state) => state.changeName);
+  const name = useStore((state) => state.name);
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
     () => [
       { name: Controls.left, keys: ['ArrowLeft', 'a', 'A'] },
@@ -20,14 +21,28 @@ function App() {
     [],
   );
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+
+    if (token && username) {
+      changeName(username);
+    } else {
+      changeName(null);
+    }
+  }, []);
+
   return (
     <KeyboardControls map={map}>
       <Routes>
-        <Route path={RoutesEnum.Home} element={<MainMenu />} />
-        <Route
-          path={RoutesEnum.GameMenu}
-          element={<GameMenu name={username} />}
-        />
+        {name ? (
+          <Route
+            path={RoutesEnum.GameMenu}
+            element={<GameMenu name={name} />}
+          />
+        ) : (
+            <Route path={RoutesEnum.Home} element={<MainMenu />} />
+        )}
         <Route path={RoutesEnum.Game} element={<Game />} />
         <Route path={RoutesEnum.Auth} element={<AuthForm />} />
         <Route path={RoutesEnum.Signup} element={<Signup />} />
