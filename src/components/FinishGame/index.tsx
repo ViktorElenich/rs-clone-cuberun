@@ -1,4 +1,5 @@
 import { Html } from '@react-three/drei';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutesEnum } from '../../enums';
 import { useStore } from '../../state';
@@ -14,25 +15,28 @@ const FinishGame = () => {
   const username = useStore((state) => state.name);
   const navigate = useNavigate();
 
-  if (!loseGame) {
-    return <></>;
-  }
-
   function goToGameMenu() {
-    sendScore(+getScore());
     if (username) navigate(RoutesEnum.GameMenu);
     else navigate(RoutesEnum.Home);
   }
 
   const tryAgainHanler = () => {
-    if (username) sendScore(+getScore());
-
     if (bike.current) {
       bike.current!.position.x = 0;
       bike.current!.position.z = -10;
       startGame();
     }
   };
+
+  useEffect(() => {
+    if (loseGame) {
+      sendScore(+getScore());
+    }
+  }, [loseGame]);
+
+  if (!loseGame) {
+    return <></>;
+  }
 
   return (
     <Html
