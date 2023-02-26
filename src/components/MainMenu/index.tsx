@@ -5,6 +5,7 @@ import BaseButton from '../BaseButton';
 import './style.css';
 import logo from '../../assets/logo-tron.png';
 import { useStore } from '../../state';
+import { RoutesEnum } from '../../enums';
 
 const MainMenu = () => {
   const startGame = useStore((state) => state.startGame);
@@ -28,16 +29,16 @@ const MainMenu = () => {
         <div className='main-menu'>
           <BaseButton
             btnText='Log in'
-            onClickCallback={() => navigate('/auth')}
+            onClickCallback={() => navigate(RoutesEnum.Auth)}
           />
           <BaseButton
             btnText='Sign up'
-            onClickCallback={() => navigate('/signup')}
+            onClickCallback={() => navigate(RoutesEnum.Signup)}
           />
           <BaseButton
             btnText='Anonymous play'
             onClickCallback={() => {
-              navigate('/game');
+              navigate(RoutesEnum.Game);
               startGame();
               stop();
             }}
