@@ -17,6 +17,6 @@
 
 .window-loses__wrapper-btn {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 30px;
 }

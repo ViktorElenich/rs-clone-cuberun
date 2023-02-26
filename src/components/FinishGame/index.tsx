@@ -44,8 +44,10 @@ const FinishGame = () => {
       translate={'no'}
       sprite
     >
-      <h1 className='window-loses__header'>No wonder you lost.</h1>
-      <h2>You score: {getScore()}</h2>
+      <h1 className='window-loses__header titleText'>
+        Unfortunately you lost.
+      </h1>
+      <h2 className='simpleText'>You score: {getScore()}</h2>
       <div className='window-loses__wrapper-btn'>
         <BaseButton onClickCallback={tryAgainHanler} btnText='Try again!' />
         <BaseButton onClickCallback={goToGameMenu} btnText='To main menu' />

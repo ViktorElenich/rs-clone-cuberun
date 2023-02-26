@@ -7,7 +7,7 @@ export const LEFT_BOUND = (-PLANE_SIZE / 2) + 30
 export const RIGHT_BOUND = (PLANE_SIZE / 2) - 30
 
 export const CUBE_SIZE = 30;
-export const CUBE_AMOUNT = 120;
+export const CUBE_AMOUNT = 170;
 
 
 
