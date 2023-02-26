@@ -48,7 +48,7 @@ const useStore = create<TronState>((set, get) => {
       if (res.ok) { 
         set({ name: name })
         const json = await res.json();
-        localStorage.setItem('token', JSON.stringify(json.token));
+        localStorage.setItem('token', json.token);
         localStorage.setItem('username', name);
       }
       
