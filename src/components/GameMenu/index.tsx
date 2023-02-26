@@ -13,6 +13,13 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
   const startGame = useStore((state) => state.startGame);
   const quitGame = useStore((state) => state.quitGame);
 
+  const quitGameHandler = () => {
+    quitGame();
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    navigate(`${RoutesEnum.Home}`);
+  }
+
   return (
     <div className='game-menu__wrapper'>
       <img src={logo} alt='Tron-game logo' className='tron-logo' />
@@ -65,10 +72,7 @@ const GameMenu: FC<{ name: string | null }> = ({ name }) => {
 
           <BaseButton
             btnText='Quit'
-            onClickCallback={() => {
-              quitGame();
-              navigate(`${RoutesEnum.Home}`);
-            }}
+            onClickCallback={quitGameHandler}
           />
         </div>
       )}

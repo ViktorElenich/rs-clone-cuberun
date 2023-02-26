@@ -15,7 +15,6 @@ export interface RefObject<T> {
 
 export interface TronState {
   name: string | null;
-  password: string | null;
   gameStart: boolean;
   level: number;
   score: number;
@@ -33,6 +32,7 @@ export interface TronState {
   newLevel: () => void;
   mainColor: string;
   changeColor: (color: string) => void;
+  changeName: (name: string | null) => void;
   setSound: (sound: boolean) => void;
   getUsers: () => Promise<User[]>;
   addNewUser: (
