@@ -1,6 +1,5 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useProgress } from '@react-three/drei';
 import { isMobile } from 'react-device-detect';
 import { useStore } from '../../state';
 import Bike from '../Bike';
@@ -13,31 +12,19 @@ import ArrowControls from '../ArrowControls';
 const Game = () => {
   const directionalLight = useStore((state) => state.directionalLight);
   const gameStart = useStore((state) => state.gameStart);
-  const { active, progress } = useProgress();
-  const [isLoad, setIsLoad] = useState(false);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (progress >= 100) {
-      timer = setTimeout(() => setIsLoad(true), 300);
-    }
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [progress]);
 
   return (
     <>
-      {isMobile && isLoad && <ArrowControls />}
-      <Canvas
-        gl={{ antialias: false, alpha: false }}
-        dpr={[1, 1.5]}
-        style={{ background: '#141622' }}
-      >
-        <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
+        {isMobile && <ArrowControls />}
+        <Canvas
+          gl={{ antialias: false, alpha: false }}
+          dpr={[1, 1.5]}
+          style={{ background: '#141622' }}
+        >
           <directionalLight
             ref={directionalLight}
-            intensity={3}
+            intensity={4}
             position={[0, Math.PI, 0]}
           />
           <ambientLight intensity={0.3} />
@@ -50,9 +37,8 @@ const Game = () => {
           {gameStart && <CityElements />}
           <Speedometer />
           <FinishGame />
-        </Suspense>
-      </Canvas>
-      {!isLoad ? <Loader /> : <></>}
+        </Canvas>
+      </Suspense>
     </>
   );
 };
