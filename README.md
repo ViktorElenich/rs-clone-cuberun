@@ -1,7 +1,7 @@
 ![Tron](./src/assets/logo-tron.png)
 
 <p align="center">
-Avoid the cubes while the speed progressively increases! Can you beat the rainbow level?
+Avoid the cubes while the speed progressively increases! <b>Can you set a record?</b>
 </p>
 
 ____
