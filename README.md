@@ -1,4 +1,6 @@
-![Tron](./src/assets/logo-tron.png)
+<p align="center">
+  <img src="./src/assets/logo-tron.png" alt="tron logo" />
+</p>
 
 <p align="center">
 Avoid the cubes while the speed progressively increases! <b>Can you set a record?</b>
@@ -8,9 +10,9 @@ ____
 
 # Welcome to the Tron Game
 
-The game is inspired by an old flash game the late 2000s and film The Tron. Our version is in full 3D and built with React, THREE.js, react-three-drei and react-three-fiber to glue them together.
+The game is inspired by an old flash game the late 2000s and film The Tron. Our version is in full 3D and built with <b>React, THREE.js, react-three-drei and react-three-fiber</b> to connect them together.
 
-Deploy [Tron Game](https://rsclone-tron-game.netlify.app/).
+### Check out [Tron Game](https://rsclone-tron-game.netlify.app/).
 
 ____
 
