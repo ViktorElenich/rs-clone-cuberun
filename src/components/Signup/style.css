@@ -1,0 +1,78 @@
+.sign-up-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: url('../../assets/bg2.jpg') no-repeat center;
+  background-size: cover;
+}
+.baseInput_wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: stretch;
+}
+.baseInput_wrapper .input {
+  width: 100%;
+}
+
+.sign-up-menu .tron-logo {
+  max-width: 600px;
+  width: 100%;
+}
+
+.sign-up-wrapper {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  width: 490px;
+  padding: 20px;
+  text-align: center;
+  background-color: black;
+  border: 2px solid var(--color_primary);
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(9, 198, 255, 0.8), 0 0 4px rgb(57, 184, 224),
+    inset 0 0 7px rgb(29, 202, 255);
+  border-radius: 25px;
+  position: relative;
+}
+.sign-in_text {
+  margin-top: 20px;
+}
+.welcome-text {
+  margin-top: 20%;
+  font-size: 2.5rem;
+  text-align: center;
+}
+.sign-up-wrapper .visibility-control {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  background: url('../../assets/not-visible-icon.png') no-repeat center;
+  background-size: contain;
+  right: 22px;
+  top: 18px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.sign-up-wrapper .visibility-control:hover {
+  opacity: 1;
+}
+.sign-up-wrapper .visibility-control_visible {
+  background: url('../../assets/visible-icon.png') no-repeat center;
+}
+
+@media (max-width: 600px) {
+  .sign-up-wrapper {
+    max-width: 300px;
+  }
+}
+
+.sign-up-menu .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0 20px 0;
+}

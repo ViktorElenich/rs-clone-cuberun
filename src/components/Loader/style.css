@@ -1,0 +1,97 @@
+.preloader__container {
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s;
+  opacity: 1;
+  overflow-x: hidden;
+  background-color: var(--color_bg);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.preloader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+}
+
+.preloader:before,
+.preloader:after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  filter: drop-shadow(0 0 16px var(--color_primary-alternative));
+}
+.preloader:before {
+  width: 100%;
+  padding-bottom: 100%;
+  box-shadow: inset 0 0 0 3rem var(--color_primary);
+  animation-name: pulsA;
+}
+.preloader:after {
+  width: calc(100% - 32px);
+  padding-bottom: calc(100% - 32px);
+  box-shadow: 0 0 0 3rem var(--color_primary-alternative);
+  animation-name: pulsB;
+}
+.loader-text {
+  font-size: 1.8rem;
+  margin-left: 10px;
+  animation: pulsC 2s ease-in-out infinite;
+}
+
+@keyframes pulsA {
+  0% {
+    box-shadow: inset 0 0 0 16px var(--color_primary);
+    opacity: 1;
+  }
+  50%,
+  100% {
+    box-shadow: inset 0 0 0 8px var(--color_primary);
+    opacity: 0;
+  }
+}
+
+@keyframes pulsB {
+  0%,
+  50% {
+    box-shadow: 0 0 0 8px var(--color_primary);
+    opacity: 0;
+  }
+  100% {
+    box-shadow: 0 0 0 16px var(--color_primary);
+    opacity: 1;
+  }
+}
+
+@keyframes pulsC {
+  0% {
+    text-shadow: 0 0 60px var(--color_primary_alternative);
+    opacity: 0.3;
+  }
+  30% {
+    text-shadow: 0 0 40px var(--color_primary_alternative);
+    opacity: 0.6;
+  }
+  50% {
+    text-shadow: 0 0 30px var(--color_primary);
+    opacity: 1;
+  }
+  70% {
+    text-shadow: 0 0 20px var(--color_primary);
+    opacity: 1;
+  }
+  100% {
+    text-shadow: 0 0 50px var(--color_primary_alternative);
+    opacity: 0.5;
+  }
+}
